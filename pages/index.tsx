@@ -26,7 +26,7 @@ export default function Home({ posts }: any) {
         </div>
         <section id="about">
           <div className={styles.welcome}>
-            <p>tout en s'inspirant de la cuisine traditionnelle de la savoie, le chef Arnaud Michant vous invite à redécouvrir cette belle région au travers d'un voyage culinaires emprunt d'un modernisme qui le caractérise si bien.</p>
+            <p>{`tout en s'inspirant de la cuisine traditionnelle de la savoie, le chef Arnaud Michant vous invite à redécouvrir cette belle région au travers d'un voyage culinaires emprunt d'un modernisme qui le caractérise si bien.`}</p>
           </div>
           <div className={styles.about}>
             <div className={styles.photoAbout}></div>
