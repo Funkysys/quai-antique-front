@@ -1,0 +1,37 @@
+.menu {
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    width: 100vw;
+    background: #de9494;
+}
+
+.dishes {
+    height: 50%;
+    width: 100%;
+    background: #B998CE;
+}
+
+.photoMenu {
+    height: 50%;
+    width: 100%;
+    background: url('/Images/1.jpg') no-repeat top right;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+@media screen and (min-width: 768px) {
+    .menu {
+        flex-direction: row;
+    }
+
+    .dishes {
+        width: 50%;
+        height: 100%;
+    }
+
+    .photoMenu {
+        width: 50%;
+        height: 100%;
+    }
+}
