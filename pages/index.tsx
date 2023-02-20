@@ -1,10 +1,8 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 import Navbar from '@/Components/Navbar/Navbar'
 import Menu from '@/Components/Menu/Menu'
-
-const inter = Inter({ subsets: ['latin'] })
+import Reservation from '@/Components/Reservation/Reservation'
 
 
 export default function Home({ posts }: any) {
@@ -18,7 +16,7 @@ export default function Home({ posts }: any) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className={styles.main}>
+      <main className={styles.main} id='home'>
         <div className={styles.homePage}>
           <div className={styles.titleContainer}>
             <h1 className={styles.title}>Bienvenu chez <br /><span className={styles.titleSpan}>Quai-Antique</span></h1>
@@ -33,6 +31,9 @@ export default function Home({ posts }: any) {
             <div className={styles.description}></div>
           </div>
           <Menu />
+        </section>
+        <section>
+          <Reservation />
         </section>
       </main>
     </>
