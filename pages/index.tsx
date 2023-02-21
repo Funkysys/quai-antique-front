@@ -6,7 +6,7 @@ import Reservation from '@/Components/Reservation/Reservation'
 
 
 export default function Home({ posts }: any) {
-  console.log(posts);
+  
   return (
     <>
       <Head>

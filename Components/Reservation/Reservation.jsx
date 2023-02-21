@@ -5,31 +5,36 @@ import styles from './Reservation.module.css';
 import { Button } from 'react-bootstrap';
 
 const Reservation = () => {
+    const [toggle, setToggle] = useState(false)
     const [value, onChange] = useState(new Date());
     console.log(value);
     const [lunchOrDiner, setLunchOrDiner] = useState("");
     console.log(lunchOrDiner);
     const handleOnClick = (event) => { setLunchOrDiner(event.target.innerText) }
 
+    console.log(toggle);
     return (
         <div className={styles.container}>
-            <form className={styles.form}>
-                <Calendar onChange={onChange} value={value} />
-                <div className={styles.buttonContainer}>
-                    <Button
-                        key="1"
-                        variant="outline-primary"
-                        onClick={handleOnClick}
-                    >Lunch</Button>
-                    <Button
-                        key="2"
-                        variant="outline-primary"
-                        onClick={handleOnClick}
-                    >
-                        Diner
-                    </Button>
-                </div>
-            </form>
+            {
+                toggle ?
+                    <form className={styles.form}>
+                        <Calendar onChange={onChange} value={value} />
+                        <div className={styles.buttonContainer}>
+                            <Button
+                                variant="outline-primary"
+                                onClick={handleOnClick}
+                            >Lunch</Button>
+                            <Button
+                                variant="outline-primary"
+                                onClick={handleOnClick}
+                            >
+                                Diner
+                            </Button>
+                        </div>
+                    </form>
+                    :
+                    <Button onClick={() => setToggle(!toggle)}>Réserver</Button>
+            }
         </div>
     );
 }
