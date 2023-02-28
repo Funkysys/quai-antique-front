@@ -1,0 +1,16 @@
+.openingContainer {
+    margin-top: 4vh;
+}
+.openingTitle {
+    font-size: 1.7rem;
+    margin-bottom: 4vh;
+}
+.openingContainer p{
+    margin-top: 1vh;
+}
+@media screen and (min-width: 768px) {
+    .openingContainer {
+        margin-left: 4vh;
+        margin-top: 0;
+    }
+}

@@ -31,9 +31,10 @@
 }
 
 .title {
+  width: auto;
+  height: auto;
   margin-top: -20vh;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.9), -1px -1px rgba(0, 0, 0, 0.9), -1px 1px rgba(0, 0, 0, 0.9), 1px -1px rgba(0, 0, 0, 0.9);
-
   color: #f5f5f5;
   font-size: 2rem;
   font-family: 'Bitter', serif;

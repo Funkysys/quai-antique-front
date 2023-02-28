@@ -1,0 +1,39 @@
+.footerContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between ;
+    align-items: center;
+    width: 100vw;
+    height: 60vh;
+    background: #222222;
+    color: #FF6464;
+    font-size: 1.1rem;
+}
+
+.footerContainer a {
+    text-decoration: none;
+    color: #FF6464;
+}
+
+.mentionsLegal {
+    margin-bottom: 4vh;
+}
+.mentionsLegal p:hover {
+    color: #fa9090;
+}
+
+@media screen and (min-width: 768px) {
+    .footerContainer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 100vw;
+        height: 40vh;
+        font-size: 1.3rem;
+    }
+
+    .mentionsLegal {
+        margin-bottom: 0;
+        margin-right: 4vh;
+    }
+}

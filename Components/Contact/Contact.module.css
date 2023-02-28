@@ -1,0 +1,24 @@
+.contactContainer {
+    text-align: center;
+}
+.contactTitle {
+    font-size: 1.7em;
+}
+.contactDetails {
+    font-size: 1.3rem;
+}
+.contactDetails p, .contactDetails div{
+    margin-top: 1vh;
+}
+.contactDetails div a:hover {
+    color: #fa9090;
+}
+@media screen and (min-width: 768px) {
+    .contactContainer {
+
+    }
+    .contactTitle {
+        font-size: 1.7rem;
+        margin-bottom: 4vh;
+    }
+}
