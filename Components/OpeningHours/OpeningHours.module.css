@@ -8,6 +8,24 @@
 .openingContainer p{
     margin-top: 1vh;
 }
+.openingContainerLunchAndDiner {
+    display: flex;
+}
+.openingLunch{
+    margin-right: 2vw;
+}
+.lunchContainer {
+    display: flex;
+}
+
+.lunchDay {
+    width: 5vw;
+    margin-right: 1vw;
+}
+.lunchHour {
+    width: 7vw;
+    text-align: start;
+}
 @media screen and (min-width: 768px) {
     .openingContainer {
         margin-left: 4vh;
