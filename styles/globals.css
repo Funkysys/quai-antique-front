@@ -25,9 +25,6 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-p {
-	margin-bottom: 0;
-}
 ol, ul {
 	list-style: none;
 }

@@ -85,7 +85,7 @@ const OpeningHours = ({ opening_hours }) => {
 
   return (
     <div className={styles.openingContainer}>
-      <h2 className={styles.openingTitle}>Horaires d'ouverture</h2>
+      <h2 className={styles.openingTitle}>{`Horaires d'ouverture`}</h2>
 
       <div className={styles.openingContainerLunchAndDiner}>
         <div className={styles.openingLunch}>
