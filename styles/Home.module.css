@@ -7,6 +7,9 @@
   min-height: 100vh;
   background: #CAFFD0;
 }
+.main p{
+  margin-bottom: 0;
+}
 
 .homePage {
   margin-top: -10px;
