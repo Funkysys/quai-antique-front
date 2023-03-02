@@ -1,6 +1,7 @@
 .openingContainer {
     margin-top: 4vh;
     width: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
 }
