@@ -1,6 +1,7 @@
-import { Navbar, Nav, Container, NavDropdown, Button } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import Image from 'next/image';
 import styles from "./Navbar.module.css"
+import Login from '@/Components/Login/Login'
 
 function NavigationBar() {
   return (
@@ -19,7 +20,7 @@ function NavigationBar() {
                   className=" align-top"
                 /></Navbar.Brand>
                 <Nav.Link href="#about">Notre Restaurant</Nav.Link>
-                <Nav.Link eventKey="3" > Reservation </Nav.Link>
+                <Nav.Link eventKey="3" href="#reservation"> Reservation </Nav.Link>
                 <NavDropdown title="Menu" id="nav-dropdown" menuVariant="dark">
                   <NavDropdown.Item eventKey="4.4">Toutes nos Formules</NavDropdown.Item>
                   <NavDropdown.Divider />
@@ -29,17 +30,15 @@ function NavigationBar() {
                   <NavDropdown.Item eventKey="4.3">La carte</NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="#contact">Contact</Nav.Link>
-                <Nav.Item>
-                  <Button variant="outline-primary">
-                    Log-in
-                  </Button>
-                </Nav.Item>
-              </div>
-            </Nav>
-          </Navbar.Collapse>
-        </div>
-      </Navbar>
+                <NavDropdown title="Login" id="nav-dropdown" menuVariant="dark">
+                  <Login />
+                </NavDropdown>
+            </div>
+          </Nav>
+        </Navbar.Collapse>
     </div>
+      </Navbar >
+    </div >
   );
 }
 

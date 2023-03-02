@@ -26,12 +26,19 @@
     .footerContainer {
         flex-direction: row;
         justify-content: space-between;
-        align-items: center;
+        align-items: start;
         width: 100vw;
         height: 40vh;
+        padding-top: 5vh;
         font-size: 1.3rem;
     }
 
+    .mentionsLegal {
+        margin-bottom: 0;
+        margin-right: 2vh;
+    }
+}
+@media screen and (min-width: 1152px) {
     .mentionsLegal {
         margin-bottom: 0;
         margin-right: 4vh;

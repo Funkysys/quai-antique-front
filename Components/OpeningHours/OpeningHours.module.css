@@ -1,15 +1,22 @@
 .openingContainer {
     margin-top: 4vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .openingTitle {
     font-size: 1.7rem;
     margin-bottom: 4vh;
+    text-align: center;
 }
 .openingContainer p{
     margin-top: 1vh;
 }
 .openingContainerLunchAndDiner {
     display: flex;
+    justify-content: center;
+    width: 100%;
+    font-size: 0.8em;
 }
 .openingLunch{
     margin-right: 2vw;
@@ -19,16 +26,77 @@
 }
 
 .lunchDay {
-    width: 5vw;
     margin-right: 1vw;
+    width: 20vw;
 }
 .lunchHour {
-    width: 7vw;
-    text-align: start;
+    text-align: end;
+}
+
+@media screen and (min-width: 567px) {
+    .lunchDay {
+        width: 12vw;
+    }
 }
 @media screen and (min-width: 768px) {
     .openingContainer {
-        margin-left: 4vh;
+        margin-left: 1vh;
         margin-top: 0;
+        width: auto;
+        max-width: 40%;
+    }
+    .openingTitle {
+        font-size: 1.7rem;
+        margin-bottom: 4vh;
+        text-align: start;
+    }
+    .openingContainer p{
+        margin-top: 1vh;
+    }
+    .openingContainerLunchAndDiner {
+        font-size: 0.6em;
+        width: auto;
+    }
+    .openingLunch{
+        margin-right: 2vw;
+    }
+    .lunchDay {
+        width: 9vw;
+        margin-right: 1vw;
+    }
+    .lunchHour {
+        width: 12vw;
+    }
+}
+@media screen and (min-width: 983px) {
+    .lunchDay {
+        width: 9vw;
+    }
+}
+@media screen and (min-width: 1152px) {
+    .openingContainerLunchAndDiner {
+        font-size: 0.8em;
+    }
+    .lunchDay {
+        width: 9vw;
+    }
+    .lunchHour {
+        width: 12vw;
+    }
+}
+@media screen and (min-width: 1638px) {
+    .lunchDay {
+        width: 5vw;
+    }
+    .lunchHour {
+        width: 10vw;
+    }
+}
+@media screen and (min-width: 1848px) {
+    .lunchDay {
+        width: 5vw;
+    }
+    .lunchHour {
+        width: 7vw;
     }
 }

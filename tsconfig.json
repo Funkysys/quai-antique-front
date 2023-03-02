@@ -19,6 +19,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "Components/OpeningHours/OpeningHours.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "Components/OpeningHours/OpeningHours.jsx", "Components/Modale/Modale.jsx"],
   "exclude": ["node_modules"]
 }

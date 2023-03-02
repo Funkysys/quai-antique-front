@@ -4,13 +4,13 @@ import 'react-calendar/dist/Calendar.css';
 import styles from './Reservation.module.css';
 import { Button } from 'react-bootstrap';
 
-const Reservation = ({opening_hours}) => {
+const Reservation = ({ opening_hours }) => {
     // opening_hours['hydra:member'].map(elt => console.log(elt.openingHours.hour))
 
     const [toggle, setToggle] = useState(false)
     const [value, onChange] = useState(new Date());
     const [lunchOrDiner, setLunchOrDiner] = useState("");
-    console.log(lunchOrDiner);
+
     const handleOnClick = (event) => setLunchOrDiner(event.target.innerText)
     // console.log(value.getDay())
 

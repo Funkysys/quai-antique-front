@@ -5,10 +5,9 @@ import Menu from '@/Components/Menu/Menu'
 import Gallery from '@/Components/Gallery/Gallery'
 import Reservation from '@/Components/Reservation/Reservation'
 import Footer from '@/Components/Footer/Footer'
-
+import Login from '@/Components/Login/Login'
 
 export default function Home({ opening_hours, allergies }: any) {
-  
   return (
     <>
       <Head>
@@ -17,7 +16,9 @@ export default function Home({ opening_hours, allergies }: any) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Navbar />
+      <header>
+        <Navbar />
+      </header>
       <main className={styles.main} id='home'>
         <div className={styles.homePage}>
           <div className={styles.titleContainer}>
@@ -34,14 +35,16 @@ export default function Home({ opening_hours, allergies }: any) {
           </div>
           <Menu />
         </section>
-        <section>
+        <section id="gallery">
           <Gallery />
         </section>
-        <section>
-          <Reservation  opening_hours={opening_hours}/>
+        <section id="reservation">
+          <Reservation opening_hours={opening_hours} />
         </section>
       </main>
-      <Footer opening_hours={opening_hours}/>
+      <footer id="contact">
+        <Footer opening_hours={opening_hours} />
+      </footer>
     </>
   )
 }
