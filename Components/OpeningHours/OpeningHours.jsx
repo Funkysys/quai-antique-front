@@ -86,8 +86,7 @@ const OpeningHours = ({ opening_hours }) => {
   return (
     <div className={styles.openingContainer}>
       <h2 className={styles.openingTitle}>Horaires d'ouverture</h2>
-      {
-        !toggle ? <Button onClick={() => setToggle(!toggle)} variant='danger'>Afficher les Horaires</Button> :
+
           <div className={styles.openingContainerLunchAndDiner}>
             <div className={styles.openingLunch}>
               {
@@ -138,7 +137,6 @@ const OpeningHours = ({ opening_hours }) => {
               }
             </div>
           </div>
-      }
     </div>
   )
 }
