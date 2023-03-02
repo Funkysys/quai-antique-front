@@ -19,12 +19,14 @@ time, mark, audio, video {
 	line-height: normal;
 	font-size: 100%;
 	vertical-align: baseline;
-
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
+}
+p {
+	margin-bottom: 0;
 }
 ol, ul {
 	list-style: none;

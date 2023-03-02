@@ -31,12 +31,14 @@
 .lunchDay {
     margin-right: 1vw;
     width: 20vw;
+    margin-bottom: 1.55rem;
 }
 .lunchHour {
     text-align: end;
+    margin-bottom: 1.55rem;
 }
 .dinerHour {
-    margin-bottom: 1rem;
+    margin-bottom: 1.55rem;
 }
 
 @media screen and (min-width: 567px) {
