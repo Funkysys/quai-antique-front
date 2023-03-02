@@ -5,7 +5,6 @@ import Menu from '@/Components/Menu/Menu'
 import Gallery from '@/Components/Gallery/Gallery'
 import Reservation from '@/Components/Reservation/Reservation'
 import Footer from '@/Components/Footer/Footer'
-import Login from '@/Components/Login/Login'
 
 export default function Home({ opening_hours, allergies }: any) {
   return (
