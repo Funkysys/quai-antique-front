@@ -1,7 +1,7 @@
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import Image from 'next/image';
 import styles from "./Navbar.module.css"
-import Login from '@/Components/Login/Login'
+import Login from '../Login/Login'
 
 function NavigationBar() {
   return (
