@@ -1,24 +1,47 @@
 .loginContainer {
-
+    position: absolute;
+    top: 16vh;
+    left: 42vw;
+    padding: 30px;
+    border-radius: 12px;
     background: #343a40;
-    padding: 20px ;
-    border-radius: 8px;
+    color: antiquewhite;
 }
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
 .loginContainer h2 {
-    text-align: center;
-    margin-bottom: 10px;
-}
-.loginContainer form input {
-    text-align: center;
-    margin-bottom: 10px;
-    border-radius: 5px;
+    font-size: 1.1em;
+    margin-bottom: 20px;
 }
 
-.connectionButtons {
+.loginContainer form {
     display: flex;
+    flex-direction: column;
 }
+
+.loginContainer form label {
+    margin-bottom: 6px;
+}
+
+.loginContainer form input {
+    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 3px 5px;
+    font-size: 0.8em;
+}
+
+.connectionButton {
+    margin-left: 20%;
+}
+
 .registerButton {
-    margin-left: 5px;
+    margin-left: 10px;
 }
-
-
+.connexionTrue{
+    color: antiquewhite;
+}
