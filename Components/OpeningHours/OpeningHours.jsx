@@ -87,56 +87,58 @@ const OpeningHours = ({ opening_hours }) => {
     <div className={styles.openingContainer}>
       <h2 className={styles.openingTitle}>Horaires d'ouverture</h2>
 
-          <div className={styles.openingContainerLunchAndDiner}>
-            <div className={styles.openingLunch}>
-              {
-                openingArr1.map(elt => {
-                  return (
-                    <>
-                      {
-                        elt[1][0] !== "on a aqua-poney" ?
-                          <div className={styles.lunchContainer} key={elt[1][2]}>
-                            <div className={styles.lunchDay}>
-                              <p >{elt[0]} : </p>
-                            </div>
-                            <div className={styles.lunchHour}>
-                              <p> {elt[1][0]} - {elt[1][1]}</p>
-                            </div>
-                          </div>
-                          :
-                          <div className={styles.lunchContainer} key={elt[1][1]}>
-                            <div className={styles.lunchDay}>
-                              <p >{elt[0]} : </p>
-                            </div>
-                            <div className={styles.lunchHour}>
-                              <p>{elt[1][0]}</p>
-                            </div>
-                          </div>
-                      }
-                    </>
-                  )
-                })
-              }
-            </div>
-            <div >
-              {
-                openingArr2.map(elt => {
-                  return (
-                    <>
-                      {
-                        elt[1][0].length < 10 ?
-                          <div key={elt[1][2]}>
-                            <p>{elt[1][0]} - {elt[1][1]}</p>
-                          </div>
-                          :
-                          <p key={elt[1][1]}>{elt[1][0]}</p>
-                      }
-                    </>
-                  )
-                })
-              }
-            </div>
-          </div>
+      <div className={styles.openingContainerLunchAndDiner}>
+        <div className={styles.openingLunch}>
+          {
+            openingArr1.map(elt => {
+              return (
+                <>
+                  {
+                    elt[1][0] !== "on a aqua-poney" ?
+                      <div className={styles.lunchContainer} key={elt[1][2]}>
+                        <div className={styles.lunchDay}>
+                          <p >{elt[0]} : </p>
+                        </div>
+                        <div className={styles.lunchHour}>
+                          <p> {elt[1][0]} - {elt[1][1]}</p>
+                        </div>
+                      </div>
+                      :
+                      <div className={styles.lunchContainer} key={elt[1][1]}>
+                        <div className={styles.lunchDay}>
+                          <p >{elt[0]} : </p>
+                        </div>
+                        <div className={styles.lunchHour}>
+                          <p>{elt[1][0]}</p>
+                        </div>
+                      </div>
+                  }
+                </>
+              )
+            })
+          }
+        </div>
+        <div >
+          {
+            openingArr2.map(elt => {
+              return (
+                <>
+                  {
+                    elt[1][0].length < 10 ?
+                      <div key={elt[1][2]} className={styles.dinerHour}>
+                        <p>{elt[1][0]} - {elt[1][1]}</p>
+                      </div>
+                      :
+                      <div className={styles.dinerHour}>
+                        <p key={elt[1][1]}>{elt[1][0]}</p>
+                      </div>
+                  }
+                </>
+              )
+            })
+          }
+        </div>
+      </div>
     </div>
   )
 }

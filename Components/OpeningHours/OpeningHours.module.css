@@ -1,5 +1,6 @@
 .openingContainer {
     margin-top: 4vh;
+    margin-bottom: 2vh;
     width: 100%;
     height: auto;
     display: flex;
@@ -18,6 +19,7 @@
     justify-content: center;
     width: 100%;
     font-size: 0.8em;
+    margin-right: -50px;
 }
 .openingLunch{
     margin-right: 2vw;
@@ -32,6 +34,9 @@
 }
 .lunchHour {
     text-align: end;
+}
+.dinerHours {
+    margin-bottom: 1rem;
 }
 
 @media screen and (min-width: 567px) {
