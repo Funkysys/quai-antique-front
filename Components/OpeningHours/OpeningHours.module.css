@@ -31,15 +31,12 @@
 .lunchDay {
     margin-right: 1vw;
     width: 20vw;
-    margin-bottom: 1.55rem;
 }
 .lunchHour {
     text-align: end;
-    margin-bottom: 1.55rem;
+
 }
-.dinerHour {
-    margin-bottom: 1.55rem;
-}
+
 
 @media screen and (min-width: 567px) {
     .lunchDay {
@@ -55,7 +52,6 @@
     }
     .openingTitle {
         font-size: 1.7rem;
-        margin-bottom: 4vh;
         text-align: start;
     }
     .openingContainer p{
