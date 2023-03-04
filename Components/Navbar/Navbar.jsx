@@ -1,7 +1,7 @@
 import { Navbar, Nav, NavDropdown, Button} from 'react-bootstrap';
 import Image from 'next/image';
 import styles from "./Navbar.module.css"
-import Login from '@/Components/Login/Login'
+import LoginOrRgister from '@/Components/LoginOrRegister/LoginOrRegister'
 
 function NavigationBar() {
   return (
@@ -30,7 +30,7 @@ function NavigationBar() {
                   <NavDropdown.Item eventKey="4.3">La carte</NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="#contact">Contact</Nav.Link>
-                  <Login />
+                  <LoginOrRgister />
             </div>
           </Nav>
         </Navbar.Collapse>

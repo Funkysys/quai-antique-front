@@ -1,0 +1,42 @@
+.loginOrRegisterContainer {
+    position: absolute;
+    width: 80vw;
+    top: 16vh;
+    left: 10vw;
+    padding: 30px;
+    border-radius: 12px;
+    background: #343a40;
+    color: antiquewhite;
+}
+
+.closeButton {
+    position: absolute;
+    padding: 0 6px;
+    top: 10px;
+    right: 10px;
+}
+
+@media screen and (min-width: 768px) {
+    .loginOrRegisterContainer {
+        position: absolute;
+        width: 50vw;
+        top: 16vh;
+        margin: 0 20%;
+        padding: 30px;
+        border-radius: 12px;
+        background: #343a40;
+        color: antiquewhite;
+    }
+}
+@media screen and (min-width: 1372px) {
+    .loginOrRegisterContainer {
+        position: absolute;
+        width: 30vw;
+        top: 16vh;
+        margin: 0 25%;
+        padding: 30px;
+        border-radius: 12px;
+        background: #343a40;
+        color: antiquewhite;
+    }
+}

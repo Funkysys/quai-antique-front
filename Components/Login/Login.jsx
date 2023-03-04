@@ -1,21 +1,17 @@
-import Link from 'next/link';
-import { useEffect, useState } from 'react'
+import { useState, useContext } from 'react'
 import Button from 'react-bootstrap/Button';
 import styles from './Login.module.css'
-import jwt_decode from "jwt-decode";
+import { Context } from '@/lib/context';
+import jwtDecode from 'jwt-decode';
+import Register from '../Register/Register'
 
 const Login = () => {
-  const [user, setUser] = useState()
+  const { dispatch } = useContext(Context);
   const [toggle, setToggle] = useState(false)
 
   const handleOnClick = () => setToggle(!toggle)
-  const handleOnDisconnect = () => {
-    localStorage.removeItem('token')
-    setUser('')
-    console.log(user, localStorage.token);
-  }
 
-  const tryToLog = async (e) => {
+  const handleOnLogin = async (e) => {
     e.preventDefault()
 
     const data = {
@@ -40,66 +36,44 @@ const Login = () => {
     }
 
     const response = await fetch(endpoint, options)
+    console.log(response);
     if (response.status == 200) {
       const result = await response.json()
-
-      setUser(result)
       localStorage.setItem("token", `${result?.token}`)
 
+      const decode = jwtDecode(localStorage.token)
+      if (decode) {
+        await dispatch({
+          type: "LOGGED_IN_USER",
+          payload: decode
+        })
+      }
     } else {
       throw Error(response.statusText)
     }
   }
-  useEffect(() => {
-    async function autoConnexion() {
-      if (typeof window !== 'undefined') {
-        if (!user && localStorage.token) {
-          const decode = jwt_decode(localStorage.token)
-          if (decode) {
-            await setUser(decode)
-          }
-        }
-      }
-    }
-    autoConnexion()
-  }, [user])
 
-  console.log(user);
   return (
-    user && user !== '' ?
-      <>
-        <Button variant='outline-primary' onClick={handleOnDisconnect}>logout</Button>
-      </> :
-      <>
-        {
-          !toggle ?
-            <Button onClick={handleOnClick} variant="outline-primary"> Connexion</Button>
-            :
-            <>
-              <Button onClick={handleOnClick} variant="outline-primary"> Connexion</Button>
-              <div
-                className={styles.loginContainer}
-              >
-                <h2>Bienvenu !</h2>
-                <Button onClick={handleOnClick} variant="danger" className={styles.closeButton}>X</Button>
-                <form onSubmit={tryToLog}>
-                  <label htmlFor="password">Email</label>
-                  <input type="email" name="email" id="email" placeholder='Your Email' />
-                  <label htmlFor="password">Password</label>
-                  <input type="password" name="password" id="password" placeholder='Your Password' />
-                  <div className={styles.connectionButtons}>
-                    <Button variant="outline-primary" className={styles.connectionButton} type="submit">Connexion</ Button>
-                    <Link href="https://quai-antique.xyz/register" replace>
-                      <Button className={styles.registerButton}>Inscription</ Button>
-                    </Link>
-                  </div>
-                </form>
-              </div>
-            </>
-        }
-      </>
+    !toggle ?
+        <div
+          className={styles.loginContainer}
+        >
+          <h2>Bienvenu !</h2>
+
+          <form onSubmit={handleOnLogin}>
+            <label htmlFor="password">Email</label>
+            <input type="email" name="email" id="email" placeholder='Your Email' />
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" id="password" placeholder='Your Password' />
+            <div className={styles.connectionButtons}>
+              <Button variant="outline-primary" className={styles.connectionButton} type="submit">Connexion</ Button>
+              <Button onClick={handleOnClick} className={styles.registerButton}>Inscription</ Button>
+            </div>
+          </form>
+        </div>
+      :
+      <Register />
   )
-  console.log(user)
 }
 
 export default Login
