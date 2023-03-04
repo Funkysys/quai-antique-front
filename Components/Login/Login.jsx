@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
 import styles from './Login.module.css'
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
   const [user, setUser] = useState()
@@ -15,7 +16,6 @@ const Login = () => {
   }
 
   const tryToLog = async (e) => {
-    console.log('hoho');
     e.preventDefault()
 
     const data = {
@@ -44,30 +44,32 @@ const Login = () => {
       const result = await response.json()
 
       setUser(result)
-      localStorage.setItem("token", `bearer ${result?.token}`)
-      if (localStorage.token) {
-        setUser(localStorage.token)
-      }
+      localStorage.setItem("token", `${result?.token}`)
+
     } else {
-      throw Error(res.statusText)
+      throw Error(response.statusText)
     }
   }
-console.log(user);
   useEffect(() => {
     async function autoConnexion() {
       if (typeof window !== 'undefined') {
         if (!user && localStorage.token) {
-          console.log("disconnected");
-          await setUser(localStorage.token)
+          const decode = jwt_decode(localStorage.token)
+          if (decode) {
+            await setUser(decode)
+          }
         }
       }
     }
     autoConnexion()
   }, [user])
 
+  console.log(user);
   return (
     user && user !== '' ?
-      <Button variant='outline-primary' onClick={handleOnDisconnect}>logout</Button> :
+      <>
+        <Button variant='outline-primary' onClick={handleOnDisconnect}>logout</Button>
+      </> :
       <>
         {
           !toggle ?
