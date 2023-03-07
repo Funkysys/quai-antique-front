@@ -1,0 +1,13 @@
+.container {
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonContainer button {
+    padding: 10px;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}

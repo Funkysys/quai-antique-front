@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react'
 import styles from './Register.module.css'
 import { Button } from 'react-bootstrap'
-import jwtDecode from 'jwt-decode'
 import { Context } from '@/lib/context';
+import useLogin from '@/hooks/useLogin'
 
 const Register = () => {
   const { dispatch } = useContext(Context);
@@ -12,46 +12,6 @@ const Register = () => {
   const [passwordLength, setPasswordLength] = useState(true)
   const [confirmPassword, setConfirmPassword] = useState(true)
   const [registerConfirm, setRegisterConfirm] = useState(false)
-
-  const handleOnLogin = async (email, password) => {
-
-    const data = {
-      email,
-      password,
-    }
-
-    const JSONdata = JSON.stringify(data)
-
-    console.log(JSONdata);
-    const endpoint = 'https://quai-antique.xyz/auth'
-
-    const options = {
-      // The method is POST because we are sending data.
-      method: 'POST',
-      // Tell the server we're sending JSON.
-      headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json',
-      },
-      // Body of the request is the JSON data we created above.
-      body: JSONdata,
-    }
-
-    const response = await fetch(endpoint, options)
-    if (response.status == 200) {
-      const result = await response.json()
-      localStorage.setItem("token", `${result?.token}`)
-      const decode = jwtDecode(localStorage.token)
-      if (decode) {
-        await dispatch({
-          type: "LOGGED_IN_USER",
-          payload: decode
-        })
-      }
-    } else {
-      throw Error(response.statusText)
-    }
-  }
 
   const handleOnSubmit = async (e) => {
     e.preventDefault()
@@ -88,9 +48,7 @@ const Register = () => {
     const endpoint = 'https://quai-antique.xyz/api/users'
 
     const options = {
-      // The method is POST because we are sending data.
       method: 'POST',
-      // Tell the server we're sending JSON.
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json',
@@ -103,7 +61,7 @@ const Register = () => {
     console.log(response);
     if (response.status === 201) {
       setRegisterConfirm(true)
-      handleOnLogin(data.email, data.plainPassword)
+      useLogin(e, dispatch, data.email, data.plainPassword)
     } else {
       setRegisterConfirm(false)
       throw Error(response.statusText)
