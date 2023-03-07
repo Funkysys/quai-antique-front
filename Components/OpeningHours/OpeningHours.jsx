@@ -36,7 +36,7 @@ const OpeningHours = ({ opening_hours }) => {
     openMinutes === 0 ? openMinutes = "" : openMinutes = elt.openMinutes.minutes
     if (!elt.close) {
       if (elt.lunch) {
-        openningLunch[`${elt.day.day}`] = [`${elt.openingHours.hour} H ${openMinutes}`, `${elt.closeHours.hour} H ${openMinutes}`, dayIndex]
+        openningLunch[`${elt.day.day}`] = [`${elt.openingHours.hour} H ${openMinutes}`, `${elt.closeHours.hour} H ${closeMinutes}`, dayIndex]
       } else if (elt.diner) {
         openningDiner[`${elt.day.day}`] = [`${elt.openingHours.hour} H ${openMinutes}`, `${elt.closeHours.hour} H ${closeMinutes}`, dayIndex]
       }

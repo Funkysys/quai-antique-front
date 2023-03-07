@@ -2,16 +2,17 @@ import { useEffect, useState } from 'react'
 import styles from './ReservationForm.module.css'
 import Calendar from 'react-calendar';
 import { Button } from 'react-bootstrap';
-import ReservationHours from '../ReservationHours/ReservationHours'
 
 const ReservationForm = ({ opening_hours }) => {
-    const [dinerOrLunch, setDinerOrLunch] = useState("")
     const [value, onChange] = useState(new Date());
     const [lunch, setLunch] = useState(false);
     const [diner, setDiner] = useState(false);
     const [close, setClose] = useState(false);
     const [currentDayLunch, setCurrentDayLunch] = useState()
     const [currentDayDiner, setCurrentDayDiner] = useState()
+    const [maxOpeningHour, setMaxOpeningHour] = useState(0)
+    const [maxCloseHour, setMaxMaxCloseHour] = useState(0)
+    const [hours, setHours] = useState([])
 
     useEffect(() => {
         opening_hours['hydra:member'].map(elt => {
@@ -50,51 +51,86 @@ const ReservationForm = ({ opening_hours }) => {
             }
         })
     }, [value.getDay()])
+
+    useEffect(() => {
+        setHours([])
+        let hoursArr = []
+        let tempHours = []
+        for (let i = maxOpeningHour; i <= maxCloseHour; i += 15) {
+            hoursArr.push(i / 60)
+        }
+        hoursArr.map(elt => {
+            const temp = elt.toString().split(".")
+            if (temp[1]) {
+                console.log(temp);
+                if (temp[1] === '25') {
+                    console.log(`${temp[0]} H 15`);
+                    tempHours.push(`${temp[0]} H 15`)
+                }
+                if (temp[1] === '5') {
+                    tempHours.push(`${temp[0]} H 30`)
+                }
+                if (temp[1] === '75') {
+                    tempHours.push(`${temp[0]} H 45`)
+                }
+            } else if (!temp[1]) {
+                tempHours.push(`${temp[0]} H`)
+            }
+        })
+        setHours(tempHours)
+    }, [value, maxCloseHour, maxOpeningHour])
+
     const handleOnClick = (event) => {
+        
         const value = event.target.innerText.toLowerCase()
         if (value === 'lunch') {
-            console.log(currentDayLunch)
+            setMaxOpeningHour((currentDayLunch.openingHours.hour * 60) + currentDayLunch.openMinutes.minutes)
+            setMaxMaxCloseHour((currentDayLunch.closeHours.hour * 60) + currentDayLunch.closeMinutes.minutes)
         } else if (value === 'diner') {
-            console.log(currentDayDiner);
+            setMaxOpeningHour((currentDayDiner.openingHours.hour * 60) + currentDayDiner.openMinutes.minutes)
+            setMaxMaxCloseHour((currentDayDiner.closeHours.hour * 60) + currentDayDiner.closeMinutes.minutes)
         }
-        setDinerOrLunch(value)
+        
     }
 
     return (
         <form className={styles.form}>
-            <Calendar onChange={onChange} value={value} />
-            <div className={styles.buttonContainer}>
-                {
+            <div className={styles.container}>
+
+                <Calendar onChange={onChange} value={value} />
+                <div className={styles.buttonContainer}>
+                    {
                         lunch &&
-                    <>
                         <Button
+                            eventKey='1'
                             variant="outline-primary"
                             onClick={handleOnClick}
                         >Lunch</Button>
-                        {
-                            dinerOrLunch === "lunch" &&
-                            <ReservationHours currentDayLunch={currentDayLunch} />
-                        }
-                    </>
-                }
-                {
-                    diner &&
-                    <>
+                    }
+                    {
+                        diner &&
                         <Button
+                            eventKey='2'
                             variant="outline-primary"
                             onClick={handleOnClick}
                         >
                             Diner
                         </Button>
-                        {
-                            dinerOrLunch === "diner" &&
-                            <ReservationHours currentDayDiner={currentDayDiner} />
-                        }
-                    </>
-                }
+                    }
+                    {
+                        close &&
+                        <h2>On est fermé ! Désolé</h2>
+                    }
+                </div>
                 {
-                    close &&
-                    <h2>On est fermé ! Désolé</h2>
+                    hours.length > 1 && !close &&
+                    <div className={styles.hoursContainer}>
+                        {
+                            hours.map(elt => {
+                                return <Button key={elt}>{elt}</Button>
+                            })
+                        }
+                    </div>
                 }
             </div>
         </form>
