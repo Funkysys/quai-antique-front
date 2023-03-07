@@ -6,20 +6,23 @@
     align-items: center;
 }
 
-.form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.registrationLog {
+    position: relative;
+    width: 80vw;
+    padding: 30px;
+    border-radius: 12px;
+    background: #343a40;
+    color: antiquewhite;
 }
-
-.buttonContainer {
-    display: flex;
-    flex-direction: column;
-    margin-left: 5vw;
+@media screen and (min-width: 768px) {
+    .registrationLog {
+        width: 50vw;
+        margin: 0 20%;
+    }
 }
-
-.buttonContainer button {
-    padding: 10px;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
+@media screen and (min-width: 1372px) {
+    .registrationLog {
+        width: 30vw;
+        margin: 0 25%;
+    }
 }

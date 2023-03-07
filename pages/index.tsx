@@ -7,7 +7,6 @@ import Reservation from '@/Components/Reservation/Reservation'
 import Footer from '@/Components/Footer/Footer'
 
 export default function Home({ opening_hours, allergies }: any) {
-
   return (
     <>
       <Head>

@@ -1,27 +1,41 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import styles from './Reservation.module.css';
 import { Button } from 'react-bootstrap';
 import { Context } from '@/lib/context';
 import ReservationForm from '../ReservationForm/ReservationForm'
+import Login from '../Login/Login';
 
 const Reservation = ({ opening_hours }) => {
-    const {state} = useContext(Context)
+    const { state } = useContext(Context)
     const [toggle, setToggle] = useState(false)
-    const [value, onChange] = useState(new Date());
-    const [lunchOrDiner, setLunchOrDiner] = useState("");
+    const [isConnected, setIsConnected] = useState(false)
+
+    useEffect(() => {
+        if (state?.user?.name) {
+            setIsConnected(true)
+        } else {
+            setIsConnected(false)
+        }
+    }, [state])
 
     const handleOnClick = (event) => {
         event.preventDefault
+        setToggle(!toggle)
     }
 
     return (
         <div className={styles.container}>
             {
                 toggle ?
-                     <ReservationForm />
+                    isConnected ?
+                        <ReservationForm opening_hours={opening_hours}/>
+                        :
+                        <div className={styles.registrationLog}>
+                            <Login />
+                        </div>
                     :
-                    <Button onClick={() => setToggle(!toggle)}>Réserver</Button>
+                    <Button onClick={handleOnClick}>Réserver</Button>
             }
         </div>
     );

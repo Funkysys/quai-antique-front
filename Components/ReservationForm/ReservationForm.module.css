@@ -1,13 +1,10 @@
-.container {
-    width: 100vw;
-    height: 60vh;
+.buttonContainer {
     display: flex;
     justify-content: center;
-    align-items: center;
+    margin-top: 15px;
 }
-
 .buttonContainer button {
     padding: 10px;
     font-size: 1.2rem;
-    margin-bottom: 15px;
+    margin: 0 8px;
 }

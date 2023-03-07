@@ -21,8 +21,8 @@ const Register = () => {
       name: event.target.name.value,
     }
     const confirm_password = event.target.confirm_password.value
-    console.log(event.target.email.value);
-    if (data.email) {
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (data.email && data.email.match(mailformat)) {
       setEmailRequired(true)
     } else {
       return setEmailRequired(false)

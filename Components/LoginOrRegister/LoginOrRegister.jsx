@@ -32,7 +32,6 @@ useEffect(() => {
     async function autoConnexion() {
       if (typeof window !== 'undefined') {
         if (localStorage.token && localStorage.token !== undefined) {
-          console.log(localStorage.token);
           const decode = jwtDecode(localStorage.token)
           if (decode) {
             await dispatch({
@@ -46,9 +45,6 @@ useEffect(() => {
     }
     autoConnexion()
   }, [])
-
-  console.log(user);
-  console.log(state);
   return (
     user ?
       <Button variant='outline-primary' onClick={handleOnDisconnect}>logout</Button>
