@@ -100,11 +100,12 @@ const ReservationForm = ({ opening_hours }) => {
         setButtonValue(hours.indexOf(elt))
         const value = event.target
         setSelectedHour(value.innerText)
-        console.log(value.innerText);
     }
     console.log(state);
-
     return (
+        state.reservation ?
+            <div><h2>Votre réservation est prise en compte</h2></div>
+        :
         <form
             className={styles.container}
             onSubmit={(e) => submitReservationFunc(e, value, selectedHour, state, dispatch)}

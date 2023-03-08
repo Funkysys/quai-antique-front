@@ -2,7 +2,12 @@ async function submitReservationFunc (e, value, selectedHour, state, dispatch) {
     e.preventDefault()
     console.log("on est là");
     const hour = selectedHour?.split(" ")
-    const date = `${value.getUTCFullYear()}-${value.getUTCMonth()}-${value.getUTCDate()}T${hour[0]}:${hour[2]}:00+00:00`
+    let date = ""
+    if (!hour[2]) {
+        date = `${value.getUTCFullYear()}-${value.getUTCMonth()}-${value.getUTCDate()}T${hour[0]}:00:00+00:00`
+    } else {
+        date = `${value.getUTCFullYear()}-${value.getUTCMonth()}-${value.getUTCDate()}T${hour[0]}:${hour[2]}:00+00:00`
+    }
     const id = state.user.id
     let data = {
         nbCovers: event.target.cutlery.value * 1,
@@ -26,7 +31,10 @@ console.log(JSONdata);
     const response = await fetch(endpoint, options)
     console.log(response);
     if (response.status == 201) {
-        console.log(response)
+            await dispatch({
+                type: "RESERVATION_DONE",
+                payload: true
+            })
     } else {
         throw Error(response.statusText)
     }
