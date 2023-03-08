@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import styles from './Login.module.css'
 import { Context } from '@/lib/context';
 import Register from '../Register/Register'
-import loginfunc from '@/hooks/loginfunc'
+import loginfunc from '@/hooks/loginfunc';
 
 const Login = () => {
   const { dispatch } = useContext(Context);
