@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 
-async function useLogin (e, dispatch, email = null, password = null) {
+async function loginfunc (e, dispatch, email = null, password = null) {
     e.preventDefault()
     let data = {}
     if (email && password) {
@@ -43,4 +43,4 @@ async function useLogin (e, dispatch, email = null, password = null) {
         throw Error(response.statusText)
     }
 }
-export default useLogin
+export default loginfunc

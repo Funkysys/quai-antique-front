@@ -26,7 +26,7 @@ useEffect(() => {
       setUser(state.user)
     }
   }
-})
+}, [state])
 
   useEffect(() => {
     async function autoConnexion() {
