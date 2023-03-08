@@ -27,7 +27,6 @@ useEffect(() => {
     }
   }
 }, [state])
-
   useEffect(() => {
     async function autoConnexion() {
       if (typeof window !== 'undefined') {
@@ -45,6 +44,7 @@ useEffect(() => {
     }
     autoConnexion()
   }, [])
+
   return (
     user ?
       <Button variant='outline-primary' onClick={handleOnDisconnect}>logout</Button>

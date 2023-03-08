@@ -26,12 +26,11 @@ async function loginfunc (e, dispatch, email = null, password = null) {
         },
         body: JSONdata,
     }
+    
     const response = await fetch(endpoint, options)
-    console.log(response);
     if (response.status == 200) {
         const result = await response.json()
         localStorage.setItem("token", `${result?.token}`)
-
         const decode = jwtDecode(localStorage.token)
         if (decode) {
             await dispatch({
