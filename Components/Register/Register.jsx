@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import styles from './Register.module.css'
 import { Button } from 'react-bootstrap'
 import { Context } from '@/lib/context';
-import loginfunc from '@/hooks/loginfunc'
+import loginfunc from '@/func/loginfunc'
 
 const Register = () => {
   const { state, dispatch } = useContext(Context);

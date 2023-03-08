@@ -3,7 +3,7 @@ import styles from './ReservationForm.module.css'
 import Calendar from 'react-calendar';
 import { Button, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import { Context } from '@/lib/context';
-import submitReservationFunc from '@/hooks/submitReservetionFunc'
+import submitReservationFunc from '@/func/submitReservetionFunc'
 
 const ReservationForm = ({ opening_hours }) => {
     const { dispatch, state } = useContext(Context);
