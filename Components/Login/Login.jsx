@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import styles from './Login.module.css'
 import { Context } from '@/lib/context';
 import Register from '../Register/Register'
-import loginfunc from '@/func/loginfunc'
+import loginFunc from '@/func/loginFunc'
 
 const Login = () => {
   const { state, dispatch } = useContext(Context);
@@ -18,7 +18,7 @@ const Login = () => {
         >
           <h2>Bienvenu !</h2>
 
-          <form onSubmit={(e) => loginfunc(e, dispatch)}>
+          <form onSubmit={(e) => loginFunc(e, dispatch)}>
             <label htmlFor="password">Email</label>
             <input type="email" name="email" id="email" placeholder='Your Email' />
             <label htmlFor="password">Password</label>
