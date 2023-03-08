@@ -2,7 +2,6 @@ import { useState, useContext } from 'react'
 import styles from './Register.module.css'
 import { Button } from 'react-bootstrap'
 import { Context } from '@/lib/context';
-import loginfunc from '@/func/loginfunc'
 
 const Register = () => {
   const { state, dispatch } = useContext(Context);
@@ -12,6 +11,50 @@ const Register = () => {
   const [passwordLength, setPasswordLength] = useState(true)
   const [confirmPassword, setConfirmPassword] = useState(true)
   const [registerConfirm, setRegisterConfirm] = useState(false)
+
+  async function loginfunc (e, dispatch, email = null, password = null) {
+    e.preventDefault()
+    let data = {}
+    if (email && password) {
+        data = {
+            email,
+            password
+        }
+    } else {
+        data = {
+            email: event.target.email.value,
+            password: event.target.password.value,
+        }
+    }
+    const JSONdata = JSON.stringify(data)
+
+    const endpoint = 'https://quai-antique.xyz/auth'
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Accept': '*/*',
+            'Content-Type': 'application/json',
+        },
+        body: JSONdata,
+    }
+    const response = await fetch(endpoint, options)
+    console.log(response);
+    if (response.status == 200) {
+        const result = await response.json()
+        localStorage.setItem("token", `${result?.token}`)
+
+        const decode = jwtDecode(localStorage.token)
+        if (decode) {
+            await dispatch({
+                type: "LOGGED_IN_USER",
+                payload: decode
+            })
+        }
+    } else {
+        throw Error(response.statusText)
+    }
+}
 
   const handleOnSubmit = async (e) => {
     e.preventDefault()
