@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import styles from './Register.module.css'
 import { Button } from 'react-bootstrap'
 import { Context } from '@/lib/context';
+import jwtDecode from 'jwt-decode';
 
 const Register = () => {
   const { state, dispatch } = useContext(Context);
