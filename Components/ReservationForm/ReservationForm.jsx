@@ -139,9 +139,11 @@ const ReservationForm = ({ opening_hours }) => {
                         {
                             hours.map(elt => {
                                 return (
-                                    <ButtonGroup>
+                                    <ButtonGroup
+                                    key={hours.indexOf(elt)}
+                                    >
                                         <ToggleButton
-                                            key={hours.indexOf(elt)}
+                                            
                                             variant="outline-danger"
                                             onClick={() => handleOnHour(event, elt)}
                                             checked={buttonValue === hours.indexOf(elt)}
