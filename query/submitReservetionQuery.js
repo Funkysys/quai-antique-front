@@ -1,7 +1,5 @@
 async function submitReservationQuery (e, date, lunch, state, dispatch) {
     e.preventDefault()
-    console.log("on est là");
-    
     const id = state.user.id
     let data = {
         nbCovers: event.target.cutlery.value * 1,
@@ -22,9 +20,7 @@ async function submitReservationQuery (e, date, lunch, state, dispatch) {
         },
         body: JSONdata,
     }
-    console.log(JSONdata);
     const response = await fetch(endpoint, options)
-    console.log(response);
     if (response.status == 201) {
             await dispatch({
                 type: "RESERVATION_DONE",

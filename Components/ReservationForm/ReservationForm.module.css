@@ -54,6 +54,8 @@
     padding: 10px 20px;
     color: #0d6efd;
     border-radius: 5px;
+    width: 60vw;
+    text-align: center;
 }
 
 .capacity {background-color: rgba(221, 220, 220, 0.7);
@@ -81,5 +83,10 @@
 @media screen and (min-width: 1372px) {
     .hoursContainer {
         width: 33%;
+    }
+    .result {
+        width: auto;
+        padding: 10px 20px;
+        font-size: 1.5em;
     }
 }

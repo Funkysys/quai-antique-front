@@ -31,7 +31,6 @@ const ReservationForm = ({ opening_hours }) => {
                 .then(result => setTotalCapacity(result['hydra:member'][0].capacity))
         }
         totalCapacityQuery()
-        console.log(totalCapacity);
     }, [])
 
     useEffect(() => {
@@ -49,7 +48,6 @@ const ReservationForm = ({ opening_hours }) => {
                     return response.json()
                 })
                 .then(result => result['hydra:member'].map(elt => {
-                    console.log(elt);
                     tempArr.push(elt.nbCovers)
                 }))
 
@@ -60,7 +58,6 @@ const ReservationForm = ({ opening_hours }) => {
             }
         }
         restCapacityQuery()
-        console.log(restCapacity);
     }, [value, lunchOrDiner])
 
     useEffect(() => {
