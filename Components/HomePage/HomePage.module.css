@@ -1,0 +1,53 @@
+.homePage {
+    margin-top: -10px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/Images/2.jpg') no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.titleContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.title {
+    width: auto;
+    height: auto;
+    margin-top: -20vh;
+    text-shadow: 1px 1px rgba(0, 0, 0, 0.9), -1px -1px rgba(0, 0, 0, 0.9), -1px 1px rgba(0, 0, 0, 0.9), 1px -1px rgba(0, 0, 0, 0.9);
+    color: #f5f5f5;
+    font-size: 2rem;
+    font-family: 'Bitter', serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+.titleSpan {
+    font-size: 4rem;
+}
+
+@media screen and (min-width: 768px) {
+    .title {
+        margin-top: -20vh;
+        text-shadow: 3px 3px rgba(0, 0, 0, 0.9), -3px -3px rgba(0, 0, 0, 0.9), -3px 3px rgba(0, 0, 0, 0.9), 3px -3px rgba(0, 0, 0, 0.9);
+
+        color: #f5f5f5;
+        font-size: 6rem;
+        font-family: 'Bitter', serif;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    .titleSpan {
+        font-size: 8rem;
+    }
+}

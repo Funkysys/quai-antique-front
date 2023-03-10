@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import styles from './Register.module.css'
 import { Button } from 'react-bootstrap'
 import { Context } from '@/lib/context';
-import loginFunc from '@/func/loginFunc'
+import loginQuery from '@/query/loginQuery'
 
 const Register = () => {
   const { state, dispatch } = useContext(Context);
@@ -61,7 +61,7 @@ const Register = () => {
     console.log(response);
     if (response.status === 201) {
       setRegisterConfirm(true)
-      loginFunc(e, dispatch, data.email, data.plainPassword)
+      loginQuery(e, dispatch, data.email, data.plainPassword)
     } else {
       setRegisterConfirm(false)
       throw Error(response.statusText)

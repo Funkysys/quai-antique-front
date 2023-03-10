@@ -3,21 +3,76 @@ import styles from './ReservationForm.module.css'
 import Calendar from 'react-calendar';
 import { Button, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import { Context } from '@/lib/context';
-import submitReservationFunc from '@/func/submitReservetionFunc'
+import submitReservationQuery from '@/query/submitReservetionQuery'
 
 const ReservationForm = ({ opening_hours }) => {
     const { dispatch, state } = useContext(Context);
     const [value, onChange] = useState(new Date());
+    const [totalCapacity, setTotalCapacity] = useState();
+    const [restCapacity, setRestCapacity] = useState([]);
     const [lunch, setLunch] = useState(false);
     const [diner, setDiner] = useState(false);
     const [close, setClose] = useState(false);
+    const [lunchOrDiner, setLunchOrDiner] = useState(false);
     const [buttonValue, setButtonValue] = useState()
     const [currentDayLunch, setCurrentDayLunch] = useState()
     const [currentDayDiner, setCurrentDayDiner] = useState()
     const [maxOpeningHour, setMaxOpeningHour] = useState(0)
     const [maxCloseHour, setMaxMaxCloseHour] = useState(0)
     const [hours, setHours] = useState([])
+    const [month, setMonth] = useState("")
+    const [date, setDate] = useState("")
     const [selectedHour, setSelectedHour] = useState()
+
+    useEffect(() => {
+        const totalCapacityQuery = async () => {
+            const res = await fetch('https://quai-antique.xyz/api/restaurants')
+                .then(response => response.json())
+                .then(result => setTotalCapacity(result['hydra:member'][0].capacity))
+        }
+        totalCapacityQuery()
+        console.log(totalCapacity);
+    }, [])
+
+    useEffect(() => {
+
+        if (value.getMonth().length === 1) {
+            setMonth(`0${value.getUTCMonth()}`)
+        } else {
+            setMonth(`${value.getUTCMonth()}`)
+        }
+        const restCapacityQuery = async () => {
+            const tempArr = []
+            const reducer = (accumulator, curr) => accumulator + curr;
+            const res = await fetch(`https://quai-antique.xyz/api/reservations?page=1&reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth()}-${value.getUTCDate()}&lunchOrDiner=${lunchOrDiner}`)
+                .then(response => {
+                    return response.json()
+                })
+                .then(result => result['hydra:member'].map(elt => {
+                    console.log(elt);
+                    tempArr.push(elt.nbCovers)
+                }))
+
+            if (tempArr[0]) {
+                setRestCapacity(tempArr.reduce(reducer))
+            } else {
+                setRestCapacity(0)
+            }
+        }
+        restCapacityQuery()
+        console.log(restCapacity);
+    }, [value, lunchOrDiner])
+
+    useEffect(() => {
+        if (selectedHour) {
+            const hourSplit = selectedHour.split(" ")
+            if (hourSplit.length <= 2) {
+                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate()}T${hourSplit[0]}`)
+            } else {
+                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate()}T${hourSplit[0]}:${hourSplit[2]}:00`)
+            }
+        }
+    }, [selectedHour])
 
     useEffect(() => {
         opening_hours['hydra:member'].map(elt => {
@@ -61,7 +116,7 @@ const ReservationForm = ({ opening_hours }) => {
         setHours([])
         let hoursArr = []
         let tempHours = []
-        for (let i = maxOpeningHour; i <= maxCloseHour; i += 15) {
+        for (let i = maxOpeningHour; i <= (maxCloseHour - 45); i += 15) {
             hoursArr.push(i / 60)
         }
         hoursArr.map(elt => {
@@ -87,9 +142,11 @@ const ReservationForm = ({ opening_hours }) => {
 
         const value = event.target.innerText.toLowerCase()
         if (value === 'lunch') {
+            setLunchOrDiner(true)
             setMaxOpeningHour((currentDayLunch.openingHours.hour * 60) + currentDayLunch.openMinutes.minutes)
             setMaxMaxCloseHour((currentDayLunch.closeHours.hour * 60) + currentDayLunch.closeMinutes.minutes)
         } else if (value === 'diner') {
+            setLunchOrDiner(false)
             setMaxOpeningHour((currentDayDiner.openingHours.hour * 60) + currentDayDiner.openMinutes.minutes)
             setMaxMaxCloseHour((currentDayDiner.closeHours.hour * 60) + currentDayDiner.closeMinutes.minutes)
         }
@@ -98,74 +155,111 @@ const ReservationForm = ({ opening_hours }) => {
 
     const handleOnHour = (event, elt) => {
         setButtonValue(hours.indexOf(elt))
-        const value = event.target
-        setSelectedHour(value.innerText)
+        const hour = event.target
+        setSelectedHour(hour.innerText)
+        const test = async function count() {
+            const res3 = await fetch('https://quai-antique.xyz/api/restaurants')
+            const restaurant = await res3.json()
+            return (restaurant['hydra:member'][0].capacity)
+        }
+
     }
-    console.log(state);
-    return (
-        state.reservation ?
-            <div><h2>Votre réservation est prise en compte</h2></div>
-        :
-        <form
-            className={styles.container}
-            onSubmit={(e) => submitReservationFunc(e, value, selectedHour, state, dispatch)}
-        >
-            <Calendar onChange={onChange} value={value} />
-            <div className={styles.buttonContainer}>
-                {
-                    lunch &&
-                    <Button
-                        variant="outline-primary"
-                        onClick={handleOnClick}
-                    >Lunch</Button>
-                }
-                {
-                    diner &&
-                    <Button
-                        variant="outline-primary"
-                        onClick={handleOnClick}
-                    >
-                        Diner
-                    </Button>
-                }
-                {
-                    close &&
-                    <h2>On est fermé ! Désolé</h2>
-                }
-            </div>
-            {
-                hours.length > 1 && !close &&
-                <>
-                    <div className={styles.hoursContainer}>
-                        {
-                            hours.map(elt => {
-                                return (
-                                    <ButtonGroup
-                                    key={hours.indexOf(elt)}
-                                    >
-                                        <ToggleButton
-                                            
-                                            variant="outline-danger"
-                                            onClick={() => handleOnHour(event, elt)}
-                                            checked={buttonValue === hours.indexOf(elt)}
-                                            type="radio"
-                                        >{elt}
-                                        </ToggleButton>
-                                    </ButtonGroup>
-                                )
-                            })
-                        }
-                    </div>
-                    <div className={styles.cutlery}>
-                        <label htmlFor="cutlery">Nombre de convives : </label>
-                        <input type="number" id='cutlery' name='cutlery' placeholder='0' />
-                    </div>
-                    <Button type='submit'>Envoyer votre réservation</Button>
-                </>
+    const handleOnSubmit = (e) => {
+        e.preventDefault
+        if (date > Date.now()) {
+            return error()
+        }
+        if (event.target.cutlery.value * 1 <= 0) {
+            return error()
+        }
+        submitReservationQuery(e, date, lunchOrDiner, state, dispatch)
+        if (state.user.login_temp) {
+            const handleOnDisconnect = () => {
+                localStorage.removeItem('token')
+                dispatch({
+                    type: "LOGOUT_USER",
+                    payload: null
+                })
             }
-        </form>
+            handleOnDisconnect
+        }
+    }
+
+
+    return (
+        state?.reservation ?
+            <div className={styles.result}><h2>Votre réservation est prise en compte</h2></div>
+            :
+            <form
+                className={styles.container}
+                onSubmit={(e) => handleOnSubmit(e)}
+            >
+                <Calendar onChange={onChange} value={value} />
+                <div className={styles.buttonContainer}>
+                    {
+                        lunch &&
+                        <Button
+                            variant="outline-primary"
+                            onClick={handleOnClick}
+                        >Lunch</Button>
+                    }
+                    {
+                        diner &&
+                        <Button
+                            variant="outline-primary"
+                            onClick={handleOnClick}
+                        >
+                            Diner
+                        </Button>
+                    }
+                    {
+                        close &&
+                        <h2>On est fermé ! Désolé</h2>
+                    }
+                </div>
+                {
+                    hours.length > 1 && !close &&
+                    <>
+                        <div className={styles.hoursContainer}>
+                            {
+                                hours.map(elt => {
+                                    return (
+                                        <ButtonGroup
+                                            key={hours.indexOf(elt)}
+                                        >
+                                            <ToggleButton
+
+                                                variant="outline-danger"
+                                                onClick={() => handleOnHour(event, elt)}
+                                                checked={buttonValue === hours.indexOf(elt)}
+                                                type="radio"
+                                            >{elt}
+                                            </ToggleButton>
+                                        </ButtonGroup>
+                                    )
+                                })
+                            }
+                        </div>
+                        <div className={styles.cutlery}>
+                            <label htmlFor="cutlery">Nombre de convives : </label>
+                            <input type="number" id='cutlery' name='cutlery' placeholder='0' />
+                        </div>
+                        {
+                            totalCapacity > restCapacity ?
+                                <>
+                                    <h3 className={styles.capacity}>Il reste {totalCapacity - restCapacity} places ! ne tardez pas</h3>
+                                    <Button type='submit'>Envoyer votre réservation</Button>
+                                </>
+                                :
+                                <h3 className={styles.capacity}>Nous sommes victimes de notre succès... essayez une autre date !</h3>
+                        }
+                    </>
+                }
+            </form>
     )
 }
 
 export default ReservationForm
 
+// https://quai-antique.xyz/api/reservations?page=1&reservationDate=2023-2-14&lunchOrDiner=true
+// https://quai-antique.xyz/api/reservations?page=1&reservationDate=2023-02-15&lunchOrDiner=true
