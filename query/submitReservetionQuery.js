@@ -1,8 +1,7 @@
-async function submitReservationQuery (e, date, lunch, state, dispatch) {
-    e.preventDefault()
+async function submitReservationQuery (covers, date, lunch, state, dispatch) {
     const id = state.user.id
     let data = {
-        nbCovers: event.target.cutlery.value * 1,
+        nbCovers: covers,
         reservationDate: date,
         user: `/api/users/${id}`,
         lunchOrDiner: lunch

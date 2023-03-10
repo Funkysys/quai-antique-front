@@ -22,7 +22,11 @@ const ReservationForm = ({ opening_hours }) => {
     const [hours, setHours] = useState([])
     const [month, setMonth] = useState("")
     const [date, setDate] = useState("")
-    const [selectedHour, setSelectedHour] = useState()
+    const [covers, setCovers] = useState(0)
+    const [selectedHour, setSelectedHour] = useState("")
+    const [dateError, setDateError] = useState(false)
+    const [hourError, setHourError] = useState(false)
+    const [coversError, setCoversError] = useState(false)
 
     useEffect(() => {
         const totalCapacityQuery = async () => {
@@ -69,7 +73,7 @@ const ReservationForm = ({ opening_hours }) => {
                 setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate()}T${hourSplit[0]}:${hourSplit[2]}:00`)
             }
         }
-    }, [selectedHour])
+    }, [selectedHour, value, month])
 
     useEffect(() => {
         opening_hours['hydra:member'].map(elt => {
@@ -154,22 +158,29 @@ const ReservationForm = ({ opening_hours }) => {
         setButtonValue(hours.indexOf(elt))
         const hour = event.target
         setSelectedHour(hour.innerText)
-        const test = async function count() {
-            const res3 = await fetch('https://quai-antique.xyz/api/restaurants')
-            const restaurant = await res3.json()
-            return (restaurant['hydra:member'][0].capacity)
-        }
-
     }
     const handleOnSubmit = (e) => {
-        e.preventDefault
-        if (date > Date.now()) {
-            return error()
+        e.preventDefault()
+        if (value.getTime() < Date.now()) {
+            return setDateError(true)
+        } else {
+            setDateError(false)
         }
-        if (event.target.cutlery.value * 1 <= 0) {
-            return error()
+        console.log(selectedHour)
+        if (!selectedHour) {
+            return setHourError(true)
+        } else {
+            setHourError(false)
         }
-        submitReservationQuery(e, date, lunchOrDiner, state, dispatch)
+        if (covers <= 0) {
+            return setCoversError(true)
+        } else {
+            setCoversError(false)
+        }
+        setCovers(event.target.cutlery.value * 1)
+        if (!hours, !value, !covers) {
+            submitReservationQuery(covers, date, lunchOrDiner, state, dispatch)
+        }
         if (state.user.login_temp) {
             const handleOnDisconnect = () => {
                 localStorage.removeItem('token')
@@ -191,7 +202,13 @@ const ReservationForm = ({ opening_hours }) => {
                 className={styles.container}
                 onSubmit={(e) => handleOnSubmit(e)}
             >
+                {
+                    dateError && <p className='text-danger fs-6'> Vous devez sélectionner une date ultérieur à la date actuelle</p>
+                }
                 <Calendar onChange={onChange} value={value} />
+                {
+                    hourError && <p className='text-danger fs-6'> {`Vous devez sélectionner l'heure a laquelle vous comptez nous rejoindre`}</p>
+                }
                 <div className={styles.buttonContainer}>
                     {
                         lunch &&
@@ -237,6 +254,9 @@ const ReservationForm = ({ opening_hours }) => {
                                 })
                             }
                         </div>
+                        {
+                            coversError && <p className='text-danger fs-6'> Vous ne pouvez pas réerver pour... personne...</p>
+                        }
                         <div className={styles.cutlery}>
                             <label htmlFor="cutlery">Nombre de convives : </label>
                             <input type="number" id='cutlery' name='cutlery' placeholder='0' />
