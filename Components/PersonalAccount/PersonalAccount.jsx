@@ -4,7 +4,7 @@ import styles from './PersonalAccount.module.css'
 import { Context } from '@/lib/context';
 const PersonalAccount = () => {
     const {state, dispatch} = useContext(Context)
-    console.log(state);
+    // console.log(state);
 
     return (
         <div
