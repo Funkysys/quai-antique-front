@@ -20,6 +20,7 @@ async function submitReservationQuery (covers, date, lunch, state, dispatch) {
         body: JSONdata,
     }
     const response = await fetch(endpoint, options)
+    console.log(response);
     if (response.status == 201) {
             await dispatch({
                 type: "RESERVATION_DONE",

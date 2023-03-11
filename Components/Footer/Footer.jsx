@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import OpeningHours from '../OpeningHours/OpeningHours'
 import Contact from '@/Components/Contact/Contact'
+import PersonalAccount from '../PersonalAccount/PersonalAccount'
 import styles from './Footer.module.css'
 
 const Footer = ({ opening_hours }) => {
@@ -12,6 +13,7 @@ const Footer = ({ opening_hours }) => {
       <div className={styles.mentionsLegal}>
         <Link href='/mention-légales'> 
         <p>Mentions Légales</p></Link>
+        <PersonalAccount />
       </div>
     </div>
   )

@@ -6,7 +6,7 @@ import Register from '../Register/Register'
 import loginQuery from '@/query/loginQuery'
 
 const Login = () => {
-  const { state, dispatch } = useContext(Context);
+  const {  dispatch } = useContext(Context);
   const [toggle, setToggle] = useState(false)
 
   const handleOnClick = () => setToggle(!toggle)

@@ -140,7 +140,6 @@ const ReservationForm = ({ opening_hours }) => {
     }, [value, maxCloseHour, maxOpeningHour])
 
     const handleOnClick = (event) => {
-
         const value = event.target.innerText.toLowerCase()
         if (value === 'lunch') {
             setLunchOrDiner(true)
@@ -161,24 +160,26 @@ const ReservationForm = ({ opening_hours }) => {
     }
     const handleOnSubmit = (e) => {
         e.preventDefault()
+        console.log(event.target.cutlery.value * 1);
+        setCovers(event.target.cutlery.value * 1)
+        console.log(value.getTime(), Date.now())
         if (value.getTime() < Date.now()) {
             return setDateError(true)
         } else {
             setDateError(false)
         }
-        console.log(selectedHour)
         if (!selectedHour) {
             return setHourError(true)
         } else {
             setHourError(false)
         }
+        console.log(covers);
         if (covers <= 0) {
             return setCoversError(true)
         } else {
             setCoversError(false)
         }
-        setCovers(event.target.cutlery.value * 1)
-        if (!hours, !value, !covers) {
+        if (!hourError, !dateError, !coversError) {
             submitReservationQuery(covers, date, lunchOrDiner, state, dispatch)
         }
         if (state.user.login_temp) {
