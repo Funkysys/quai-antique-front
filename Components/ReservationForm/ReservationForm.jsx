@@ -293,7 +293,7 @@ const ReservationForm = ({ opening_hours }) => {
                             {
                                 capacity > 0 ?
                                     <>
-                                        <h3 className={styles.capacity}>Il reste {covers > 0 && capacity} places ! ne tardez pas</h3>
+                                        <h3 className={styles.capacity}>Il reste {covers > -1 && capacity} places ! ne tardez pas</h3>
                                         <Button type='submit'>Envoyer votre réservation</Button>
                                     </>
                                     :
