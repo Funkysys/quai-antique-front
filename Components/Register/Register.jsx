@@ -44,7 +44,7 @@ const Register = () => {
       allergy: allergiesID
     }
     const confirm_password = event.target.confirm_password.value
-    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
     if (data.email && data.email.match(mailformat)) {
       setEmailRequired(true)
     } else {
