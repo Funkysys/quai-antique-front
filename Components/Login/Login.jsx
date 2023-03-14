@@ -8,7 +8,7 @@ import loginQuery from '@/query/loginQuery'
 const Login = () => {
   const {  dispatch } = useContext(Context);
   const [toggle, setToggle] = useState(false)
-
+  
   const handleOnClick = () => setToggle(!toggle)
 
   return (
@@ -24,6 +24,7 @@ const Login = () => {
             <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" placeholder='Your Password' />
             <div className={styles.connectionButtons}>
+            
               <Button variant="outline-primary" className={styles.connectionButton} type="submit">Connexion</ Button>
               <Button onClick={handleOnClick} className={styles.registerButton}>Inscription</ Button>
             </div>

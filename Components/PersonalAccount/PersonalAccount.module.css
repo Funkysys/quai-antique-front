@@ -1,7 +1,46 @@
-/* .container {
+.container {
+    position: relative;
+    color: antiquewhite;
+}
+
+.container h2 {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.container form label {
+    margin-bottom: 6px;
+}
+
+.container form input {
+    border-radius: 6px;
+    margin-bottom: 10px;
+    padding: 3px 5px;
+    font-size: 0.8em;
+}
+
+.connectionButtons {
+    margin: auto;
+}
+.connexionTrue{
+    color: antiquewhite;
+}
+.reservationButton {
     position: absolute;
-    bottom: 80vh;
-    height: 60vh;
-    width: 80vw;
-    background: #000;
-} */
+    top: 10px;
+    left: 10px;
+    margin: 0 auto;
+}
+.allergies {
+
+}
+
+.reservations {
+    padding: 30px 15px;
+}

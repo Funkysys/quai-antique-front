@@ -7,7 +7,7 @@ import Gallery from '@/Components/Gallery/Gallery'
 import Reservation from '@/Components/Reservation/Reservation'
 import Footer from '@/Components/Footer/Footer'
 
-export default function Home({ opening_hours, allergies }: any) {
+export default function Home({ opening_hours }: any) {
 
   
   return (
@@ -37,7 +37,7 @@ export default function Home({ opening_hours, allergies }: any) {
           <Gallery />
         </section>
         <section id="reservation">
-          <Reservation opening_hours={opening_hours} />
+          <Reservation opening_hours={opening_hours}/>
         </section>
       </main>
       <footer id="contact">
@@ -52,13 +52,11 @@ export async function getStaticProps() {
   const res = await fetch('https://quai-antique.xyz/api/opening_hours')
   const opening_hours = await res.json()
 
-  const res2 = await fetch('https://quai-antique.xyz/api/allergies')
-  const allergies = await res2.json()
+  
 
   return {
     props: {
       opening_hours,
-      allergies,
     },
   }
 }

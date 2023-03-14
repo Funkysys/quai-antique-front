@@ -40,9 +40,9 @@ const ReservationForm = ({ opening_hours }) => {
     useEffect(() => {
 
         if (value.getMonth().length === 1) {
-            setMonth(`0${value.getUTCMonth()}`)
+            setMonth(`0${value.getUTCMonth() + 1}`)
         } else {
-            setMonth(`${value.getUTCMonth()}`)
+            setMonth(`${value.getUTCMonth() + 1}`)
         }
         const restCapacityQuery = async () => {
             const tempArr = []
