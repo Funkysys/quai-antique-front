@@ -45,9 +45,6 @@ const PersonalAccount = () => {
       }
     }
     userInfosFunc()
-
-
-
     const addAllergies = async () => {
       const res = await fetch('https://quai-antique.xyz/api/allergies')
       const result = await res.json()
@@ -62,7 +59,7 @@ const PersonalAccount = () => {
     }
     addAllergies()
   }, [])
-
+  
   const handleOnSubmit = (e) => {
     e.preventDefault()
     const data = {
@@ -81,12 +78,12 @@ const PersonalAccount = () => {
       return setNameRequired(false)
     }
   }
-
+  
   const handleOnChange = (e) => {
     console.log(e);
     setSelectedAllergies(e)
   }
-
+  
   return (
     !toggle ?
       <>
@@ -95,7 +92,7 @@ const PersonalAccount = () => {
               {
                 user.reservation?.map(elt => {
                   return (  
-                    <h3 className='mt-2'>{`${new Date(elt.reservationDate).toLocaleDateString()} a ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
+                    <h3 key={elt => new Date(elt.reservationDate).getTime()}className='mt-2'>{`${new Date(elt.reservationDate).toLocaleDateString()} a ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
                   )
                 })
               }
@@ -134,7 +131,7 @@ const PersonalAccount = () => {
               {
                 user.allergies?.map(elt => {
                   return (
-                    <h3 className=''>{elt}</h3>
+                    <h3 key={elt.id} className=''>{elt}</h3>
                   )
                 })
               }
