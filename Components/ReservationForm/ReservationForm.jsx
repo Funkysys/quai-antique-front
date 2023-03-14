@@ -14,6 +14,7 @@ const ReservationForm = ({ opening_hours }) => {
     const [lunch, setLunch] = useState(false);
     const [diner, setDiner] = useState(false);
     const [close, setClose] = useState(false);
+    const [toLate, setToLate] = useState(false)
     const [lunchOrDiner, setLunchOrDiner] = useState(false);
     const [buttonValue, setButtonValue] = useState()
     const [currentDayLunch, setCurrentDayLunch] = useState()
@@ -77,6 +78,9 @@ const ReservationForm = ({ opening_hours }) => {
     }, [selectedHour, value, month])
 
     useEffect(() => {
+        setMaxOpeningHour()
+
+
         opening_hours['hydra:member'].map(elt => {
             let dayIndex;
             if (elt.day.day === "Lundi") dayIndex = 1
@@ -86,30 +90,42 @@ const ReservationForm = ({ opening_hours }) => {
             if (elt.day.day === "Vendredi") dayIndex = 5
             if (elt.day.day === "Samedi") dayIndex = 6
             if (elt.day.day === "Dimanche") dayIndex = 0
-            if (value.getDay() === dayIndex) {
-                if (!elt.lunch && !elt.diner && elt.close) {
-                    setClose(true)
-                    setDiner(false)
-                    setLunch(false)
-                } else if (elt.close && !elt.diner) {
-                    setDiner(false)
-                } else if (elt.close && !elt.lunch) {
-                    setLunch(false)
-                } else if (elt.lunch) {
-                    setCurrentDayLunch(elt)
-                    setClose(false)
-                    setLunch(true)
-                } else if (elt.diner) {
-                    setCurrentDayDiner(elt)
-                    setClose(false)
-                    setDiner(true)
-                } else if (!elt.lunch) {
-                    setClose(false)
-                    setLunch(false)
-                } else if (!elt.diner) {
-                    setClose(false)
-                    setDiner(false)
+            const tempTime = new Date()
+            const tempDate = new Date(tempTime.getFullYear(), tempTime.getMonth(), tempTime.getDate()).getTime()
+            console.log(value.getTime() >= tempDate);
+            if (value.getTime() >= tempDate) {
+                if (value.getDay() === dayIndex) {
+                    if (!elt.lunch && !elt.diner && elt.close) {
+                        setClose(true)
+                        setDiner(false)
+                        setLunch(false)
+                    } else if (elt.close && !elt.diner) {
+                        setDiner(false)
+                    } else if (elt.close && !elt.lunch) {
+                        setLunch(false)
+                    } else if (elt.lunch) {
+                        setCurrentDayLunch(elt)
+                        setClose(false)
+                        setLunch(true)
+                    } else if (elt.diner) {
+                        setCurrentDayDiner(elt)
+                        setClose(false)
+                        setDiner(true)
+                    } else if (!elt.lunch) {
+                        setClose(false)
+                        setLunch(false)
+                    } else if (!elt.diner) {
+                        setClose(false)
+                        setDiner(false)
+                    }
+                    setToLate(false)
                 }
+            } else {
+                console.log("on est là")
+                setClose(false)
+                setLunch(false)
+                setDiner(false)
+                setToLate(true)
             }
         })
     }, [value.getDay()])
@@ -162,7 +178,7 @@ const ReservationForm = ({ opening_hours }) => {
 
     const handleOnChange = () => {
         setCovers(event.target.value * 1)
-        setCapacity(totalCapacity  - restCapacity - covers)
+        setCapacity(totalCapacity - restCapacity - covers)
     }
 
     const handleOnSubmit = (e) => {
@@ -199,89 +215,93 @@ const ReservationForm = ({ opening_hours }) => {
             handleOnDisconnect
         }
     }
-console.log(covers)
+    console.log(covers)
     return (
         state?.login_temp ?
             <div className={styles.result}><h2>Veuillez vous reconnecter s'il vous plait</h2></div>
-        :
-        state?.reservation ?
-            <div className={styles.result}><h2>Votre réservation est prise en compte</h2></div>
             :
-            <form
-                className={styles.container}
-                onSubmit={(e) => handleOnSubmit(e)}
-            >
-                {
-                    dateError && <p className='text-danger fs-6'> Vous devez sélectionner une date ultérieur à la date actuelle</p>
-                }
-                <Calendar onChange={onChange} value={value} />
-                {
-                    hourError && <p className='text-danger fs-6'> {`Vous devez sélectionner l'heure a laquelle vous comptez nous rejoindre`}</p>
-                }
-                <div className={styles.buttonContainer}>
+            state?.reservation ?
+                <div className={styles.result}><h2>Votre réservation est prise en compte</h2></div>
+                :
+                <form
+                    className={styles.container}
+                    onSubmit={(e) => handleOnSubmit(e)}
+                >
                     {
-                        lunch &&
-                        <Button
-                            variant="outline-primary"
-                            onClick={handleOnClick}
-                        >Lunch</Button>
+                        dateError && <p className='text-danger fs-6'> Vous devez sélectionner une date ultérieur à la date actuelle</p>
                     }
+                    <Calendar onChange={onChange} value={value} />
                     {
-                        diner &&
-                        <Button
-                            variant="outline-primary"
-                            onClick={handleOnClick}
-                        >
-                            Diner
-                        </Button>
+                        hourError && <p className='text-danger fs-6'> {`Vous devez sélectionner l'heure a laquelle vous comptez nous rejoindre`}</p>
                     }
+                    <div className={styles.buttonContainer}>
+                        {
+                            lunch &&
+                            <Button
+                                variant="outline-primary"
+                                onClick={handleOnClick}
+                            >Lunch</Button>
+                        }
+                        {
+                            diner &&
+                            <Button
+                                variant="outline-primary"
+                                onClick={handleOnClick}
+                            >
+                                Diner
+                            </Button>
+                        }
+                        {
+                            close &&
+                            <h2 className={styles.result}>On est fermé ! Désolé</h2>
+                        }
+                        {
+                            toLate &&
+                            <h2 className={styles.result}>Un peu tard pour réserver...</h2>
+                        }
+                    </div>
                     {
-                        close &&
-                        <h2 className={styles.result}>On est fermé ! Désolé</h2>
-                    }
-                </div>
-                {
-                    hours.length > 1 && !close &&
-                    <>
-                        <div className={styles.hoursContainer}>
-                            {
-                                hours.map(elt => {
-                                    return (
-                                        <ButtonGroup
-                                            key={hours.indexOf(elt)}
-                                        >
-                                            <ToggleButton
+                        hours.length > 1 && !close &&
+                        <>
+                            <div className={styles.hoursContainer}>
+                                {
+                                    hours.map(elt => {
+                                        return (
+                                            <ButtonGroup
+                                                key={hours.indexOf(elt)}
+                                            >
+                                                <ToggleButton
 
-                                                variant="outline-danger"
-                                                onClick={() => handleOnHour(event, elt)}
-                                                checked={buttonValue === hours.indexOf(elt)}
-                                                type="radio"
-                                            >{elt}
-                                            </ToggleButton>
-                                        </ButtonGroup>
-                                    )
-                                })
+                                                    variant="outline-danger"
+                                                    onClick={() => handleOnHour(event, elt)}
+                                                    checked={buttonValue === hours.indexOf(elt)}
+                                                    type="radio"
+                                                >{elt}
+                                                </ToggleButton>
+                                            </ButtonGroup>
+                                        )
+                                    })
+                                }
+                            </div>
+                            {
+                                coversError && <p className='text-danger fs-6'> Vous ne pouvez pas réerver pour... personne...</p>
                             }
-                        </div>
-                        {
-                            coversError && <p className='text-danger fs-6'> Vous ne pouvez pas réerver pour... personne...</p>
-                        }
-                        <div className={styles.cutlery}>
-                            <label htmlFor="cutlery">Nombre de convives : </label>
-                            <input type="number" id='cutlery' name='cutlery' placeholder='0' onChange={handleOnChange}/>
-                        </div>
-                        {
-                            capacity > 0 ?
-                                <>
-                                    <h3 className={styles.capacity}>Il reste {covers > 0 &&capacity} places ! ne tardez pas</h3>
-                                    <Button type='submit'>Envoyer votre réservation</Button>
-                                </>
-                                :
-                                <h3 className={styles.capacity}>Nous sommes victimes de notre succès... essayez une autre date !</h3>
-                        }
-                    </>
-                }
-            </form>
+                            <div className={styles.cutlery}>
+                                <label htmlFor="cutlery">Nombre de convives : </label>
+                                <input type="number" id='cutlery' name='cutlery' placeholder='0' onChange={handleOnChange} />
+                            </div>
+                            {
+                                capacity > 0 ?
+                                    <>
+                                        <h3 className={styles.capacity}>Il reste {covers > 0 && capacity} places ! ne tardez pas</h3>
+                                        <Button type='submit'>Envoyer votre réservation</Button>
+                                    </>
+                                    :
+                                    <h3 className={styles.capacity}>Nous sommes victimes de notre succès... essayez une autre date !</h3>
+                            }
+                        </>
+                    }
+                </form>
     )
 }
 
