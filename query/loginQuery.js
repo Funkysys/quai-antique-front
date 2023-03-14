@@ -37,6 +37,10 @@ async function loginQuery (e, dispatch, email = null, password = null) {
                 type: "LOGGED_IN_USER",
                 payload: decode
             })
+            await dispatch({
+                type: "RESERVATION_LOGIN_TEMP",
+                payload: false
+            })
         }
     } else {
         throw Error(response.statusText)

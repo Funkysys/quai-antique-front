@@ -1,4 +1,4 @@
-async function submitReservationQuery (covers, date, lunch, state, dispatch) {
+async function submitReservationQuery(covers, date, lunch, state, dispatch) {
     const id = state.user.id
     let data = {
         nbCovers: covers,
@@ -15,20 +15,22 @@ async function submitReservationQuery (covers, date, lunch, state, dispatch) {
         headers: {
             'Accept': '*/*',
             'Content-Type': 'application/json',
-            'Authorization': `bearer ${localStorage.token}` 
+            'Authorization': `bearer ${localStorage.token}`
         },
         body: JSONdata,
     }
     const response = await fetch(endpoint, options)
     if (response.status == 201) {
+        await dispatch({
+            type: "RESERVATION_DONE",
+            payload: true
+        })
+    } else {
+        if (response.status == 401) {
             await dispatch({
-                type: "RESERVATION_DONE",
+                type: "RESERVATION_LOGIN_TEMP",
                 payload: true
             })
-    } else {
-        if (response.status == 201){
-            type: "RESERVATION_LOGIN_TEMP"
-            payload: true
         }
     }
 }

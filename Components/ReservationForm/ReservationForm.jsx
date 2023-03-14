@@ -161,7 +161,10 @@ const ReservationForm = ({ opening_hours }) => {
     const handleOnSubmit = (e) => {
         e.preventDefault()
         setCovers(event.target.cutlery.value * 1)
-        if (value.getTime() < Date.now()) {
+        const tempTime = new Date()
+        const tempDate = new Date(tempTime.getFullYear(), tempTime.getMonth(), tempTime.getDate()).getTime()
+        console.log(value.getTime() < tempDate);
+        if (value.getTime() < tempDate) {
             return setDateError(true)
         } else {
             setDateError(false)
@@ -191,8 +194,10 @@ const ReservationForm = ({ opening_hours }) => {
         }
     }
 
-
     return (
+        state?.login_temp ?
+            <div className={styles.result}><h2>Veuillez vous reconnecter s'il vous plait</h2></div>
+        :
         state?.reservation ?
             <div className={styles.result}><h2>Votre réservation est prise en compte</h2></div>
             :
@@ -226,7 +231,7 @@ const ReservationForm = ({ opening_hours }) => {
                     }
                     {
                         close &&
-                        <h2>On est fermé ! Désolé</h2>
+                        <h2 className={styles.result}>On est fermé ! Désolé</h2>
                     }
                 </div>
                 {
