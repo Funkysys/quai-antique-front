@@ -10,6 +10,7 @@ const ReservationForm = ({ opening_hours }) => {
     const [value, onChange] = useState(new Date());
     const [totalCapacity, setTotalCapacity] = useState();
     const [restCapacity, setRestCapacity] = useState([]);
+    const [capacity, setCapacity] = useState([]);
     const [lunch, setLunch] = useState(false);
     const [diner, setDiner] = useState(false);
     const [close, setClose] = useState(false);
@@ -158,9 +159,14 @@ const ReservationForm = ({ opening_hours }) => {
         const hour = event.target
         setSelectedHour(hour.innerText)
     }
+
+    const handleOnChange = () => {
+        setCovers(event.target.value * 1)
+        setCapacity(totalCapacity  - restCapacity - covers)
+    }
+
     const handleOnSubmit = (e) => {
         e.preventDefault()
-        setCovers(event.target.cutlery.value * 1)
         const tempTime = new Date()
         const tempDate = new Date(tempTime.getFullYear(), tempTime.getMonth(), tempTime.getDate()).getTime()
         console.log(value.getTime() < tempDate);
@@ -193,7 +199,7 @@ const ReservationForm = ({ opening_hours }) => {
             handleOnDisconnect
         }
     }
-
+console.log(covers)
     return (
         state?.login_temp ?
             <div className={styles.result}><h2>Veuillez vous reconnecter s'il vous plait</h2></div>
@@ -262,12 +268,12 @@ const ReservationForm = ({ opening_hours }) => {
                         }
                         <div className={styles.cutlery}>
                             <label htmlFor="cutlery">Nombre de convives : </label>
-                            <input type="number" id='cutlery' name='cutlery' placeholder='0' />
+                            <input type="number" id='cutlery' name='cutlery' placeholder='0' onChange={handleOnChange}/>
                         </div>
                         {
-                            totalCapacity > restCapacity ?
+                            capacity > 0 ?
                                 <>
-                                    <h3 className={styles.capacity}>Il reste {totalCapacity - restCapacity} places ! ne tardez pas</h3>
+                                    <h3 className={styles.capacity}>Il reste {covers > 0 &&capacity} places ! ne tardez pas</h3>
                                     <Button type='submit'>Envoyer votre réservation</Button>
                                 </>
                                 :
