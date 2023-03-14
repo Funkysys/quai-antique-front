@@ -80,7 +80,6 @@ const PersonalAccount = () => {
   }
   
   const handleOnChange = (e) => {
-    console.log(e);
     setSelectedAllergies(e)
   }
   

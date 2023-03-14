@@ -22,7 +22,6 @@ const Register = () => {
       const result = await res.json()
       
       setAllergies(result['hydra:member'].map(elt => {
-        console.log(elt);
         return { id: elt.id, value: elt.name, label: elt.name }
       }))
     }
@@ -30,12 +29,12 @@ const Register = () => {
   }, [])
 
   const handleOnChange = (e) => {
-    console.log(e);
     setSelectedAllergies(e)
   }
 
   const handleOnSubmit = async (e) => {
     e.preventDefault()
+    console.log(event.target.email)
     const allergiesID = []
     selectedAllergies.map(elt => allergiesID.push(elt.value))
     const data = {
