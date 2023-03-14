@@ -7,6 +7,7 @@ import Select from 'react-select';
 const PersonalAccount = () => {
   const { state, dispatch } = useContext(Context)
   const [toggle, setToggle] = useState(true)
+  const [valid, setValid] = useState(false)
   const [emailRequired, setEmailRequired] = useState(true)
   const [nameRequired, setNameRequired] = useState(true)
   const [user, setUser] = useState({
@@ -17,7 +18,6 @@ const PersonalAccount = () => {
   })
   const [allergies, setAllergies] = useState([])
   const [selectedAllergies, setSelectedAllergies] = useState([])
-  const [UserAllergies, setUserAllergies] = useState([])
 
   useEffect(() => {
     const userInfosFunc = async () => {
@@ -45,12 +45,16 @@ const PersonalAccount = () => {
       }
     }
     userInfosFunc()
+
+  }, [])
+  useEffect(() => {
     const addAllergies = async () => {
       const res = await fetch('https://quai-antique.xyz/api/allergies')
       const result = await res.json()
-      const restAllergies = result['hydra:member'].filter(elt => {
+      const restAllergies = []
+      result['hydra:member'].filter(elt => {
         if (!user.allergies.includes(elt.name)) {
-          return elt
+          return restAllergies.push(elt)
         }
       })
       setAllergies(restAllergies.map(elt => {
@@ -58,15 +62,19 @@ const PersonalAccount = () => {
       }))
     }
     addAllergies()
-  }, [])
-  
-  const handleOnSubmit = (e) => {
+  }, [user])
+
+  const handleOnSubmit = async (e) => {
     e.preventDefault()
+    const allergieName = []
+    selectedAllergies.map(elt => allergieName.push(elt.value))
+    user.allergies.map(el => allergieName.push(el))
     const data = {
-      email: event.target.email.value,
-      name: event.target.name.value,
-      allergy: allergiesID
+      email: event.target.email.value !== "" ? event.target.email.value : user.email,
+      name: event.target.name.value !== "" ? event.target.name.value : user.name,
+      allergy: allergieName
     }
+    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
     if (data.email && data.email.match(mailformat)) {
       setEmailRequired(true)
     } else {
@@ -77,69 +85,98 @@ const PersonalAccount = () => {
     } else {
       return setNameRequired(false)
     }
+
+    const JSONdata = JSON.stringify(data)
+    const endpoint = `https://quai-antique.xyz/api/users/${state.user.id}`
+
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json',
+        'Authorization': `bearer ${localStorage.token}`
+      },
+      body: JSONdata,
+    }
+    const response = await fetch(endpoint, options)
+
+
+    if (response.status === 200) {
+      setValid(true)
+    } else {
+      setValid(false)
+      throw Error(response.statusText)
+    }
   }
-  
+
   const handleOnChange = (e) => {
     setSelectedAllergies(e)
   }
-  
+
   return (
     !toggle ?
       <>
         <Button className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Vos informations</Button>
         <div className={styles.reservations}>
-              {
-                user.reservation?.map(elt => {
-                  return (  
-                    <h3 key={elt => new Date(elt.reservationDate).getTime()}className='mt-2'>{`${new Date(elt.reservationDate).toLocaleDateString()} a ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
-                  )
-                })
-              }
-            </div>
+          {
+            user.reservation?.map(elt => {
+              return (
+                <h3 key={elt => new Date(elt.reservationDate).getTime()} className='mt-2'>{`${new Date(elt.reservationDate).toLocaleDateString()} a ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
+              )
+            })
+          }
+        </div>
       </>
       :
       <>
-        <div
-          className={styles.container}
-        >
-          <h2>Bienvenu {user.name} !</h2>
-          <form onSubmit={handleOnSubmit}>
-            <label htmlFor="email">Email</label>
-            {!emailRequired && <p className='text-danger fs-6'>Votre email est obligatoire</p>}
-            <input type="email" name="email" id="email" placeholder={`${user.email}`} />
-            <label htmlFor="name">Name</label>
-            {!nameRequired && <p className='text-danger fs-6'>Votre nom est obligatoire</p>}
-            <input type="text" name="name" id="name" placeholder={`${user.email}`} />
-            <label htmlFor="allergies">Vos allergies</label>
-            <Select
-              onChange={handleOnChange}
-              isMulti
-              name="allergies"
-              options={allergies}
-              className="basic-multi-select mb-3"
-              classNamePrefix="select"
-              styles={{
-                option: (base) => ({
-                  ...base,
-                  height: '100%',
-                  color: 'black'
-                }),
-              }}
-            />
-            <div className={styles.allergies}>
-              {
-                user.allergies?.map(elt => {
-                  return (
-                    <h3 key={elt.id} className=''>{elt}</h3>
-                  )
-                })
-              }
+        {
+          !valid ?
+            <div
+              className={styles.container}
+            >
+              <h2>Bienvenu {user.name} !</h2>
+              <form onSubmit={handleOnSubmit}>
+                <label htmlFor="email">Email</label>
+                {!emailRequired && <p className='text-danger fs-6'>Votre email est obligatoire</p>}
+                <input type="email" name="email" id="email" placeholder={`${user.email}`} />
+                <label htmlFor="name">Name</label>
+                {!nameRequired && <p className='text-danger fs-6'>Votre nom est obligatoire</p>}
+                <input type="text" name="name" id="name" placeholder={`${user.name}`} />
+                <label htmlFor="allergies">Vos allergies</label>
+                <Select
+                  onChange={handleOnChange}
+                  isMulti
+                  name="allergies"
+                  options={allergies}
+                  className="basic-multi-select mb-3"
+                  classNamePrefix="select"
+                  styles={{
+                    option: (base) => ({
+                      ...base,
+                      height: '100%',
+                      color: 'black'
+                    }),
+                  }}
+                />
+                <div className={styles.allergies}>
+                  {
+                    user.allergies?.map(elt => {
+                      return (
+                        <h3 key={elt.id} className=''>{elt}</h3>
+                      )
+                    })
+                  }
+                </div>
+                <div className={styles.connectionButtons}>
+                  <Button className='mt-5' type="submit" >Mettre à jour votre profil</ Button>
+                </div>
+              </form>
             </div>
-            <div className={styles.connectionButtons}>
-              <Button className='mt-5' type="submit" >Mettre à jour votre profil</ Button>
+            :
+            <div className={styles.success}>
+              <p>Votre profil à bien été mis à jour</p>
             </div>
-          </form>
-        </div>
+        }
         <Button className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Réservations</Button>
       </>
   )
