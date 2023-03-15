@@ -3,11 +3,11 @@ import styles from '@/styles/Home.module.css'
 import HomePage from '@/Components/HomePage/HomePage'
 import Navbar from '@/Components/Navbar/Navbar'
 import Menu from '@/Components/Menu/Menu'
-import Gallery from '@/Components/Gallery/Gallery'
+import GalleryImages from '@/Components/GalleryImages/GalleryImages'
 import Reservation from '@/Components/Reservation/Reservation'
 import Footer from '@/Components/Footer/Footer'
 
-export default function Home({ opening_hours }: any) {
+export default function Home({ opening_hours, images }: any) {
 
   
   return (
@@ -34,7 +34,7 @@ export default function Home({ opening_hours }: any) {
           <Menu />
         </section>
         <section id="gallery">
-          <Gallery />
+          <GalleryImages images={images}/>
         </section>
         <section id="reservation">
           <Reservation opening_hours={opening_hours}/>
@@ -52,11 +52,14 @@ export async function getStaticProps() {
   const res = await fetch('https://quai-antique.xyz/api/opening_hours')
   const opening_hours = await res.json()
 
+  const res2 = await fetch('https://quai-antique.xyz/api/images')
+  const images = await res2.json()
   
 
   return {
     props: {
       opening_hours,
+      images
     },
   }
 }

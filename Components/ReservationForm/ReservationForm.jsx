@@ -9,7 +9,7 @@ const ReservationForm = ({ opening_hours }) => {
     const { dispatch, state } = useContext(Context);
     const [value, onChange] = useState(new Date());
     const [totalCapacity, setTotalCapacity] = useState();
-    const [restCapacity, setRestCapacity] = useState([]);
+    const [useCapacity, setUseCapacity] = useState([]);
     const [capacity, setCapacity] = useState([]);
     const [lunch, setLunch] = useState(false);
     const [diner, setDiner] = useState(false);
@@ -45,29 +45,25 @@ const ReservationForm = ({ opening_hours }) => {
         } else {
             setMonth(`${value.getUTCMonth()}`)
         }
-        const restCapacityQuery = async () => {
-            const tempArr = []
-            const reducer = (accumulator, curr) => accumulator + curr;
-            const res = await fetch(`https://quai-antique.xyz/api/reservations?page=1&reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth()}-${value.getUTCDate()}&lunchOrDiner=${lunchOrDiner}`)
+    }, [value, lunchOrDiner])
+
+    const useCapacityQuery = async () => {
+        const tempArr = []
+        const reducer = (accumulator, curr) => accumulator + curr;
+        const res = await fetch(`https://quai-antique.xyz/api/reservations?page=1&reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth()}-${value.getUTCDate()}&lunchOrDiner=${lunchOrDiner}`)
             .then(response => {
-                console.log(response);
                 return response.json()
             })
             .then(result => result['hydra:member'].map(elt => {
-                console.log(elt);
-                    tempArr.push(elt.nbCovers)
-                }))
-                if (tempArr[0]) {
-                    setRestCapacity(tempArr.reduce(reducer))
-                } else {
-                    setRestCapacity(0)
-                }
-            }
-            restCapacityQuery()
-            setCapacity(totalCapacity - restCapacity)
-            setCovers(0)
-        }, [value, lunch, diner, lunchOrDiner])
-        console.log(capacity);
+                tempArr.push(elt.nbCovers)
+            }))
+        if (tempArr[0]) {
+            setUseCapacity(tempArr.reduce(reducer))
+        } else {
+            setUseCapacity(0)
+        }
+        setCovers(0)
+    }
 
     useEffect(() => {
         if (selectedHour) {
@@ -81,9 +77,13 @@ const ReservationForm = ({ opening_hours }) => {
     }, [selectedHour, value, month])
 
     useEffect(() => {
-        setMaxOpeningHour()
-        
+        setCapacity(totalCapacity - useCapacity - covers);
+        console.log(totalCapacity, useCapacity, covers);
+        console.log(capacity);
+    }, [useCapacity, covers])
 
+    useEffect(() => {
+        setMaxOpeningHour()
         opening_hours['hydra:member'].map(elt => {
             let dayIndex;
             if (elt.day.day === "Lundi") dayIndex = 1
@@ -120,7 +120,7 @@ const ReservationForm = ({ opening_hours }) => {
                     } else if (!elt.diner) {
                         setClose(false)
                         setDiner(false)
-                    }        
+                    }
                 }
             } else {
                 setClose(false)
@@ -168,6 +168,7 @@ const ReservationForm = ({ opening_hours }) => {
             setMaxOpeningHour((currentDayDiner.openingHours.hour * 60) + currentDayDiner.openMinutes.minutes)
             setMaxMaxCloseHour((currentDayDiner.closeHours.hour * 60) + currentDayDiner.closeMinutes.minutes)
         }
+        useCapacityQuery()
 
     }
 
@@ -179,10 +180,8 @@ const ReservationForm = ({ opening_hours }) => {
 
     const handleOnChange = () => {
         setCovers(event.target.value * 1)
-        setCapacity(totalCapacity - restCapacity - covers)
     }
-    
-    console.log(totalCapacity, restCapacity, covers);
+
     const handleOnSubmit = (e) => {
         e.preventDefault()
         const tempTime = new Date()
