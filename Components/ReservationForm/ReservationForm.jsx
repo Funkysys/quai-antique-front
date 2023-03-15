@@ -78,8 +78,6 @@ const ReservationForm = ({ opening_hours }) => {
 
     useEffect(() => {
         setCapacity(totalCapacity - useCapacity - covers);
-        console.log(totalCapacity, useCapacity, covers);
-        console.log(capacity);
     }, [useCapacity, covers])
 
     useEffect(() => {
