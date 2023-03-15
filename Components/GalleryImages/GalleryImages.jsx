@@ -11,8 +11,6 @@ const GalleryImages = ({ images }) => {
   for (let i = 1; i <= nbPages; i++) {
     paginationNumber.push(i)
   }
-  console.log(paginationNumber);
-
   useEffect(() => {
     if (page === 1) {
       setImg([])
@@ -42,7 +40,6 @@ const GalleryImages = ({ images }) => {
     console.log(event.target.innerText);
     setPage(event.target.innerText)
   }
-  console.log(page);
   return (
     <div className={styles.container}>
       <div className="row">
