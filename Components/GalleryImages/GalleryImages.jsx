@@ -7,7 +7,7 @@ const GalleryImages = ({ images }) => {
   const [img, setImg] = useState([])
   useEffect(() => {
     images['hydra:member'].map(elt => {
-      console.log(elt);
+      setImg([])
       const tempImg = { title: elt.title, url: `https://quai-antique.xyz/asset/images/gallery/${elt.imageName}`, alt: elt.imageAlt }
       if(!img.includes(tempImg)) {
         setImg(img => [...img, tempImg])
@@ -32,8 +32,8 @@ const GalleryImages = ({ images }) => {
           img.map(elt => {
             console.log(elt.url);
             return (
-              <div class="col-md-4">
-                <div class="card bg-white p-4 m-3">
+              <div className="col-md-4">
+                <div className="card bg-white p-4 m-3">
                   <Image
                     src={elt.url}
                     alt={elt.alt}
