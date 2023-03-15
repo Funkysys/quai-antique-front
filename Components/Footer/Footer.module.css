@@ -26,10 +26,10 @@
 .personalAccount {
     background: #000;
     position: fixed;
-    bottom: 25vh;
-    width: 50vw;
-    height: 50vh;
-    left: 25vw;
+    bottom: 0;
+    left: 5vw;
+    width: 80vw;
+    height: 80vh;
     padding: 30px;
     border-radius: 12px;
     background: #343a40;
@@ -58,6 +58,16 @@
     .mentionsLegal {
         margin-bottom: 0;
         margin-right: 2vh;
+    }
+
+    .personalAccount {
+        width: 50vw;
+        height: 50vh;
+        bottom: 25vh;
+        left: 25vw;
+        border-radius: 12px;
+        background: #343a40;
+        color: antiquewhite;
     }
 }
 

@@ -124,8 +124,14 @@ const PersonalAccount = () => {
         <div className={styles.reservations}>
           {
             user.reservation?.map(elt => {
+              {console.log(new Date(elt.reservationDate).getTime(), Date.now())}
               return (
-                <h3 key={elt => new Date(elt.reservationDate).getTime()} className='mt-2'>{`${new Date(elt.reservationDate).toLocaleDateString('fr-FR', dateOptions)} a ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
+                new Date(elt.reservationDate).getTime() > Date.now() ?
+                
+                  <h3 key={elt => new Date(elt.reservationDate).getTime()} className='mt-2 text-info'>{`${new Date(elt.reservationDate).toLocaleDateString('fr-FR', dateOptions)} a ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
+                  :
+
+                  <h3 key={elt => new Date(elt.reservationDate).getTime()} className='mt-2'>{`${new Date(elt.reservationDate).toLocaleDateString('fr-FR', dateOptions)} a ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
               )
             })
           }

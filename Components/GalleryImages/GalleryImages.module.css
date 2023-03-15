@@ -7,8 +7,7 @@
     width: 100%;
     position: relative !important;
     height: unset ;
-    max-height: 35vh;
-
+    max-height: 40vh;
 }
 
 .pagination {

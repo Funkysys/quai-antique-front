@@ -46,7 +46,7 @@ const GalleryImages = ({ images }) => {
         {
           img.map(elt => {
             return (
-              <div className="col-md-4" key={elt.url}>
+              <div className="col-sm-12 col-md-6 col-lg-4" key={elt.url}>
                 <div className="card bg-white p-4 m-3">
                   <Image
                     src={elt.url}
