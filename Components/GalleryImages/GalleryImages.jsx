@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Image from 'next/image';
+import { Button } from 'react-bootstrap';
 import styles from './GalleryImages.module.css'
 
 const GalleryImages = ({ images }) => {
   const [page, setPage] = useState(1)
   const [img, setImg] = useState([])
+  const nbPages = Math.ceil(images['hydra:totalItems'] / 6)
+  const paginationNumber = []
+  for (let i = 1; i <= nbPages; i++) {
+    paginationNumber.push(i)
+  }
+  console.log(paginationNumber);
 
-  console.log(img);
   useEffect(() => {
     if (page === 1) {
       setImg([])
@@ -18,17 +24,30 @@ const GalleryImages = ({ images }) => {
       })
     } else {
       const getImagesByPagination = async () => {
-        const res2 = await fetch('https://quai-antique.xyz/api/images')
-        const images = await res2.json()
+        console.log("on est al");
+        const res2 = await fetch(`https://quai-antique.xyz/api/images?page=${page}`)
+        const result = await res2.json()
+        setImg([])
+        result['hydra:member'].map(elt => {
+          const tempImg = { title: elt.title, url: `https://quai-antique.xyz/asset/images/gallery/${elt.imageName}`, alt: elt.imageAlt }
+          if (!img.includes(tempImg)) {
+            setImg(img => [...img, tempImg])
+          }
+        })
       }
+      getImagesByPagination()
     }
   }, [page])
+  const handleOnClick = () => {
+    console.log(event.target.innerText);
+    setPage(event.target.innerText)
+  }
+  console.log(page);
   return (
     <div className={styles.container}>
-      <div class="row">
+      <div className="row">
         {
           img.map(elt => {
-            console.log(elt.url);
             return (
               <div className="col-md-4">
                 <div className="card bg-white p-4 m-3">
@@ -43,6 +62,16 @@ const GalleryImages = ({ images }) => {
                   />
                 </div>
               </div>
+            )
+          })
+        }
+      </div>
+      <div className={styles.pagination} onClick={handleOnClick}>
+        {
+          paginationNumber.length > 1 &&
+          paginationNumber.map(elt => {
+            return (
+              <Button>{elt}</Button>
             )
           })
         }

@@ -2,11 +2,6 @@
     margin-top: 5vh;
 }
 
-.test {
-    width: 100%;
-    height: 80%;
-}
-
 .customImg {
     object-fit: contain;
     width: 100%;
@@ -14,4 +9,13 @@
     height: unset ;
     max-height: 35vh;
 
+}
+
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.pagination button {
+    margin: 5px;
 }
