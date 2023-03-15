@@ -40,31 +40,34 @@ const ReservationForm = ({ opening_hours }) => {
     }, [])
 
     useEffect(() => {
-
         if (value.getMonth().length === 1) {
-            setMonth(`0${value.getUTCMonth() + 1}`)
+            setMonth(`0${value.getUTCMonth()}`)
         } else {
-            setMonth(`${value.getUTCMonth() + 1}`)
+            setMonth(`${value.getUTCMonth()}`)
         }
         const restCapacityQuery = async () => {
             const tempArr = []
             const reducer = (accumulator, curr) => accumulator + curr;
             const res = await fetch(`https://quai-antique.xyz/api/reservations?page=1&reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth()}-${value.getUTCDate()}&lunchOrDiner=${lunchOrDiner}`)
-                .then(response => {
-                    return response.json()
-                })
-                .then(result => result['hydra:member'].map(elt => {
+            .then(response => {
+                console.log(response);
+                return response.json()
+            })
+            .then(result => result['hydra:member'].map(elt => {
+                console.log(elt);
                     tempArr.push(elt.nbCovers)
                 }))
-
-            if (tempArr[0]) {
-                setRestCapacity(tempArr.reduce(reducer))
-            } else {
-                setRestCapacity(0)
+                if (tempArr[0]) {
+                    setRestCapacity(tempArr.reduce(reducer))
+                } else {
+                    setRestCapacity(0)
+                }
             }
-        }
-        restCapacityQuery()
-    }, [value, lunchOrDiner])
+            restCapacityQuery()
+            setCapacity(totalCapacity - restCapacity)
+            setCovers(0)
+        }, [value, lunch, diner, lunchOrDiner])
+        console.log(capacity);
 
     useEffect(() => {
         if (selectedHour) {
@@ -79,7 +82,7 @@ const ReservationForm = ({ opening_hours }) => {
 
     useEffect(() => {
         setMaxOpeningHour()
-
+        
 
         opening_hours['hydra:member'].map(elt => {
             let dayIndex;
@@ -92,8 +95,8 @@ const ReservationForm = ({ opening_hours }) => {
             if (elt.day.day === "Dimanche") dayIndex = 0
             const tempTime = new Date()
             const tempDate = new Date(tempTime.getFullYear(), tempTime.getMonth(), tempTime.getDate()).getTime()
-            console.log(value.getTime() >= tempDate);
             if (value.getTime() >= tempDate) {
+                setToLate(false)
                 if (value.getDay() === dayIndex) {
                     if (!elt.lunch && !elt.diner && elt.close) {
                         setClose(true)
@@ -117,18 +120,16 @@ const ReservationForm = ({ opening_hours }) => {
                     } else if (!elt.diner) {
                         setClose(false)
                         setDiner(false)
-                    }
-                    setToLate(false)
+                    }        
                 }
             } else {
-                console.log("on est là")
                 setClose(false)
                 setLunch(false)
                 setDiner(false)
                 setToLate(true)
             }
         })
-    }, [value.getDay()])
+    }, [value])
 
     useEffect(() => {
         setHours([])
@@ -180,12 +181,12 @@ const ReservationForm = ({ opening_hours }) => {
         setCovers(event.target.value * 1)
         setCapacity(totalCapacity - restCapacity - covers)
     }
-
+    
+    console.log(totalCapacity, restCapacity, covers);
     const handleOnSubmit = (e) => {
         e.preventDefault()
         const tempTime = new Date()
         const tempDate = new Date(tempTime.getFullYear(), tempTime.getMonth(), tempTime.getDate()).getTime()
-        console.log(value.getTime() < tempDate);
         if (value.getTime() < tempDate) {
             return setDateError(true)
         } else {
@@ -215,7 +216,6 @@ const ReservationForm = ({ opening_hours }) => {
             handleOnDisconnect
         }
     }
-    console.log(covers)
     return (
         state?.login_temp ?
             <div className={styles.result}><h2>Veuillez vous reconnecter s'il vous plait</h2></div>

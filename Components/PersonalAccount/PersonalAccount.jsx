@@ -19,6 +19,8 @@ const PersonalAccount = () => {
   const [allergies, setAllergies] = useState([])
   const [selectedAllergies, setSelectedAllergies] = useState([])
 
+  const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
   useEffect(() => {
     const userInfosFunc = async () => {
       const endpoint = `https://quai-antique.xyz/api/users/${state?.user.id}`
@@ -41,7 +43,7 @@ const PersonalAccount = () => {
           reservation: result.reservations
         });
       } else {
-        throw Error(response.statusText)
+        <h1>Veuillez vous reconnectez</h1>
       }
     }
     userInfosFunc()
@@ -105,7 +107,9 @@ const PersonalAccount = () => {
       setValid(true)
     } else {
       setValid(false)
-      throw Error(response.statusText)
+      return (
+        <h1>Veuillez vous reconnectez</h1>
+      )
     }
   }
 
@@ -121,7 +125,7 @@ const PersonalAccount = () => {
           {
             user.reservation?.map(elt => {
               return (
-                <h3 key={elt => new Date(elt.reservationDate).getTime()} className='mt-2'>{`${new Date(elt.reservationDate).toLocaleDateString()} a ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
+                <h3 key={elt => new Date(elt.reservationDate).getTime()} className='mt-2'>{`${new Date(elt.reservationDate).toLocaleDateString('fr-FR', dateOptions)} a ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
               )
             })
           }
