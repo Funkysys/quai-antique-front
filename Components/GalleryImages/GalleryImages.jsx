@@ -46,7 +46,7 @@ const GalleryImages = ({ images }) => {
         {
           img.map(elt => {
             return (
-              <div className="col-md-4">
+              <div className="col-md-4" key={elt.url}>
                 <div className="card bg-white p-4 m-3">
                   <Image
                     src={elt.url}
@@ -68,7 +68,7 @@ const GalleryImages = ({ images }) => {
           paginationNumber.length > 1 &&
           paginationNumber.map(elt => {
             return (
-              <Button>{elt}</Button>
+              <Button key={elt}>{elt}</Button>
             )
           })
         }
