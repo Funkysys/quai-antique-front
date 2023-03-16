@@ -17,7 +17,6 @@ const Login = () => {
           className={styles.loginContainer}
         >
           <h2>Bienvenu !</h2>
-
           <form onSubmit={(e) => loginQuery(e, dispatch)}>
             <label htmlFor="password">Email</label>
             <input type="email" name="email" id="email" placeholder='Your Email' />

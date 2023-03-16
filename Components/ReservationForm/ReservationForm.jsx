@@ -47,23 +47,6 @@ const ReservationForm = ({ opening_hours }) => {
         }
     }, [value, lunchOrDiner])
 
-    const useCapacityQuery = async () => {
-        const tempArr = []
-        const reducer = (accumulator, curr) => accumulator + curr;
-        const res = await fetch(`https://quai-antique.xyz/api/reservations?page=1&reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth()}-${value.getUTCDate()}&lunchOrDiner=${lunchOrDiner}`)
-            .then(response => {
-                return response.json()
-            })
-            .then(result => result['hydra:member'].map(elt => {
-                tempArr.push(elt.nbCovers)
-            }))
-        if (tempArr[0]) {
-            setUseCapacity(tempArr.reduce(reducer))
-        } else {
-            setUseCapacity(0)
-        }
-        setCovers(0)
-    }
 
     useEffect(() => {
         if (selectedHour) {
@@ -77,8 +60,25 @@ const ReservationForm = ({ opening_hours }) => {
     }, [selectedHour, value, month])
 
     useEffect(() => {
+        const useCapacityQuery = async () => {
+            const tempArr = []
+            const reducer = (accumulator, curr) => accumulator + curr;
+            const res = await fetch(`https://quai-antique.xyz/api/reservations?page=1&reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth() + 1}-${value.getUTCDate()}&lunchOrDiner=${lunchOrDiner}`)
+            const result = await res.json()
+            result['hydra:member'].map(elt => {
+                tempArr.push(elt.nbCovers)
+            })
+            console.log(tempArr);
+            if (tempArr[0]) {
+                setUseCapacity(tempArr.reduce(reducer))
+            } else {
+                setUseCapacity(0)
+            }
+
+        }
+        useCapacityQuery()
         setCapacity(totalCapacity - useCapacity - covers);
-    }, [useCapacity, covers])
+    }, [useCapacity, covers, selectedHour, lunchOrDiner])
 
     useEffect(() => {
         setMaxOpeningHour()
@@ -156,6 +156,8 @@ const ReservationForm = ({ opening_hours }) => {
     }, [value, maxCloseHour, maxOpeningHour])
 
     const handleOnClick = (event) => {
+        setCovers(0)
+        setSelectedHour("")
         const value = event.target.innerText.toLowerCase()
         if (value === 'lunch') {
             setLunchOrDiner(true)
@@ -166,8 +168,6 @@ const ReservationForm = ({ opening_hours }) => {
             setMaxOpeningHour((currentDayDiner.openingHours.hour * 60) + currentDayDiner.openMinutes.minutes)
             setMaxMaxCloseHour((currentDayDiner.closeHours.hour * 60) + currentDayDiner.closeMinutes.minutes)
         }
-        useCapacityQuery()
-
     }
 
     const handleOnHour = (event, elt) => {
@@ -176,7 +176,7 @@ const ReservationForm = ({ opening_hours }) => {
         setSelectedHour(hour.innerText)
     }
 
-    const handleOnChange = () => {
+    const handleOnChange = (event) => {
         setCovers(event.target.value * 1)
     }
 
@@ -285,16 +285,31 @@ const ReservationForm = ({ opening_hours }) => {
                             }
                             <div className={styles.cutlery}>
                                 <label htmlFor="cutlery">Nombre de convives : </label>
-                                <input type="number" id='cutlery' name='cutlery' placeholder='0' onChange={handleOnChange} />
+                                <input type="number" id='cutlery' name='cutlery' placeholder='0'
+                                    value={covers} onChange={handleOnChange} />
                             </div>
                             {
-                                capacity > 0 ?
-                                    <>
-                                        <h3 className={styles.capacity}>Il reste {covers > -1 && capacity} places ! ne tardez pas</h3>
-                                        <Button type='submit'>Envoyer votre réservation</Button>
-                                    </>
-                                    :
-                                    <h3 className={styles.capacity}>Nous sommes victimes de notre succès... essayez une autre date !</h3>
+                                selectedHour !== "" &&
+                                <>
+                                    {
+                                        capacity >= 0 && covers > -1 ?
+                                            <>
+                                                <h3 className={styles.capacity}>Il reste {capacity} places ! ne tardez pas</h3>
+                                                <Button type='submit'>Envoyer votre réservation</Button>
+                                            </>
+                                            :
+                                            <>
+                                                {
+                                                    capacity < 0 &&
+                                                    <h3 className={styles.capacity}>Nous sommes victimes de notre succès... essayez une autre date !</h3>
+                                                }
+                                                {
+                                                    covers <= -1 &&
+                                                    <h3 className={styles.capacity}>Vous ne voulez pas nous retirer du monde ?</h3>
+                                                }
+                                            </>
+                                    }
+                                </>
                             }
                         </>
                     }
@@ -303,6 +318,3 @@ const ReservationForm = ({ opening_hours }) => {
 }
 
 export default ReservationForm
-
-// https://quai-antique.xyz/api/reservations?page=1&reservationDate=2023-2-14&lunchOrDiner=true
-// https://quai-antique.xyz/api/reservations?page=1&reservationDate=2023-02-15&lunchOrDiner=true

@@ -1,0 +1,50 @@
+.container {
+    width: 100%;
+    height: 100%;
+    background: #CAFFD0;
+}
+
+.navbarMenu {
+    width: 100%;
+    display: flex;
+}
+.link, .activeButton {
+    padding: 15px;
+    text-align: center;
+    width: 50%;
+    background: #495057;
+    border: none;
+    font-size: 1.2em;
+}
+.link:hover, .activeButton {
+    background: #CAFFD0;
+    font-size: 1.2em;
+    color: black;
+}
+
+.link {
+    font-size: 1.2em;
+    color: #fffee4;
+}
+.formulasContainer {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.formulas {
+    display: flex;
+    margin-bottom: 2vh;
+    font-size: 1.2em;
+    color: #C17817;
+}
+.formulasTitle {
+    margin-right: 10px;
+}
+@media screen and (min-width: 768px) {
+    .formulas {
+        font-size: 1.6em;
+    } 
+}

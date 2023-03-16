@@ -22,7 +22,6 @@ const GalleryImages = ({ images }) => {
       })
     } else {
       const getImagesByPagination = async () => {
-        console.log("on est al");
         const res2 = await fetch(`https://quai-antique.xyz/api/images?page=${page}`)
         const result = await res2.json()
         setImg([])

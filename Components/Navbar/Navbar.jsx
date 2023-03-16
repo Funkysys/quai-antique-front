@@ -20,15 +20,8 @@ function NavigationBar() {
                   className=" align-top"
                 /></Navbar.Brand>
                 <Nav.Link href="#about">Notre Restaurant</Nav.Link>
-                <Nav.Link eventKey="3" href="#reservation"> Reservation </Nav.Link>
-                <NavDropdown title="Menu" id="nav-dropdown" menuVariant="dark">
-                  <NavDropdown.Item eventKey="4.4">Toutes nos Formules</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item eventKey="4.1">Formules Déjeuner</NavDropdown.Item>
-                  <NavDropdown.Item eventKey="4.2">Formules Diné</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item eventKey="4.3">La carte</NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link eventKey="3" href="#reservation"> Reservation</Nav.Link>
+                <Nav.Link eventKey="4" href="#Menu">Menu</Nav.Link>
                 <Nav.Link href="#contact">Contact</Nav.Link>
                 <LoginOrRgister />
               </div>

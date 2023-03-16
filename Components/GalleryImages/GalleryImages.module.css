@@ -1,6 +1,7 @@
 .container {
-    margin-top: 5vh;
-    width: 80vw;
+    background: #495057;
+    width: 100vw;
+    padding: 5vw;
 }
 
 .customImg {

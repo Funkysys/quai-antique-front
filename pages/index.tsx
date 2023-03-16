@@ -7,9 +7,9 @@ import GalleryImages from '@/Components/GalleryImages/GalleryImages'
 import Reservation from '@/Components/Reservation/Reservation'
 import Footer from '@/Components/Footer/Footer'
 
-export default function Home({ opening_hours, images }: any) {
+export default function Home({ opening_hours, images, formulas, categories }: any) {
 
-  
+
   return (
     <>
       <Head>
@@ -31,13 +31,15 @@ export default function Home({ opening_hours, images }: any) {
             <div className={styles.photoAbout}></div>
             <div className={styles.description}></div>
           </div>
-          <MenuContainer />
+          <div id='Menu'>
+            <MenuContainer categories={categories} formulas={formulas}/>
+          </div>
         </section>
         <section id="gallery">
-          <GalleryImages images={images}/>
+          <GalleryImages images={images} />
         </section>
         <section id="reservation">
-          <Reservation opening_hours={opening_hours}/>
+          <Reservation opening_hours={opening_hours} />
         </section>
       </main>
       <footer id="contact">
@@ -55,14 +57,19 @@ export async function getStaticProps() {
   const res2 = await fetch('https://quai-antique.xyz/api/images')
   const images = await res2.json()
 
-  const res3 = await fetch('https://quai-antique.xyz/api/images')
-  const menus = await res3.json()
-  
+  const res3 = await fetch('https://quai-antique.xyz/api/formulas')
+  const formulas = await res3.json()
+
+  const res4 = await fetch('https://quai-antique.xyz/api/categories')
+  const categories = await res4.json()
+
 
   return {
     props: {
       opening_hours,
-      images
+      images,
+      formulas,
+      categories
     },
   }
 }

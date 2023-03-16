@@ -1,0 +1,60 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.categories {
+    margin-left: 10px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    background: #C17817;
+    color: #fffee4;
+    font-size: 1em;
+    border: none;
+}
+.categories:hover {
+    background: #d89b4c;
+}
+.dishesContainer {
+    margin-top: 10px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2vw 5vw;
+}
+.dishes {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 2vh;
+    font-size: 1.2em;
+    color: #C17817;
+}
+.dishesTitleAndPrice {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.dishesDescription {
+    font-size: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+    .categories {
+        font-size: 1.2em;
+    }
+    .dishes {
+        font-size: 1.6em;
+    } 
+    .dishesDescription {
+        font-size: 1.4rem;
+    }
+}
