@@ -18,7 +18,7 @@ const HomePage = () => {
     return (
         <div className={styles.homePage}>
             <div className={styles.titleContainer}>
-                <h1 className={styles.title}>Bienvenu chez <br /><span className={styles.titleSpan}>Quai-Antique</span></h1>
+                <h1 className={styles.title}>Bienvenue chez <br /><span className={styles.titleSpan}>Quai-Antique</span></h1>
             </div>
         </div>
     )

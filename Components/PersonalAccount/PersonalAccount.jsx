@@ -143,7 +143,7 @@ const PersonalAccount = () => {
             <div
               className={styles.container}
             >
-              <h2>Bienvenu {user.name} !</h2>
+              <h2>Bienvenue {user.name} !</h2>
               <form onSubmit={handleOnSubmit}>
                 <label htmlFor="email">Email</label>
                 {!emailRequired && <p className='text-danger fs-6'>Votre email est obligatoire</p>}
