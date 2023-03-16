@@ -94,7 +94,7 @@
 
   .photoAbout {
     width: 50%;
-    background-position: center;
+    background: url('/Images/3.jpg') no-repeat right;
   }
 }
 @media screen and (min-width: 1000px) {
