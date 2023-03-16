@@ -29,6 +29,7 @@
 .formulasContainer {
     height: 100%;
     width: 100%;
+    padding: 5vh 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -37,7 +38,7 @@
 .formulas {
     display: flex;
     margin-bottom: 2vh;
-    font-size: 1.2em;
+    font-size: 1em;
     color: #C17817;
 }
 .formulasTitle {
@@ -47,4 +48,7 @@
     .formulas {
         font-size: 1.6em;
     } 
+    .formulasContainer {
+        padding: 0;
+    }
 }
