@@ -33,7 +33,6 @@ const Footer = ({ opening_hours }) => {
           user &&
           <>
             {
-
               !toggle ?
                 <Button className='mt-5' onClick={() => setToggle(!toggle)} variant="outline-danger"> Mon Compte</Button>
                 :

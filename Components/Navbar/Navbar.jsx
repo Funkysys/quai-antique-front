@@ -1,4 +1,4 @@
-import { Navbar, Nav, NavDropdown, Button} from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
 import Image from 'next/image';
 import styles from "./Navbar.module.css"
 import LoginOrRgister from '@/Components/LoginOrRegister/LoginOrRegister'
@@ -30,11 +30,11 @@ function NavigationBar() {
                   <NavDropdown.Item eventKey="4.3">La carte</NavDropdown.Item>
                 </NavDropdown>
                 <Nav.Link href="#contact">Contact</Nav.Link>
-                  <LoginOrRgister />
-            </div>
-          </Nav>
-        </Navbar.Collapse>
-    </div>
+                <LoginOrRgister />
+              </div>
+            </Nav>
+          </Navbar.Collapse>
+        </div>
       </Navbar >
     </div >
   );
