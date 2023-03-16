@@ -29,7 +29,14 @@ export default function Home({ opening_hours, images, formulas, categories }: an
           </div>
           <div className={styles.about}>
             <div className={styles.photoAbout}></div>
-            <div className={styles.description}></div>
+            <div className={styles.description}>
+              <p>
+                {`Depuis 1990, le Quai Antique à toujours été en recherche de l'équilivre parfait entre modernisme et tradition. C'est ainsi que notre équipe vous acceuillera avec le plaisir de vous faire découvrir notre belle région à travers des plats emblématiques revisité par le chef Arnaud Michant.`} 
+              </p>
+              <p>
+                {`Au plaisir de voir à table !`}
+              </p>
+            </div>
           </div>
           <div id='Menu'>
             <MenuContainer categories={categories} formulas={formulas}/>

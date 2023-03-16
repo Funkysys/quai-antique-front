@@ -44,6 +44,12 @@
   height: 100%;
   width: 100%;
   background: #C17817;
+  color: #fffee4;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 15px;
+  text-align: center;
 }
 
 .photoAbout {
@@ -82,6 +88,8 @@
 
   .description {
     width: 50%;
+    padding: 8%;
+    font-size: 1.1rem;
   }
 
   .photoAbout {
@@ -89,8 +97,12 @@
     background-position: center;
   }
 }
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
   .welcome {
     font-size: 2em;
+  }
+  .description {
+    font-size: 1.2rem;
+    padding: 10%;
   }
 }
