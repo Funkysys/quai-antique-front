@@ -132,9 +132,12 @@ const PersonalAccount = () => {
     !toggle ?
       <>
         <Button className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Vos informations</Button>
-        <div className={styles.reservations}>
+        {
+          user.reservation !== [] &&
+          <div className={styles.reservations}>
           <UserReservation user={user} />
         </div>
+        }
       </>
       :
       <>
