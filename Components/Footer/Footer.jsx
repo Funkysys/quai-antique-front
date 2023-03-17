@@ -27,28 +27,26 @@ const Footer = ({ opening_hours }) => {
       <OpeningHours opening_hours={opening_hours} />
       <Contact />
       <div className={styles.link}>
-        <a href='/mention-légales'>
-          <p>Mentions Légales</p>
-        </a>
-        <a href='https://quai-antique.xyz/panel' >
-          <p>admin</p>
-        </a>
         {
           user &&
           <>
             {
               !toggle ?
-                <Button className='mt-5' onClick={() => setToggle(!toggle)} variant="outline-danger"> Mon Compte</Button>
+                <Button className='mb-5 mt-3' onClick={() => setToggle(!toggle)} variant="outline-danger"> Mon Compte</Button>
                 :
                 <div className={styles.personalAccount}>
-                  <div className={styles.loginOrRegisterContainer}>
-                    <Button onClick={() => setToggle(!toggle)} variant="danger" className={styles.closeButton}>X</Button>
-                    <PersonalAccount />
-                  </div>
+                  <Button onClick={() => setToggle(!toggle)} variant="danger" className={styles.closeButton}>X</Button>
+                  <PersonalAccount />
                 </div>
             }
           </>
         }
+        <a href='https://quai-antique.xyz/panel' >
+          <p>admin</p>
+        </a>
+        <a href='/mention-légales'>
+          <p>Mentions Légales</p>
+        </a>
       </div>
     </div>
   )

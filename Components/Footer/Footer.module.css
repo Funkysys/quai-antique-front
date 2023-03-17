@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     background: #222222;
     color: #FF6464;
     font-size: 1.1rem;
@@ -16,6 +15,8 @@
 .link {
     display: flex;
     justify-content: center;
+    align-items: center;
+    margin-top: 20px;
     flex-direction: column;
     margin-bottom: 4vh;
 }
