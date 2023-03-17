@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 
-async function loginQuery (e, dispatch, email = null, password = null) {
+async function loginQuery(e, dispatch, email = null, password = null) {
     e.preventDefault()
     let data = {}
     if (email && password) {
@@ -26,7 +26,7 @@ async function loginQuery (e, dispatch, email = null, password = null) {
         },
         body: JSONdata,
     }
-    
+
     const response = await fetch(endpoint, options)
     if (response.status == 200) {
         const result = await response.json()
@@ -43,12 +43,10 @@ async function loginQuery (e, dispatch, email = null, password = null) {
             })
         }
     } else {
-        if (response.status == 401) {
-            await dispatch({
-                type: "RESERVATION_LOGIN_TEMP",
-                payload: true
-            })
-        }
+        await dispatch({
+            type: "RESERVATION_LOGIN_TEMP",
+            payload: true
+        })
     }
 }
 export default loginQuery

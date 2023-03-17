@@ -4,9 +4,10 @@ import { Context } from '@/lib/context';
 import styles from './PersonalAccount.module.css'
 import Select from 'react-select';
 import UserReservation from '../UserReservation/UserReservation'
+import Login from '../Login/Login';
 
 const PersonalAccount = () => {
-  const { state, dispatch } = useContext(Context)
+  const { state } = useContext(Context)
   const [toggle, setToggle] = useState(true)
   const [valid, setValid] = useState(false)
   const [emailRequired, setEmailRequired] = useState(true)
@@ -20,8 +21,6 @@ const PersonalAccount = () => {
   const [allergies, setAllergies] = useState([])
   const [selectedAllergies, setSelectedAllergies] = useState([])
   const [deleteAllergies, setDeleteAllergies] = useState([])
-
- 
 
   useEffect(() => {
     const userInfosFunc = async () => {
@@ -74,7 +73,7 @@ const PersonalAccount = () => {
     selectedAllergies.map(elt => allergieName.push(elt.value))
     user.allergies.map(el => allergieName.push(el))
     const allergiesReadyToSend = allergieName.filter(elt => {
-      if(!deleteAllergies.includes(elt)) {
+      if (!deleteAllergies.includes(elt)) {
         return elt
       }
     })
@@ -122,9 +121,9 @@ const PersonalAccount = () => {
   }
 
   const handleOnDelete = (event) => {
-    return setDeleteAllergies(el => [... el, event.target.innerText])
+    return setDeleteAllergies(el => [...el, event.target.innerText])
   }
-  
+
   const handleOnChange = (e) => {
     setSelectedAllergies(e)
   }
@@ -134,60 +133,69 @@ const PersonalAccount = () => {
       <>
         <Button className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Vos informations</Button>
         <div className={styles.reservations}>
-          <UserReservation user={user}/>
+          <UserReservation user={user} />
         </div>
       </>
       :
       <>
         {
-          !valid ?
-            <div
-              className={styles.container}
-            >
-              <h2>Bienvenue {user.name} !</h2>
-              <form onSubmit={handleOnSubmit}>
-                <label htmlFor="email">Email</label>
-                {!emailRequired && <p className='text-danger fs-6'>Votre email est obligatoire</p>}
-                <input type="email" name="email" id="email" placeholder={`${user.email}`} />
-                <label htmlFor="name">Name</label>
-                {!nameRequired && <p className='text-danger fs-6'>Votre nom est obligatoire</p>}
-                <input type="text" name="name" id="name" placeholder={`${user.name}`} />
-                <label htmlFor="allergies">Vos allergies</label>
-                <Select
-                  onChange={handleOnChange}
-                  isMulti
-                  name="allergies"
-                  options={allergies}
-                  className="basic-multi-select mb-3"
-                  classNamePrefix="select"
-                  styles={{
-                    option: (base) => ({
-                      ...base,
-                      height: '100%',
-                      color: 'black'
-                    }),
-                  }}
-                />
-                <div className={styles.allergies}>
-                  {
-                    user.allergies?.map(elt => {
-                      return (
-                        <button type='button' key={elt.id} className={!deleteAllergies.includes(elt) ? styles.allergiesBtn : styles.deleteAllergies} onClick={handleOnDelete}>{elt}</button>
-                      )
-                    })
-                  }
-                </div>
-                <div className={styles.connectionButtons}>
-                  <Button className='mt-5' type="submit" >Mettre à jour votre profil</ Button>
-                </div>
-              </form>
-            </div>
+          state.user.name ?
+            <>
+              {
+                !valid ?
+                  <div
+                    className={styles.container}
+                  >
+                    <h2>Bienvenue {user.name} !</h2>
+                    <form onSubmit={handleOnSubmit}>
+                      <label htmlFor="email">Email</label>
+                      {!emailRequired && <p className='text-danger fs-6'>Votre email est obligatoire</p>}
+                      <input type="email" name="email" id="email" placeholder={`${user.email}`} />
+                      <label htmlFor="name">Name</label>
+                      {!nameRequired && <p className='text-danger fs-6'>Votre nom est obligatoire</p>}
+                      <input type="text" name="name" id="name" placeholder={`${user.name}`} />
+                      <label htmlFor="allergies">Vos allergies</label>
+                      <Select
+                        onChange={handleOnChange}
+                        isMulti
+                        name="allergies"
+                        options={allergies}
+                        className="basic-multi-select mb-3"
+                        classNamePrefix="select"
+                        styles={{
+                          option: (base) => ({
+                            ...base,
+                            height: '100%',
+                            color: 'black'
+                          }),
+                        }}
+                      />
+                      <div className={styles.allergies}>
+                        {
+                          user.allergies?.map(elt => {
+                            return (
+                              <button type='button' key={elt.id} className={!deleteAllergies.includes(elt) ? styles.allergiesBtn : styles.deleteAllergies} onClick={handleOnDelete}>{elt}</button>
+                            )
+                          })
+                        }
+                      </div>
+                      <div className={styles.connectionButtons}>
+                        <Button className='mt-5' type="submit" >Mettre à jour votre profil</ Button>
+                      </div>
+                    </form>
+                  </div>
+                  :
+                  <div className={styles.success}>
+                    <p>Votre profil à bien été mis à jour</p>
+                  </div>
+              }
+              <Button type='submit' className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Réservations</Button>
+            </>
             :
-            <div className={styles.success}>
-              <p>Votre profil à bien été mis à jour</p>
+            <div className={styles.registrationLog}>
+              <Login />
             </div>
         }
-        <Button type='submit' className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Réservations</Button>
       </>
   )
 }
