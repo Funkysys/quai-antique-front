@@ -135,8 +135,8 @@ const PersonalAccount = () => {
         {
           user.reservation !== [] &&
           <div className={styles.reservations}>
-          <UserReservation user={user} />
-        </div>
+            <UserReservation user={user} />
+          </div>
         }
       </>
       :
@@ -189,6 +189,7 @@ const PersonalAccount = () => {
                   </>
                   :
                   <div className={styles.registrationLog}>
+                    <p className="text-danger mt-2 mb-3 fs-5">désolé, il faut vous reconnecter</p>
                     <Login />
                   </div>
               }
