@@ -16,6 +16,7 @@
 .link {
     display: flex;
     justify-content: center;
+    flex-direction: column;
     margin-bottom: 4vh;
 }
 .link p{
@@ -29,6 +30,7 @@
 .personalAccount {
     background: #000;
     position: fixed;
+    width: 100%;
     bottom: 20vh;
     height: auto;
     padding: 30px;
