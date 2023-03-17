@@ -2,8 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: 100vw;
-    height: auto;
+
     background: #222222;
     color: #FF6464;
     font-size: 1.1rem;
