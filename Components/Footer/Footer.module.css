@@ -30,8 +30,7 @@
     background: #000;
     position: fixed;
     bottom: 20vh;
-    left: 2vw;
-    width: 80vw;
+    width: 100vw;
     height: auto;
     padding: 30px;
     border-radius: 12px;
@@ -77,8 +76,6 @@
     .personalAccount {
         min-width: 60vw;
         height: auto;
-        bottom: 25vh;
-        left: 20vw;
     }
 }
 
