@@ -1,7 +1,7 @@
 .container {
     position: relative;
     color: antiquewhite;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .container h2 {

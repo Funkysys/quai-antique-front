@@ -12,17 +12,17 @@ function NavigationBar() {
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto">
               <div className={styles.subNav}>
-                <Navbar.Brand href="#home"><Image
+                <Navbar.Brand href="/#home"><Image
                   alt=""
                   src="https://quai-antique.xyz/asset/images/logo/logo1.png"
                   width="90"
                   height="60"
                   className=" align-top"
                 /></Navbar.Brand>
-                <Nav.Link href="#about">Notre Restaurant</Nav.Link>
-                <Nav.Link eventKey="3" href="#reservation"> Reservation</Nav.Link>
-                <Nav.Link eventKey="4" href="#Menu">Menu</Nav.Link>
-                <Nav.Link href="#contact">Contact</Nav.Link>
+                <Nav.Link href="/#about">Notre Restaurant</Nav.Link>
+                <Nav.Link eventKey="3" href="/#reservation"> Reservation</Nav.Link>
+                <Nav.Link eventKey="4" href="/#Menu">Menu</Nav.Link>
+                <Nav.Link href="/#contact">Contact</Nav.Link>
                 <LoginOrRgister />
               </div>
             </Nav>
