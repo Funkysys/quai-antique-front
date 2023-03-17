@@ -139,7 +139,7 @@ const PersonalAccount = () => {
       :
       <>
         {
-          state.user.name ?
+          user.name !== "" ?
             <>
               {
                 !valid ?
