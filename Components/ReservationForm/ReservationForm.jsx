@@ -286,7 +286,7 @@ const ReservationForm = ({ opening_hours }) => {
                             <div className={styles.cutlery}>
                                 <label htmlFor="cutlery">Nombre de convives : </label>
                                 <input type="number" id='cutlery' name='cutlery' placeholder='0'
-                                    value={covers} onChange={handleOnChange} />
+                                    value={covers > -1 && covers} onChange={handleOnChange} />
                             </div>
                             {
                                 selectedHour !== "" &&

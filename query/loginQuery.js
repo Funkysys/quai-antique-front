@@ -43,7 +43,12 @@ async function loginQuery (e, dispatch, email = null, password = null) {
             })
         }
     } else {
-        throw Error(response.statusText)
+        if (response.status == 401) {
+            await dispatch({
+                type: "RESERVATION_LOGIN_TEMP",
+                payload: true
+            })
+        }
     }
 }
 export default loginQuery
