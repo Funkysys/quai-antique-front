@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 import { Context } from '@/lib/context';
 import styles from './PersonalAccount.module.css'
 import Select from 'react-select';
+import UserReservation from '../UserReservation/UserReservation'
 
 const PersonalAccount = () => {
   const { state, dispatch } = useContext(Context)
@@ -19,7 +20,7 @@ const PersonalAccount = () => {
   const [allergies, setAllergies] = useState([])
   const [selectedAllergies, setSelectedAllergies] = useState([])
 
-  const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+ 
 
   useEffect(() => {
     const userInfosFunc = async () => {
@@ -122,18 +123,7 @@ const PersonalAccount = () => {
       <>
         <Button className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Vos informations</Button>
         <div className={styles.reservations}>
-          {
-            user.reservation?.map(elt => {
-              return (
-                new Date(elt.reservationDate).getTime() > Date.now() ?
-                
-                  <h3 key={elt => new Date(elt.reservationDate).getTime()} className='mt-2 text-info'>{`${new Date(elt.reservationDate).toLocaleDateString('fr-FR', dateOptions)} à ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
-                  :
-
-                  <h3 key={elt => new Date(elt.reservationDate).getTime()} className='mt-2'>{`${new Date(elt.reservationDate).toLocaleDateString('fr-FR', dateOptions)} à ${new Date(elt.reservationDate).getHours()}h${new Date(elt.reservationDate).getMinutes() !== 0 ? new Date(elt.reservationDate).getMinutes() : ""} pour ${elt.nbCovers} ${elt.nbCovers > 1 ? "personnes" : "personne"}`}</h3>
-              )
-            })
-          }
+          <UserReservation user={user}/>
         </div>
       </>
       :

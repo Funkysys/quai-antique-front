@@ -1,0 +1,37 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+}
+.button {
+    margin-left: 10px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    background: #C17817;
+    color: #fffee4;
+    font-size: 1em;
+    border: none;
+}
+.button:hover {
+    background: #d89b4c;
+}
+.activeButton {
+    margin-left: 10px;
+    padding: 3px 6px;
+    border-radius: 6px;
+    background: #C17817;
+    color: #fffee4;
+    font-size: 1em;
+    border: none;
+}
+.reservations {
+    padding: 30px 15px;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.reservations h3 {
+    text-align: center;
+    padding: 3px 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}

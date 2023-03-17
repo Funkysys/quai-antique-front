@@ -18,8 +18,8 @@
 }
 .link:hover, .activeButton {
     background: #CAFFD0;
-    font-size: 1.2em;
-    color: black;
+    font-size: 1.3em;
+    color: #C17817;
 }
 
 .link {

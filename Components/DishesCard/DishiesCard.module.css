@@ -52,6 +52,17 @@
         font-size: 1.2em;
     }
     .dishes {
+        font-size: 1.3em;
+    } 
+    .dishesDescription {
+        font-size: 1.1rem;
+    }
+}
+@media screen and (min-width: 1392px) {
+    .categories {
+        font-size: 1.2em;
+    }
+    .dishes {
         font-size: 1.6em;
     } 
     .dishesDescription {

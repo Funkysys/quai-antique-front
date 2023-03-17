@@ -7,7 +7,8 @@
   min-height: 100vh;
   background: #CAFFD0;
 }
-.main p{
+
+.main p {
   margin-bottom: 0;
 }
 
@@ -22,6 +23,7 @@
   color: #3F784C;
   padding: 30px 0;
 }
+
 .welcome p {
   width: 60%;
   font-size: 1.3em;
@@ -75,9 +77,10 @@
     font-size: 8rem;
   }
 
-  .welcome  {
+  .welcome {
     height: 40vh;
   }
+
   .welcome p {
     font-size: 1em;
   }
@@ -95,12 +98,16 @@
   .photoAbout {
     width: 50%;
     background: url('/Images/3.jpg') no-repeat right;
+    background-size: cover;
+    background-attachment: fixed;
   }
 }
+
 @media screen and (min-width: 1000px) {
   .welcome {
     font-size: 2em;
   }
+
   .description {
     font-size: 1.2rem;
     padding: 10%;
