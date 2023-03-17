@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import Image from 'next/image';
 import { Button } from 'react-bootstrap';
 import styles from './GalleryImages.module.css'
@@ -8,9 +8,13 @@ const GalleryImages = ({ images }) => {
   const [img, setImg] = useState([])
   const nbPages = Math.ceil(images['hydra:totalItems'] / 6)
   const paginationNumber = []
+
   for (let i = 1; i <= nbPages; i++) {
     paginationNumber.push(i)
   }
+
+  
+
   useEffect(() => {
     if (page === 1) {
       setImg([])
@@ -36,16 +40,19 @@ const GalleryImages = ({ images }) => {
     }
   }, [page])
   const handleOnClick = () => {
-    console.log(event.target.innerText);
     setPage(event.target.innerText)
   }
   return (
-    <div className={styles.container}>
-      <div className="row">
+    <div className={styles.container} >
+      <div className="row" >
         {
           img.map(elt => {
             return (
-              <div className="col-sm-12 col-md-6 col-lg-4" key={elt.url}>
+              <div
+                className="col-sm-12 col-md-6 col-lg-4"
+                key={elt.url}
+
+              >
                 <div className="card bg-white p-4 m-3">
                   <Image
                     src={elt.url}

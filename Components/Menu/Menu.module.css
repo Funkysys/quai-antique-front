@@ -2,6 +2,7 @@
     width: 100%;
     height: 100%;
     background: #CAFFD0;
+    overflow: auto;
 }
 
 .navbarMenu {
@@ -26,10 +27,14 @@
     font-size: 1.2em;
     color: #fffee4;
 }
+.formulasDivContainer {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+}
 .formulasContainer {
-    height: 100%;
-    width: 100%;
-    padding: 5vh 0;
+    height: auto;
+    width: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
