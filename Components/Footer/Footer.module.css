@@ -15,12 +15,15 @@
     color: #FF6464;
 }
 
-.mentionsLegal {
+.link {
     margin-bottom: 4vh;
 }
-
-.mentionsLegal p:hover {
+.link p{
+    margin-bottom: 10px;
+}
+.link p:hover {
     color: #fa9090;
+    margin-bottom: 10px;
 }
 
 .personalAccount {
@@ -55,7 +58,7 @@
         font-size: 1.3rem;
     }
 
-    .mentionsLegal {
+    .link {
         margin-bottom: 0;
         margin-right: 2vh;
     }
@@ -80,7 +83,7 @@
 }
 
 @media screen and (min-width: 1152px) {
-    .mentionsLegal {
+    .link {
         margin-right: 4vh;
     }
     .personalAccount {

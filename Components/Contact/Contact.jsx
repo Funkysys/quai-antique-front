@@ -7,11 +7,11 @@ const Contact = () => {
             <h2 className={styles.contactTitle}>Contact</h2>
             <div className={styles.contactDetails}>
                 <div className={styles.email}>
-                    <Link href="quaiantique@admin.xyz"> <p >quaiantique@admin.xyz</p></Link>
+                    <a href="mailto:quaiantique@admin.xyz"> <p >quaiantique@admin.xyz</p></a>
                 </div>
                 <div className={styles.phone}>
-                    <Link href="06.06.06.06.06"><p>
-                         06.06.06.06.06</p></Link>
+                    <a href="tel:+33606060606"><p>
+                         06.06.06.06.06</p></a>
                 </div>
                 <p className={styles.address}>185 avenue du petit poney</p>
                 <p className={styles.addressSuite}>73000 Chambéry</p>

@@ -26,9 +26,13 @@ const Footer = ({ opening_hours }) => {
     <div className={styles.footerContainer}>
       <OpeningHours opening_hours={opening_hours} />
       <Contact />
-      <div className={styles.mentionsLegal}>
-        <Link href='/mention-légales'>
-          <p>Mentions Légales</p></Link>
+      <div className={styles.link}>
+        <a href='/mention-légales'>
+          <p>Mentions Légales</p>
+        </a>
+        <a href='https://quai-antique.xyz/panel' >
+          <p>admin</p>
+        </a>
         {
           user &&
           <>
