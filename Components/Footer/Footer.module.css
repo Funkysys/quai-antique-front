@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
     width: 100vw;
     height: auto;
     background: #222222;
@@ -16,6 +15,8 @@
 }
 
 .link {
+    display: flex;
+    justify-content: center;
     margin-bottom: 4vh;
 }
 .link p{
@@ -30,7 +31,6 @@
     background: #000;
     position: fixed;
     bottom: 20vh;
-    width: 100vw;
     height: auto;
     padding: 30px;
     border-radius: 12px;
