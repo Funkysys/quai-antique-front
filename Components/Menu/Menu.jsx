@@ -37,22 +37,24 @@ const Menu = ({ formulas, categories }) => {
                     La carte des plats
                 </button>
             </div>
-            {
-                formules &&
-                <div className={styles.formulasContainer}>
-                    {formulas['hydra:member'].map(elt => {
-                        return (
-                            <div key={elt.id} className={styles.formulas}>
-                                <p className={styles.formulasTitle}>{elt.title} : </p>
-                                <p className={styles.formulasPrice}>{elt.price} €</p>
-                            </div>
-                        )
-                    })}
-                </div>
-            }
+            <div className={styles.formulasDivContainer}>
+                {
+                    formules &&
+                    <div className={styles.formulasContainer}>
+                        {formulas['hydra:member'].map(elt => {
+                            return (
+                                <div key={elt.id} className={styles.formulas}>
+                                    <p className={styles.formulasTitle}>{elt.title} : </p>
+                                    <p className={styles.formulasPrice}>{elt.price} €</p>
+                                </div>
+                            )
+                        })}
+                    </div>
+                }
+            </div>
             {
                 menu &&
-                <DishesCard categories={categories}/>
+                <DishesCard categories={categories} />
             }
         </div >
     )
