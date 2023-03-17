@@ -37,9 +37,9 @@ const Menu = ({ formulas, categories }) => {
                     La carte des plats
                 </button>
             </div>
-            <div className={styles.formulasDivContainer}>
-                {
-                    formules &&
+            {
+                formules &&
+                <div className={styles.formulasDivContainer}>
                     <div className={styles.formulasContainer}>
                         {formulas['hydra:member'].map(elt => {
                             return (
@@ -50,8 +50,8 @@ const Menu = ({ formulas, categories }) => {
                             )
                         })}
                     </div>
-                }
-            </div>
+                </div>
+            }
             {
                 menu &&
                 <DishesCard categories={categories} />
