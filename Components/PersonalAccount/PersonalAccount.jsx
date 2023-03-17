@@ -189,7 +189,7 @@ const PersonalAccount = () => {
                   </>
                   :
                   <div className={styles.registrationLog}>
-                    <p className="text-danger mt-2 mb-5 fs-5">désolé, il faut vous reconnecter</p>
+                    <p className="text-danger mt-4 mb-2 fs-5">désolé, il faut vous reconnecter</p>
                     <Login />
                   </div>
               }
