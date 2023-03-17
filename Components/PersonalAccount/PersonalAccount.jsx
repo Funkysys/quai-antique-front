@@ -139,13 +139,13 @@ const PersonalAccount = () => {
       :
       <>
         {
-          user.name !== "" ?
-            <>
+          !valid ?
+            <div
+              className={styles.container}
+            >
               {
-                !valid ?
-                  <div
-                    className={styles.container}
-                  >
+                user.name !== "" ?
+                  <>
                     <h2>Bienvenue {user.name} !</h2>
                     <form onSubmit={handleOnSubmit}>
                       <label htmlFor="email">Email</label>
@@ -183,19 +183,19 @@ const PersonalAccount = () => {
                         <Button className='mt-5' type="submit" >Mettre à jour votre profil</ Button>
                       </div>
                     </form>
-                  </div>
+                  </>
                   :
-                  <div className={styles.success}>
-                    <p>Votre profil à bien été mis à jour</p>
+                  <div className={styles.registrationLog}>
+                    <Login />
                   </div>
               }
-              <Button type='submit' className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Réservations</Button>
-            </>
+            </div>
             :
-            <div className={styles.registrationLog}>
-              <Login />
+            <div className={styles.success}>
+              <p>Votre profil à bien été mis à jour</p>
             </div>
         }
+        <Button type='submit' className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Réservations</Button>
       </>
   )
 }
