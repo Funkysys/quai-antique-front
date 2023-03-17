@@ -36,8 +36,6 @@ const UserReservation = ({ user }) => {
             }
         })
     }, [])
-console.log(futureReservationButton);
-console.log(passedReservationButton);
     return (
         <div className={styles.container}>
             <div className={styles.navbar}>

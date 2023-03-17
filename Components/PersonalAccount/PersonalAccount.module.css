@@ -1,6 +1,7 @@
 .container {
     position: relative;
     color: antiquewhite;
+    overflow: hidden;
 }
 
 .container h2 {
@@ -38,10 +39,23 @@
     margin: 0 auto;
 }
 .allergies {
-    
+    display: flex;
 }
-
-
+.allergiesBtn {
+    border-radius: 6px;
+    background: #C17817;
+    color: #fffee4;
+    padding: 3px 6px;
+    margin-right: 8px;
+}
+.allergiesBtn:hover {
+    border-radius: 6px;
+    background: #e3af6c;
+    color: #3a3a3a;
+}
+.deleteAllergies {
+    display: none;
+}
 .success {
     width: 100%;
     height: 45vh;

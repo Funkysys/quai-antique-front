@@ -44,7 +44,7 @@
 }
 
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 768px ) {
     .footerContainer {
         flex-direction: row;
         justify-content: space-between;
@@ -61,18 +61,31 @@
     }
 
     .personalAccount {
-        width: 50vw;
-        height: 50vh;
+        width: 60vw;
+        height: auto;
         bottom: 25vh;
-        left: 25vw;
+        left: 20vw;
         border-radius: 12px;
         background: #343a40;
         color: antiquewhite;
+    }
+}
+@media screen and (max-height: 956px ) {
+    .personalAccount {
+        min-width: 60vw;
+        height: auto;
+        bottom: 25vh;
+        left: 20vw;
     }
 }
 
 @media screen and (min-width: 1152px) {
     .mentionsLegal {
         margin-right: 4vh;
+    }
+    .personalAccount {
+        max-width: 50vw;
+        height: 50vh;
+        left: 25vw;
     }
 }

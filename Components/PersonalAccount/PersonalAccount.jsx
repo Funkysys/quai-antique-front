@@ -19,6 +19,7 @@ const PersonalAccount = () => {
   })
   const [allergies, setAllergies] = useState([])
   const [selectedAllergies, setSelectedAllergies] = useState([])
+  const [deleteAllergies, setDeleteAllergies] = useState([])
 
  
 
@@ -72,10 +73,16 @@ const PersonalAccount = () => {
     const allergieName = []
     selectedAllergies.map(elt => allergieName.push(elt.value))
     user.allergies.map(el => allergieName.push(el))
+    const allergiesReadyToSend = allergieName.filter(elt => {
+      if(!deleteAllergies.includes(elt)) {
+        return elt
+      }
+    })
+    console.log(allergiesReadyToSend);
     const data = {
       email: event.target.email.value !== "" ? event.target.email.value : user.email,
       name: event.target.name.value !== "" ? event.target.name.value : user.name,
-      allergy: allergieName
+      allergy: allergiesReadyToSend
     }
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
     if (data.email && data.email.match(mailformat)) {
@@ -114,6 +121,10 @@ const PersonalAccount = () => {
     }
   }
 
+  const handleOnDelete = (event) => {
+    return setDeleteAllergies(el => [... el, event.target.innerText])
+  }
+  
   const handleOnChange = (e) => {
     setSelectedAllergies(e)
   }
@@ -161,7 +172,7 @@ const PersonalAccount = () => {
                   {
                     user.allergies?.map(elt => {
                       return (
-                        <h3 key={elt.id} className=''>{elt}</h3>
+                        <button type='button' key={elt.id} className={!deleteAllergies.includes(elt) ? styles.allergiesBtn : styles.deleteAllergies} onClick={handleOnDelete}>{elt}</button>
                       )
                     })
                   }
@@ -176,7 +187,7 @@ const PersonalAccount = () => {
               <p>Votre profil à bien été mis à jour</p>
             </div>
         }
-        <Button className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Réservations</Button>
+        <Button type='submit' className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Réservations</Button>
       </>
   )
 }
