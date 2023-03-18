@@ -42,7 +42,7 @@ const Footer = ({ opening_hours }) => {
           </>
         }
         <a href='https://quai-antique.xyz/panel' >
-          <p>admin</p>
+          <p>Admin</p>
         </a>
         <Link href='/mentions_legales'>
           <p>Mentions Légales</p>

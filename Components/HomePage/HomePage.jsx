@@ -37,13 +37,13 @@ const HomePage = ({ opening_hours, images, formulas, categories }) => {
                 </div>
                 <section id="about">
                     <div className={styles.welcome}>
-                        <p>{`Tout en s'inspirant de la cuisine traditionnelle de la savoie, le chef Arnaud Michant vous invite à redécouvrir cette belle région au travers d'un voyage culinaires emprunt d'un modernisme qui le caractérise si bien.`}</p>
+                        <p>{`Tout en s'inspirant de la cuisine traditionnelle de la savoie, le chef Arnaud Michant vous invite à redécouvrir cette belle région au travers d'un voyage culinaire emprunt d'un modernisme qui le caractérise si bien.`}</p>
                     </div>
                     <div className={styles.about}>
                         <div className={styles.photoAbout}></div>
                         <div className={styles.description}>
                             <p>
-                                {`Depuis 1990, le Quai Antique à toujours été en recherche de l'équilivre parfait entre modernisme et tradition. C'est ainsi que notre équipe vous acceuillera avec le plaisir de vous faire découvrir notre belle région à travers des plats emblématiques revisité par le chef Arnaud Michant.`}
+                                {`Depuis 1990, le Quai Antique à toujours été en recherche de l'équilibre parfait entre modernisme et tradition. C'est ainsi que notre équipe vous acceuillera avec le plaisir de vous faire découvrir notre belle région à travers des plats emblématiques revisités par le chef Arnaud Michant.`}
                             </p>
                             <p>
                                 {`Au plaisir de voir à table !`}

@@ -24,10 +24,15 @@
     font-size: 0.8em;
 }
 
-.connectionButton {
-    margin: auto;
+.connectionButtons {
+ display: flex;
+ justify-content: center;
+ align-items: center;
 }
-
+.connectionButtons a{
+    margin-right: 10px;
+    margin-left: -25px;
+   }
 .registerButton {
     margin-left: 10px;
 }

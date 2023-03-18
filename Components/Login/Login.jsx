@@ -33,6 +33,7 @@ const Login = () => {
             <Button variant="outline-primary" className={styles.connectionButton} type="submit">Connexion</ Button>
             <Button onClick={handleOnClick} variant="outline-success" className={styles.registerButton}>Inscription</ Button>
           </div>
+            <a className='fs-6 m-auto mt-2' href='https://quai-antique.xyz/reset-password'>Mot de passe oublié</a>
         </form>
       </div>
       :
