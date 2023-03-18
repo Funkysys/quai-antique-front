@@ -32,7 +32,7 @@
     background: #000;
     position: fixed;
     width: 100%;
-    bottom: 20vh;
+    bottom: 5vh;
     height: auto;
     padding: 30px;
     border-radius: 12px;
@@ -48,7 +48,7 @@
 }
 
 
-@media screen and (min-width: 768px ) {
+@media screen and (min-width: 769px ) {
     .footerContainer {
         flex-direction: row;
         justify-content: space-between;

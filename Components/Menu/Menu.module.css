@@ -31,6 +31,7 @@
     height: 80%;
     display: flex;
     justify-content: center;
+    padding: 30px;
 }
 .formulasContainer {
     height: auto;
@@ -54,6 +55,12 @@
         font-size: 1.6em;
     } 
     .formulasContainer {
+        padding: 0;
+    }
+    .formulasDivContainer {
+        height: 80%;
+        display: flex;
+        justify-content: center;
         padding: 0;
     }
 }
