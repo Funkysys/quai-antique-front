@@ -35,7 +35,7 @@ const HomePage = ({ opening_hours, images, formulas, categories }) => {
                 <div className={styles.homePage} id='test' ref={homeRef}>
                     <div className={styles.titleContainer}>
                         <h1 className={styles.title} ref={titleRef}>Bienvenue chez <br /><span className={styles.titleSpan}>Quai-Antique</span></h1>
-                        <Link href='/#reservation'><Button variant='success' className="fs-3 mt-3">Réserver</Button></Link>
+                        <Link href='/#reservation'><Button variant='success' className="fs-3">Réserver</Button></Link>
                     </div>
                 </div>
                 <section id="about">
