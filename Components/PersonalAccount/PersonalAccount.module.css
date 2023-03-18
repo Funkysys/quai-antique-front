@@ -1,7 +1,7 @@
 .container {
     position: relative;
     color: antiquewhite;
-    overflow: auto;
+
 }
 
 .container h2 {
@@ -38,8 +38,14 @@
     left: 10px;
     margin: 0 auto;
 }
+.reservations {
+    padding: 30px 0;
+    max-height: 70vh;
+    overflow: auto;
+}
 .allergies {
     display: flex;
+    flex-wrap: wrap;
 }
 .allergiesBtn {
     border-radius: 6px;
@@ -65,4 +71,9 @@
 }
 .registrationLog {
     margin: 15px;
+}
+@media screen and (min-width: 1152px) {
+    .reservations {
+        padding: 30px 0;
+    }
 }

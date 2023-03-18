@@ -60,7 +60,7 @@ const ReservationForm = ({ opening_hours }) => {
     }, [selectedHour, value, month])
 
     useEffect(() => {
-        const useCapacityQuery = async () => {
+        const capacityQuery = async () => {
             const tempArr = []
             const reducer = (accumulator, curr) => accumulator + curr;
             const res = await fetch(`https://quai-antique.xyz/api/reservations?page=1&reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth() + 1}-${value.getUTCDate()}&lunchOrDiner=${lunchOrDiner}`)
@@ -76,7 +76,7 @@ const ReservationForm = ({ opening_hours }) => {
             }
 
         }
-        useCapacityQuery()
+        capacityQuery()
         setCapacity(totalCapacity - useCapacity - covers);
     }, [useCapacity, covers, selectedHour, lunchOrDiner])
 
@@ -215,7 +215,7 @@ const ReservationForm = ({ opening_hours }) => {
     }
     return (
         state?.login_temp ?
-            <div className={styles.result}><h2>Veuillez vous reconnecter s'il vous plait</h2></div>
+            <div className={styles.result}><h2>{`Veuillez vous reconnecter s'il vous plait`}</h2></div>
             :
             state?.reservation ?
                 <div className={styles.result}><h2>Votre réservation est prise en compte</h2></div>

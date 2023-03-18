@@ -28,7 +28,7 @@ const DishiesCard = ({ categories }) => {
         {
           selectedCategory.dishes.map(elt => {
             return (
-              <div className={styles.dishes}>
+              <div className={styles.dishes}  key={elt.id}>
                 <div className={styles.dishesTitleAndPrice}>
                   <p className={styles.dishesTitle}>{elt.title} </p>
                   <p className={styles.dishesPrice}>{elt.price > 0 && `: ${elt.price} €`}</p>

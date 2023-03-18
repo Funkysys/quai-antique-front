@@ -1,15 +1,8 @@
 import Head from 'next/head'
-import styles from '@/styles/Home.module.css'
 import HomePage from '@/Components/HomePage/HomePage'
-import Navbar from '@/Components/Navbar/Navbar'
-import MenuContainer from '@/Components/MenuContainer/MenuContainer'
-import GalleryImages from '@/Components/GalleryImages/GalleryImages'
-import Reservation from '@/Components/Reservation/Reservation'
-import Footer from '@/Components/Footer/Footer'
+
 
 export default function Home({ opening_hours, images, formulas, categories }: any) {
-
-
   return (
     <>
       <Head>
@@ -18,40 +11,9 @@ export default function Home({ opening_hours, images, formulas, categories }: an
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <header>
-        <Navbar />
-      </header>
-      <main className={styles.main} id='home'>
-        <HomePage />
-        <section id="about">
-          <div className={styles.welcome}>
-            <p>{`Tout en s'inspirant de la cuisine traditionnelle de la savoie, le chef Arnaud Michant vous invite à redécouvrir cette belle région au travers d'un voyage culinaires emprunt d'un modernisme qui le caractérise si bien.`}</p>
-          </div>
-          <div className={styles.about}>
-            <div className={styles.photoAbout}></div>
-            <div className={styles.description}>
-              <p>
-                {`Depuis 1990, le Quai Antique à toujours été en recherche de l'équilivre parfait entre modernisme et tradition. C'est ainsi que notre équipe vous acceuillera avec le plaisir de vous faire découvrir notre belle région à travers des plats emblématiques revisité par le chef Arnaud Michant.`} 
-              </p>
-              <p>
-                {`Au plaisir de voir à table !`}
-              </p>
-            </div>
-          </div>
-          <div id='Menu'>
-            <MenuContainer categories={categories} formulas={formulas}/>
-          </div>
-        </section>
-        <section id="gallery">
-          <GalleryImages images={images} />
-        </section>
-        <section id="reservation">
-          <Reservation opening_hours={opening_hours} />
-        </section>
-      </main>
-      <footer id="contact">
-        <Footer opening_hours={opening_hours} />
-      </footer>
+      
+        <HomePage opening_hours={opening_hours} images={images} formulas={formulas} categories={categories}/>
+        
     </>
   )
 }
