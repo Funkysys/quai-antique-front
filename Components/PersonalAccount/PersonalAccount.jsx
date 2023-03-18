@@ -49,7 +49,7 @@ const PersonalAccount = () => {
     }
     userInfosFunc()
 
-  }, [])
+  }, [state])
   useEffect(() => {
     const addAllergies = async () => {
       const res = await fetch('https://quai-antique.xyz/api/allergies')
