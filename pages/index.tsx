@@ -19,8 +19,8 @@ export default function Home({ opening_hours, images, formulas, categories }: an
         <meta name="Distribution" content="global" />
         <meta name="Geography" content="Paris, france, 75" />
         <meta name="Category" content="shopping" />
-        <HomePage opening_hours={opening_hours} images={images} formulas={formulas} categories={categories} />
       </Head>
+      <HomePage opening_hours={opening_hours} images={images} formulas={formulas} categories={categories}/>
     </>
   )
 }
