@@ -55,7 +55,7 @@ const Register = () => {
     } else {
       return setNameRequired(false)
     }
-    if (data.plainPassword.length > 6) {
+    if (data.plainPassword.length >= 6) {
       setPasswordLength(true)
     } else {
       return setPasswordLength(false)
