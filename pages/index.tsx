@@ -6,14 +6,21 @@ export default function Home({ opening_hours, images, formulas, categories }: an
   return (
     <>
       <Head>
-        <title>Quai Antique </title>
-        <meta name="description" content="Venez découvir les bons plats de notre restaurant Quai-Antique" />
+        <title>Quai Antique Restaurant</title>
+        <meta name="description" content="Venez découvir les bons plats de notre restaurant Quai-Antique concocter avec amour et passion par notre chef Arnaud Michant" />
+        <meta name=" robots " content="index" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href="https://quai-antique-front.vercel.app/" />
+        <meta name="Identifier-Url" content="https://quai-antique-front.vercel.app/" />
+        <meta name="Revisit-After" content="15 days" />
+        <meta name="Robots" content="index" />
+        <meta name="Rating" content="general" />
+        <meta name="Distribution" content="global" />
+        <meta name="Geography" content="Paris, france, 75" />
+        <meta name="Category" content="shopping" />
+        <HomePage opening_hours={opening_hours} images={images} formulas={formulas} categories={categories} />
       </Head>
-      
-        <HomePage opening_hours={opening_hours} images={images} formulas={formulas} categories={categories}/>
-        
     </>
   )
 }
