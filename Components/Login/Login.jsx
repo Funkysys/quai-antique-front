@@ -16,11 +16,11 @@ const Login = () => {
       <div
         className={styles.loginContainer}
       >
-        <h2>Bienvenu !</h2>
+        <h2>Bienvenue !</h2>
         <form onSubmit={(e) => loginQuery(e, dispatch)}>
           <label htmlFor="password">Email</label>
           <input type="email" name="email" id="email" placeholder='Your Email' />
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Mot de passe</label>
           <input type="password" name="password" id="password" placeholder='Your Password' />
           {
             state?.login_temp &&

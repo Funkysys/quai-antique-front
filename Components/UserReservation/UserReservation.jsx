@@ -52,10 +52,9 @@ const UserReservation = ({ user }) => {
                     Futures Réservations
                 </button>
             </div>
-
-            <div className={styles.reservations}>
-                {
-                    futureReservationButton  &&
+            {
+                futureReservationButton &&
+                <div className={styles.reservations}>
                     <div className={styles.reservationContainer}>
                         {futureReservation?.map(elt => {
                             return (
@@ -63,11 +62,12 @@ const UserReservation = ({ user }) => {
                             )
                         })}
                     </div>
-                }
-            </div>
-            <div className={styles.reservations}>
-                {
-                    passedReservationButton &&
+                </div>
+            }
+
+            {
+                passedReservationButton &&
+                <div className={styles.reservations}>
                     <div className={styles.reservationContainer}>
                         {passedReservation?.map(elt => {
                             return (
@@ -75,8 +75,8 @@ const UserReservation = ({ user }) => {
                             )
                         })}
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div >
     )
 }
