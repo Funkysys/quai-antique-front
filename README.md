@@ -1,11 +1,17 @@
 ## Getting Started
+````
+git clone git@github.com:Funkysys/quai-antique-front.git
+||
+git clone https://https://github.com/Funkysys/quai-antique-front
+````
 
-```bash
+## Installation et démarage du projet 
+
+```
 npm install 
 # or 
 yarn install
-````
-````
+
 npm run dev
 # or
 yarn run dev
