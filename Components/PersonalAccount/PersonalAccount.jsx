@@ -77,7 +77,6 @@ const PersonalAccount = () => {
         return elt
       }
     })
-    console.log(allergiesReadyToSend);
     const data = {
       email: event.target.email.value !== "" ? event.target.email.value : user.email,
       name: event.target.name.value !== "" ? event.target.name.value : user.name,

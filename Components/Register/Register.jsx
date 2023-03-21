@@ -34,7 +34,6 @@ const Register = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault()
-    console.log(event.target.email)
     const allergiesID = []
     selectedAllergies.map(elt => allergiesID.push(elt.value))
     const data = {
@@ -67,7 +66,6 @@ const Register = () => {
     }
 
     const JSONdata = JSON.stringify(data)
-    console.log(JSONdata);
     const endpoint = 'https://quai-antique.xyz/api/users'
 
     const options = {
@@ -87,7 +85,6 @@ const Register = () => {
       loginQuery(e, dispatch, data.email, data.plainPassword)
     } else {
       setRegisterConfirm(false)
-      console.log(response)
       throw Error(response.statusText)
     }
   }

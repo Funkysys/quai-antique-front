@@ -68,7 +68,6 @@ const ReservationForm = ({ opening_hours }) => {
             result['hydra:member'].map(elt => {
                 tempArr.push(elt.nbCovers)
             })
-            console.log(tempArr);
             if (tempArr[0]) {
                 setUseCapacity(tempArr.reduce(reducer))
             } else {

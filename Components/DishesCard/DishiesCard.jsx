@@ -5,8 +5,6 @@ import { Markup } from 'interweave';
 const DishiesCard = ({ categories }) => {
   const allCategories = categories['hydra:member'].map(elt => elt)
   const [selectedCategory, setSeletedCategory] = useState(allCategories[0])
-
-  console.log(selectedCategory);
   return (
     <div className={styles.container}>
       <div className={styles.nav}>
