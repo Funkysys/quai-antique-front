@@ -88,7 +88,7 @@ const PersonalAccount = () => {
     } else {
       return setEmailRequired(false)
     }
-    if (data.name) {
+    if (data.name && data.name !== " ") {
       setNameRequired(true)
     } else {
       return setNameRequired(false)

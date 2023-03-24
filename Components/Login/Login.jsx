@@ -10,7 +10,6 @@ const Login = () => {
   const [toggle, setToggle] = useState(false)
 
   const handleOnClick = async () => setToggle(!toggle)
-
   return (
     !toggle ?
       <div

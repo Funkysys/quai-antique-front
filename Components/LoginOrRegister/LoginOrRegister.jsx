@@ -24,7 +24,7 @@ useEffect(() => {
   if (typeof window !== 'undefined') {
     if(state?.user.name) {
       setUser(state.user)
-    } else if (state === null) {
+    } else if (state === null || state.user.exp > state.user.iat) {
       setUser(null)
     }
   }
