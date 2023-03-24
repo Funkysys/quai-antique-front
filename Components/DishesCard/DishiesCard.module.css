@@ -36,6 +36,14 @@
     font-size: 1.2em;
     color: #C17817;
 }
+.dishesTitleAndPriceAllergens {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    color: #dc3545;
+}
 .dishesTitleAndPrice {
     width: 100%;
     display: flex;

@@ -40,7 +40,7 @@ const PersonalAccount = () => {
         setUser({
           name: result.name,
           email: result.email,
-          allergies: result.allergy,
+          allergies: result.allergies,
           reservation: result.reservations
         });
       } else {
@@ -55,8 +55,13 @@ const PersonalAccount = () => {
       const res = await fetch('https://quai-antique.xyz/api/allergies')
       const result = await res.json()
       const restAllergies = []
+      const userAllergiesName = []
+      user.allergies.map(elt => {
+        userAllergiesName.push(elt.name)
+      })
       result['hydra:member'].filter(elt => {
-        if (!user.allergies.includes(elt.name)) {
+        if (!userAllergiesName.includes(elt.name)) {
+          
           return restAllergies.push(elt)
         }
       })
@@ -66,21 +71,21 @@ const PersonalAccount = () => {
     }
     addAllergies()
   }, [user])
-
   const handleOnSubmit = async (e) => {
     e.preventDefault()
-    const allergieName = []
-    selectedAllergies.map(elt => allergieName.push(elt.value))
-    user.allergies.map(el => allergieName.push(el))
-    const allergiesReadyToSend = allergieName.filter(elt => {
-      if (!deleteAllergies.includes(elt)) {
-        return elt
+    const allergiesId = []
+    selectedAllergies.map(elt => allergiesId.push(elt))
+    user.allergies.map(el => allergiesId.push(el))
+    const allergiesReadyToSend = []
+    allergiesId.filter(elt => {
+      if (!deleteAllergies.includes(elt.name)) {
+        return allergiesReadyToSend.push(`/api/allergies/${elt.id}`)
       }
     })
     const data = {
       email: event.target.email.value !== "" ? event.target.email.value : user.email,
       name: event.target.name.value !== "" ? event.target.name.value : user.name,
-      allergy: allergiesReadyToSend
+      allergies: allergiesReadyToSend
     }
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
     if (data.email && data.email.match(mailformat)) {
@@ -93,7 +98,7 @@ const PersonalAccount = () => {
     } else {
       return setNameRequired(false)
     }
-
+    
     const JSONdata = JSON.stringify(data)
     const endpoint = `https://quai-antique.xyz/api/users/${state.user.id}`
 
@@ -176,7 +181,7 @@ const PersonalAccount = () => {
                         {
                           user.allergies?.map(elt => {
                             return (
-                              <button type='button' key={elt.id} className={!deleteAllergies.includes(elt) ? styles.allergiesBtn : styles.deleteAllergies} onClick={handleOnDelete}>{elt}</button>
+                              <button type='button' key={elt.id} className={!deleteAllergies.includes(elt.name) ? styles.allergiesBtn : styles.deleteAllergies} onClick={handleOnDelete}>{elt.name}</button>
                             )
                           })
                         }
