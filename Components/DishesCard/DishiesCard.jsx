@@ -84,6 +84,7 @@ const DishiesCard = ({ categories }) => {
                       <p className={styles.dishesPrice}>{elt.price > 0 && `: ${elt.price} €`}</p>
                     </div>
                     <p className='text-danger fs-6'> Ce plat contient des allergènes que vous avez signalé <span>( {elt.allergies.map(elt => `${elt.name} `)})</span></p>
+                    <Markup className={styles.dishesDescriptionAllergens} content={elt.description} />
                   </div>
                   :
                   <div className={styles.dishes} key={elt.id}>
