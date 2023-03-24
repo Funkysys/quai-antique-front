@@ -44,6 +44,7 @@ const DishiesCard = ({ categories }) => {
         }
       })
     }
+
   }, [user])
   return (
     <div className={styles.container}>
@@ -68,7 +69,7 @@ const DishiesCard = ({ categories }) => {
             if (elt.allergies.length > 0) {
               elt.allergies.map(el => {
                 if (!userAllergies.includes(el)) {
-                  return elt = null
+                  return null
                 }
                 return elt
               })
