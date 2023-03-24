@@ -12,7 +12,7 @@ const DishiesCard = ({ categories }) => {
 
   useEffect(() => {
     const userInfosFunc = async () => {
-      const endpoint = `https://quai-antique.xyz/api/users/${state?.user.id}`
+      const endpoint = `https://quai-antique.xyz/api/users/${state?.user.id} `
 
       const options = {
         method: 'GET',
