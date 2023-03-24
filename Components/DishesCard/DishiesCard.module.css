@@ -55,7 +55,8 @@
     font-size: 1rem;
 }
 .dishesDescriptionAllergens {
-    font-size: 0.8rem;
+    font-size: 1rem;
+    color: #dc3545;
 }
 
 @media screen and (min-width: 768px) {
