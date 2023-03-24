@@ -66,11 +66,9 @@ const DishiesCard = ({ categories }) => {
         {
           selectedCategory.dishes.map(elt => {
             if (elt.allergies.length > 0) {
-
               elt.allergies.map(el => {
                 if (!userAllergies.includes(el)) {
-                  return (<div>MA BITE</div>
-                  )
+                  return elt = null
                 }
                 return elt
               })
