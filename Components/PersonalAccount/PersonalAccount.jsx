@@ -7,7 +7,7 @@ import UserReservation from '../UserReservation/UserReservation'
 import Login from '../Login/Login';
 
 const PersonalAccount = () => {
-  const { state } = useContext(Context)
+  const { state, dispatch } = useContext(Context)
   const [toggle, setToggle] = useState(true)
   const [valid, setValid] = useState(false)
   const [emailRequired, setEmailRequired] = useState(true)
@@ -116,6 +116,14 @@ const PersonalAccount = () => {
 
     if (response.status === 200) {
       setValid(true)
+      dispatch({
+        type: 'USER_UPDATE',
+        payload: true
+      })
+      dispatch({
+        type: 'USER_UPDATE',
+        payload: false
+      })
     } else {
       setValid(false)
       return (

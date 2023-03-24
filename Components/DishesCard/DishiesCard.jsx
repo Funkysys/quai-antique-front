@@ -35,12 +35,12 @@ const DishiesCard = ({ categories }) => {
       }
     }
     userInfosFunc()
-  }, [])
+  }, [state])
   useEffect(() => {
     if (user?.allergies !== []) {
       user?.allergies.map(elt => {
-        if (!userAllergies.includes(`/api/allergies/${elt.id}`)) {
-          setUserAllergies(el => [...el, `/api/allergies/${elt.id}`])
+        if (!userAllergies.includes(elt.id)) {
+          setUserAllergies(el => [...el, elt.id])
         }
       })
     }
@@ -66,21 +66,33 @@ const DishiesCard = ({ categories }) => {
       <div className={styles.dishesContainer}>
         {
           selectedCategory.dishes.map(elt => {
-            if (elt.allergies.length > 0) {
+            if (elt.allergies.length) {
+              elt.allergens = []
               elt.allergies.map(el => {
-                if (!userAllergies.includes(el)) {
-                  return null
+                if (userAllergies.includes(el.id)) {
+                  elt.allergens.push(el)
+                  console.log(elt);
                 }
-                return elt
               })
               return (
-                <div className={styles.dishes} key={elt.id}>
-                  <div className={styles.dishesTitleAndPriceAllergens}>
-                    <p className={styles.dishesTitle}>* {elt.title} </p>
-                    <p className={styles.dishesPrice}>{elt.price > 0 && `: ${elt.price} €`}</p>
+
+                elt.allergens.length ?
+                  <div className={styles.dishes} key={elt.id}>
+
+                    <div className={styles.dishesTitleAndPriceAllergens}>
+                      <p className={styles.dishesTitle}>* {elt.title} </p>
+                      <p className={styles.dishesPrice}>{elt.price > 0 && `: ${elt.price} €`}</p>
+                    </div>
+                    <p className='text-danger fs-6'> Ce plat contient des allergènes que vous avez signalé <span>( {elt.allergies.map(elt => `${elt.name} `)})</span></p>
                   </div>
-                  <p className='text-danger fs-5'> Ce plat contient des allergènes que vous avez signalé</p>
-                </div>
+                  :
+                  <div className={styles.dishes} key={elt.id}>
+                    <div className={styles.dishesTitleAndPrice}>
+                      <p className={styles.dishesTitle}>{elt.title} </p>
+                      <p className={styles.dishesPrice}>{elt.price > 0 && `: ${elt.price} €`}</p>
+                    </div>
+                    <Markup className={styles.dishesDescription} content={elt.description} />
+                  </div>
               )
             } else {
               return (
