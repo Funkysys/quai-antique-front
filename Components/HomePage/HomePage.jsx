@@ -29,7 +29,9 @@ const HomePage = ({ opening_hours, images, formulas, categories }) => {
     return (
         <>
             <header>
-                <NavigationBar />
+                <nav>
+                    <NavigationBar />
+                </nav>
             </header>
             <main className={styles.main} id='home'>
                 <div className={styles.homePage} id='test' ref={homeRef}>

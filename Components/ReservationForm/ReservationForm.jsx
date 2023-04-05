@@ -29,7 +29,7 @@ const ReservationForm = ({ opening_hours }) => {
     const [dateError, setDateError] = useState(false)
     const [hourError, setHourError] = useState(false)
     const [coversError, setCoversError] = useState(false)
-
+    console.log(date);
     useEffect(() => {
         const totalCapacityQuery = async () => {
             const res = await fetch('https://quai-antique.xyz/api/restaurants')
@@ -52,9 +52,9 @@ const ReservationForm = ({ opening_hours }) => {
         if (selectedHour) {
             const hourSplit = selectedHour.split(" ")
             if (hourSplit.length <= 2) {
-                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate()}T${hourSplit[0]}`)
+                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate() + 1}T${hourSplit[0]}`)
             } else {
-                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate()}T${hourSplit[0]}:${hourSplit[2]}:00`)
+                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate() + 1}T${hourSplit[0]}:${hourSplit[2]}:00`)
             }
         }
     }, [selectedHour, value, month])
@@ -63,7 +63,7 @@ const ReservationForm = ({ opening_hours }) => {
         const capacityQuery = async () => {
             const tempArr = []
             const reducer = (accumulator, curr) => accumulator + curr;
-            const res = await fetch(`https://quai-antique.xyz/api/reservations?page=1&reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth() + 1}-${value.getUTCDate()}&lunchOrDiner=${lunchOrDiner}`)
+            const res = await fetch(`https://quai-antique.xyz/api/reservations?reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth() + 1}-${value.getUTCDate() + 1}&lunchOrDiner=${lunchOrDiner}`)
             const result = await res.json()
             result['hydra:member'].map(elt => {
                 tempArr.push(elt.nbCovers)

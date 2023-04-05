@@ -4,7 +4,6 @@ import { Button } from 'react-bootstrap'
 import Select from 'react-select';
 import { Context } from '@/lib/context';
 import loginQuery from '@/query/loginQuery'
-
 const Register = () => {
   const { dispatch } = useContext(Context);
 
@@ -35,12 +34,12 @@ const Register = () => {
   const handleOnSubmit = async (e) => {
     e.preventDefault()
     const allergiesID = []
-    selectedAllergies.map(elt => allergiesID.push(elt.value))
+    selectedAllergies.map(elt => allergiesID.push(`/api/allergies/${elt.id}`))
     const data = {
       email: event.target.email.value,
       plainPassword: event.target.password.value,
       name: event.target.name.value,
-      allergy: allergiesID
+      allergies: allergiesID
     }
     const confirm_password = event.target.confirm_password.value
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
@@ -77,9 +76,7 @@ const Register = () => {
       // Body of the request is the JSON data we created above.
       body: JSONdata,
     }
-
     const response = await fetch(endpoint, options)
-
     if (response.status === 201) {
       setRegisterConfirm(true)
       loginQuery(e, dispatch, data.email, data.plainPassword)

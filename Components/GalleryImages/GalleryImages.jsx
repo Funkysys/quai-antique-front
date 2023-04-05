@@ -12,9 +12,6 @@ const GalleryImages = ({ images }) => {
   for (let i = 1; i <= nbPages; i++) {
     paginationNumber.push(i)
   }
-
-  
-
   useEffect(() => {
     if (page === 1) {
       setImg([])
