@@ -6,8 +6,19 @@ import LoginOrRgister from '@/Components/LoginOrRegister/LoginOrRegister'
 function NavigationBar() {
   return (
     <div className={styles.navBarContainer}>
-      <Navbar bg="dark" variant="dark" fixed='top' expand="md" >
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" className='m-3' />
+      <Navbar bg="dark" variant="dark" fixed='top' expand="lg" >
+        <div className={styles.logoToggle}>
+          <div className={styles.toggleButton}>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" className='m-3' />
+          </div>
+          <Navbar.Brand href="/#home"><Image
+                  alt=""
+                  src="https://quai-antique.xyz/asset/images/logo/logo1.png"
+                  width="90"
+                  height="60"
+                  className=" align-top"
+                /></Navbar.Brand>
+        </div>
         <div className={styles.nav}>
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="ml-auto">
