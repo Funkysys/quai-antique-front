@@ -23,6 +23,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ````
 
 ### ENJOY
-<a href="https://visitcount.itsvg.in">
-  <img src="https://visitcount.itsvg.in/api?id=Funkysys&label=Profile%20Views&color=8&icon=2&pretty=true" />
-</a>

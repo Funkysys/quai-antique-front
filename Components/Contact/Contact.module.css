@@ -13,6 +13,8 @@
 .contactDetails div a:hover {
     color: #fa9090;
 }
+
+
 @media screen and (min-width: 768px) {
     .contactContainer {
         margin-left: -10vw;

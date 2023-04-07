@@ -1,0 +1,161 @@
+.contactContainer {
+    position: fixed;
+    z-index: 3000;
+    min-height: 20vh;
+    max-height: 80vh;
+    overflow: auto;
+    width: 100vw;
+    bottom: 30%;
+    background: #3d3d3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 10px;
+}
+
+.contactContainer form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 0 5px;
+    border-radius: 5px;
+    background: #ee4949;
+    border: none;
+    color: aliceblue;
+    font-size: 1.2em;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    box-shadow: 2px 2px 5px black;
+}
+
+.closeButton:hover {
+    box-shadow: none;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+    width: 80%;
+}
+
+.inputLabel {
+    text-align: left;
+    color: #fbb764;
+    font-size: 1em;
+    margin-bottom: 5px;
+}
+
+.inputField {
+    height: 30px;
+    border-radius: 5px;
+}
+
+.textArea {
+    padding: 5px;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 1px #999;
+}
+
+.submitButton {
+    background: #fbb764;
+    color: #1d1d1d;
+    border: none;
+    margin-top: 10px;
+    padding: 5px 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.submitButton:hover {
+    box-shadow: none;
+    background: #975300;
+    color: aliceblue;
+}
+
+.contactButton {
+    background: #fbb764;
+    color: #1d1d1d;
+    border: none;
+    padding: 5px 10px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.contactButton:hover {
+    box-shadow: none;
+    background: #975300;
+    color: aliceblue;
+}
+
+.message {
+    color: #ccc;
+    text-align: center;
+    margin: 20px 5px;
+}
+@media screen and (min-width: 768px) {
+    .contactContainer {
+        width: 80vw;
+        left: 10vw;
+        margin: auto;
+        max-width: 80vw;
+        padding: 50px 50px;
+    }
+
+    .inputGroup {
+        width: 550px;
+    }
+
+    .inputLabel {
+        font-size: 1.2em;
+    }
+
+    .textArea {
+        padding: 10px;
+    }
+
+    .submitButton {
+        font-size: 1.2em;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .contactContainer {
+        width: 40vw;
+        left: 30vw;
+        margin: auto;
+        max-width: 80vw;
+        padding: 50px 50px;
+    }
+
+    .inputGroup {
+        width: 550px;
+    }
+
+    .inputLabel {
+        font-size: 1.2em;
+    }
+
+    .textArea {
+        padding: 10px;
+    }
+
+    .submitButton {
+        font-size: 1.2em;
+    }
+}
