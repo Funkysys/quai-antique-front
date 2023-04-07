@@ -85,18 +85,17 @@
   flex-direction: column;
   background: #b04343;
   width: 100vw;
-  height: 60vh;
 }
 
 .description {
-  height: 100%;
+  height: auto;
   width: 100%;
   background: #C17817;
   color: #fffee4;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0 15px;
+  padding: 20px 15px;
   text-align: center;
 }
 
