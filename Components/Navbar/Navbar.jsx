@@ -28,7 +28,7 @@ function NavigationBar() {
                   src="https://quai-antique.xyz/asset/images/logo/logo1.png"
                   width="90"
                   height="60"
-                  className=" align-top"
+                  className={styles.aHome}
                 /></Navbar.Brand>
                 <Nav.Link href="/#about">Notre Restaurant</Nav.Link>
                 <Nav.Link eventKey="3" href="/#reservation"> Reservation</Nav.Link>
