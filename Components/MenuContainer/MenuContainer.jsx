@@ -28,7 +28,15 @@ const MenuContainer = ({ formulas, categories }) => {
             </div>
             :
             <div className={styles.menu}>
-                <div className={styles.photoMenu}></div>
+                <div className={styles.photoMenu}>
+                    <Image
+                        src={"/Images/pexels-rajesh-tp-1600727.jpg"}
+                        alt="photo du menu"
+                        fill
+                        className={styles.customImg}
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                </div>
                 <div className={styles.dishes}><Menu categories={categories} formulas={formulas} /></div>
             </div>
     )
