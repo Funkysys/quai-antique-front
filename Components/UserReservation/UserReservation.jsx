@@ -7,7 +7,6 @@ const UserReservation = ({ user }) => {
     const [passedReservation, setPassedReservation] = useState([])
     const [futureReservation, setFutureReservation] = useState([])
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    console.log(user.reservation)
     const handleOnFormules = () => {
         if (!toggle) {
             setToggle(true)

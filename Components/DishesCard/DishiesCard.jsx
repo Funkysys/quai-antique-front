@@ -9,7 +9,6 @@ const DishiesCard = ({ categories }) => {
   const [selectedCategory, setSeletedCategory] = useState(allCategories[0])
   const [user, setUser] = useState()
   const [userAllergies, setUserAllergies] = useState([])
-console.log(userAllergies);
   useEffect(() => {
     const userInfosFunc = async () => {
       const endpoint = `https://quai-antique.xyz/api/users/${state?.user.id} `

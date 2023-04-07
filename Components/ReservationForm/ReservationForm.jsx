@@ -29,7 +29,6 @@ const ReservationForm = ({ opening_hours }) => {
     const [dateError, setDateError] = useState(false)
     const [hourError, setHourError] = useState(false)
     const [coversError, setCoversError] = useState(false)
-    console.log(date);
     useEffect(() => {
         const totalCapacityQuery = async () => {
             const res = await fetch('https://quai-antique.xyz/api/restaurants')
