@@ -4,7 +4,7 @@
     height: auto;
     min-height: 30vh;
     width: 100vw;
-    background: #de9494;
+    background: #CAFFD0;
 }
 
 .dishes {
@@ -15,9 +15,10 @@
 .photoMenu {
     height: 30vh;
     width: 100%;
-    background: url('/Images/1.jpg') no-repeat center;
-    background-size: cover;
-    background-attachment: fixed;
+    display: flex;
+}
+.customImg {
+    position: relative !important;
 }
 
 @media screen and (min-width: 768px) {

@@ -9,7 +9,7 @@ const DishiesCard = ({ categories }) => {
   const [selectedCategory, setSeletedCategory] = useState(allCategories[0])
   const [user, setUser] = useState()
   const [userAllergies, setUserAllergies] = useState([])
-
+console.log(userAllergies);
   useEffect(() => {
     const userInfosFunc = async () => {
       const endpoint = `https://quai-antique.xyz/api/users/${state?.user.id} `
@@ -38,7 +38,7 @@ const DishiesCard = ({ categories }) => {
   }, [state])
   useEffect(() => {
     if (user?.allergies !== []) {
-      user?.allergies.map(elt => {
+      user?.allergies.filter(elt => {
         if (!userAllergies.includes(elt.id)) {
           setUserAllergies(el => [...el, elt.id])
         }
@@ -71,11 +71,9 @@ const DishiesCard = ({ categories }) => {
               elt.allergies.map(el => {
                 if (userAllergies.includes(el.id)) {
                   elt.allergens.push(el)
-                  console.log(elt);
                 }
               })
               return (
-
                 elt.allergens.length ?
                   <div className={styles.dishes} key={elt.id}>
 
@@ -83,7 +81,7 @@ const DishiesCard = ({ categories }) => {
                       <p className={styles.dishesTitle}>* {elt.title} </p>
                       <p className={styles.dishesPrice}>{elt.price > 0 && `: ${elt.price} €`}</p>
                     </div>
-                    <p className='text-danger fs-6'> Ce plat contient des allergènes que vous avez signalé <span>( {elt.allergies.map(elt => `${elt.name} `)})</span></p>
+                    <p className='text-danger fs-6'> Ce plat contient des allergènes que vous avez signalé <span>( {elt.allergens.map(elt => `${elt.name} `)})</span></p>
                     <Markup className={styles.dishesDescriptionAllergens} content={elt.description} />
                   </div>
                   :

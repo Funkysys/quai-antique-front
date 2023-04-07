@@ -49,7 +49,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 0 6rem;
   min-height: 100vh;
   background: #CAFFD0;
 }
@@ -103,9 +103,11 @@
 .photoAbout {
   height: 100%;
   width: 100%;
-  background: url('/Images/3.jpg') no-repeat top right;
-  background-size: cover;
-  background-attachment: fixed;
+  background: #C17817;
+}
+.customImg {
+  width: auto;
+  position: relative !important;
 }
 
 @media screen and (min-width: 768px) {
@@ -137,9 +139,7 @@
 
   .photoAbout {
     width: 50%;
-    background: url('/Images/3.jpg') no-repeat right;
-    background-size: cover;
-    background-attachment: fixed;
+  
   }
 }
 

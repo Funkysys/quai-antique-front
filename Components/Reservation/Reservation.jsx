@@ -36,7 +36,7 @@ const Reservation = ({ opening_hours }) => {
                             <Login />
                         </div>
                     :
-                    <Button onClick={handleOnClick}>Réserver</Button>
+                    <Button className='fs-3' onClick={handleOnClick}>Réserver</Button>
             }
         </div>
     );

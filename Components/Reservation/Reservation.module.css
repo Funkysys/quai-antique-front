@@ -1,9 +1,12 @@
 .container {
     width: 100vw;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 80vh;
+    background: url('/images/3.jpg') no-repeat center;
+    background-size: cover;
+    background-attachment: fixed;
 }
 
 .registrationLog {
@@ -14,12 +17,14 @@
     background: #343a40;
     color: antiquewhite;
 }
+
 @media screen and (min-width: 768px) {
     .registrationLog {
         width: 50vw;
         margin: 0 20%;
     }
 }
+
 @media screen and (min-width: 1372px) {
     .registrationLog {
         width: 30vw;
