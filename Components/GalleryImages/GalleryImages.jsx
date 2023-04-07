@@ -71,7 +71,7 @@ const GalleryImages = ({ images }) => {
           paginationNumber.length > 1 &&
           paginationNumber.map(elt => {
             return (
-              <Button key={elt}>{elt}</Button>
+              <Button variant='success' key={elt}>{elt}</Button>
             )
           })
         }

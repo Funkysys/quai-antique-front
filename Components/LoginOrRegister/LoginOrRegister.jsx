@@ -49,7 +49,7 @@ useEffect(() => {
 
   return (
     user ?
-      <Button variant='outline-primary' onClick={handleOnDisconnect}>logout</Button>
+      <Button variant='outline-success' onClick={handleOnDisconnect}>logout</Button>
       :
       !toggle ?
         <Button onClick={handleOnClick} variant="outline-primary"> Connexion</Button>

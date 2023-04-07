@@ -3,13 +3,13 @@
     flex-direction: column;
     justify-content: space-between;
     background: #222222;
-    color: #FF6464;
+    color: #c17817;
     font-size: 1.1rem;
 }
 
 .footerContainer a {
     text-decoration: none;
-    color: #FF6464;
+    color: #c17817;
 }
 
 .link {
@@ -24,7 +24,7 @@
     margin-bottom: 10px;
 }
 .link p:hover {
-    color: #fa9090;
+    color: #f0bb77;
     margin-bottom: 10px;
 }
 
