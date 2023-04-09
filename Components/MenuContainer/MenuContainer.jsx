@@ -10,6 +10,7 @@ const MenuContainer = ({ formulas, categories }) => {
         setWidth(window.innerHeight)
         setHeight(window.innerWidth)
     }, [width, height])
+    console.log(width, height);
     return (
         width < height ?
             <div className={styles.menu} >
