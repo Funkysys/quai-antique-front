@@ -14,12 +14,13 @@ const Register = () => {
   const [registerConfirm, setRegisterConfirm] = useState(false)
   const [allergies, setAllergies] = useState([])
   const [selectedAllergies, setSelectedAllergies] = useState([])
-  
+  const [isLoading, setIsLoading] = useState(false)
+
   useEffect(() => {
     const addAllergies = async () => {
       const res = await fetch('https://quai-antique.xyz/api/allergies')
       const result = await res.json()
-      
+
       setAllergies(result['hydra:member'].map(elt => {
         return { id: elt.id, value: elt.name, label: elt.name }
       }))
@@ -32,57 +33,61 @@ const Register = () => {
   }
 
   const handleOnSubmit = async (e) => {
-    e.preventDefault()
-    const allergiesID = []
-    selectedAllergies.map(elt => allergiesID.push(`/api/allergies/${elt.id}`))
-    const data = {
-      email: event.target.email.value,
-      plainPassword: event.target.password.value,
-      name: event.target.name.value,
-      allergies: allergiesID
-    }
-    const confirm_password = event.target.confirm_password.value
-    const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
-    if (data.email && data.email.match(mailformat)) {
-      setEmailRequired(true)
-    } else {
-      return setEmailRequired(false)
-    }
-    if (data.name) {
-      setNameRequired(true)
-    } else {
-      return setNameRequired(false)
-    }
-    if (data.plainPassword.length >= 6) {
-      setPasswordLength(true)
-    } else {
-      return setPasswordLength(false)
-    }
-    if (data.plainPassword === confirm_password) {
-      setConfirmPassword(true)
-    } else {
-      return setConfirmPassword(false)
-    }
+    if (!isLoading) {
+      setIsLoading(true)
+      e.preventDefault()
+      const allergiesID = []
+      selectedAllergies.map(elt => allergiesID.push(`/api/allergies/${elt.id}`))
+      const data = {
+        email: event.target.email.value,
+        plainPassword: event.target.password.value,
+        name: event.target.name.value,
+        allergies: allergiesID
+      }
+      const confirm_password = event.target.confirm_password.value
+      const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+      if (data.email && data.email.match(mailformat)) {
+        setEmailRequired(true)
+      } else {
+        return setEmailRequired(false)
+      }
+      if (data.name) {
+        setNameRequired(true)
+      } else {
+        return setNameRequired(false)
+      }
+      if (data.plainPassword.length >= 6) {
+        setPasswordLength(true)
+      } else {
+        return setPasswordLength(false)
+      }
+      if (data.plainPassword === confirm_password) {
+        setConfirmPassword(true)
+      } else {
+        return setConfirmPassword(false)
+      }
 
-    const JSONdata = JSON.stringify(data)
-    const endpoint = 'https://quai-antique.xyz/api/users'
-
-    const options = {
-      method: 'POST',
-      headers: {
-        'Accept': '*/*',
-        'Content-Type': 'application/json',
-      },
-      // Body of the request is the JSON data we created above.
-      body: JSONdata,
-    }
-    const response = await fetch(endpoint, options)
-    if (response.status === 201) {
-      setRegisterConfirm(true)
-      loginQuery(e, dispatch, data.email, data.plainPassword)
-    } else {
-      setRegisterConfirm(false)
-      throw Error(response.statusText)
+      const JSONdata = JSON.stringify(data)
+      const endpoint = 'https://quai-antique.xyz/api/users'
+      
+      const options = {
+        method: 'POST',
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+        },
+        // Body of the request is the JSON data we created above.
+        body: JSONdata,
+      }
+      const response = await fetch(endpoint, options)
+      setIsLoading(false)
+      if (response.status === 201) {
+        setRegisterConfirm(true)
+        loginQuery(e, dispatch, data.email, data.plainPassword)
+      } else {
+        setRegisterConfirm(false)
+        throw Error(response.statusText)
+      }
     }
   }
   return (
@@ -103,7 +108,7 @@ const Register = () => {
           <input type="password" name="confirm_password" id="confirm_password" placeholder='Confirmez votre mot de passe' />
           <label htmlFor="allergies">Une allergie à nous signaler ?</label>
           <Select
-          onChange={handleOnChange}
+            onChange={handleOnChange}
             isMulti
             name="allergies"
             options={allergies}
@@ -117,6 +122,7 @@ const Register = () => {
               }),
             }}
           />
+          {isLoading && <p className='text-alert'>{`ça arrive !`}</p>}
           <div className={styles.connectionButtons}>
             <Button type="submit" className={styles.registerButton}>Inscription</ Button>
           </div>

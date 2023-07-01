@@ -1,36 +1,41 @@
-async function submitReservationQuery(covers, date, lunch, state, dispatch) {
+async function submitReservationQuery(covers, date, lunch, state, dispatch, isLoading, setIsLoading) {
     const id = state.user.id
-    let data = {
-        nbCovers: covers,
-        reservationDate: date,
-        user: `/api/users/${id}`,
-        lunchOrDiner: lunch
-    }
-    const JSONdata = JSON.stringify(data)
+    if (!isLoading) {
+        setIsLoading(true)
+        let data = {
+            nbCovers: covers,
+            reservationDate: date,
+            user: `/api/users/${id}`,
+            lunchOrDiner: lunch
+        }
+        const JSONdata = JSON.stringify(data)
 
-    const endpoint = 'https://quai-antique.xyz/api/reservations'
+        const endpoint = 'https://quai-antique.xyz/api/reservations'
 
-    const options = {
-        method: 'POST',
-        headers: {
-            'Accept': '*/*',
-            'Content-Type': 'application/json',
-            'Authorization': `bearer ${localStorage.token}`
-        },
-        body: JSONdata,
-    }
-    const response = await fetch(endpoint, options)
-    if (response.status == 201) {
-        await dispatch({
-            type: "RESERVATION_DONE",
-            payload: true
-        })
-    } else {
-        if (response.status == 401) {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Accept': '*/*',
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${localStorage.token}`
+            },
+            body: JSONdata,
+        }
+        const response = await fetch(endpoint, options)
+        setIsLoading(false)
+        setIsLoading(false)
+        if (response.status == 201) {
             await dispatch({
-                type: "RESERVATION_LOGIN_TEMP",
+                type: "RESERVATION_DONE",
                 payload: true
             })
+        } else {
+            if (response.status == 401) {
+                await dispatch({
+                    type: "RESERVATION_LOGIN_TEMP",
+                    payload: true
+                })
+            }
         }
     }
 }

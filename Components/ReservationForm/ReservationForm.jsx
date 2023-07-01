@@ -29,6 +29,8 @@ const ReservationForm = ({ opening_hours }) => {
     const [dateError, setDateError] = useState(false)
     const [hourError, setHourError] = useState(false)
     const [coversError, setCoversError] = useState(false)
+    const [isLoading, setIsloading] = useState(false)
+
     useEffect(() => {
         const totalCapacityQuery = async () => {
             const res = await fetch('https://quai-antique.xyz/api/restaurants')
@@ -198,7 +200,7 @@ const ReservationForm = ({ opening_hours }) => {
             setCoversError(false)
         }
         if (!hourError, !dateError, !coversError) {
-            submitReservationQuery(covers, date, lunchOrDiner, state, dispatch)
+            submitReservationQuery(covers, date, lunchOrDiner, state, dispatch, isLoading, setIsloading)
         }
         if (state.user.login_temp) {
             const handleOnDisconnect = () => {
@@ -293,6 +295,9 @@ const ReservationForm = ({ opening_hours }) => {
                                         capacity >= 0 && covers > -1 ?
                                             <>
                                                 <h3 className={styles.capacity}>Il reste {capacity} places ! ne tardez pas</h3>
+                                                {
+                                                    isLoading && <p className="text-success fs-6 mt-2 mb-2">En attente de confirmation</p>
+                                                }
                                                 <Button type='submit'>Envoyer votre réservation</Button>
                                             </>
                                             :

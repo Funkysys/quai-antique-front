@@ -8,15 +8,18 @@ import loginQuery from '@/query/loginQuery'
 const Login = () => {
   const { state, dispatch } = useContext(Context);
   const [toggle, setToggle] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-  const handleOnClick = async () => setToggle(!toggle)
+  let loading = false
+
+  const handleOnClick = () => setToggle(!toggle)
   return (
     !toggle ?
       <div
         className={styles.loginContainer}
       >
         <h2>Bienvenue !</h2>
-        <form onSubmit={(e) => loginQuery(e, dispatch)}>
+        <form onSubmit={(e) => loginQuery(e, dispatch, isLoading, setIsLoading)}>
           <label htmlFor="password">Email</label>
           <input type="email" name="email" id="email" placeholder='Your Email' />
           <label htmlFor="password">Mot de passe</label>
@@ -27,6 +30,9 @@ const Login = () => {
               <p className="text-danger fs-6 mt-2">{`Quelque chose s'est mal passé !`}</p>
               <p className="text-danger fs-6 mb-3">Vérifier votre Email et votre mot de passe</p>
             </>
+          }
+          {
+            isLoading && <p className="text-success fs-6 mt-2 mb-2">En attente de connexion</p>
           }
           <div className={styles.connectionButtons}>
             <Button variant="outline-primary" className={styles.connectionButton} type="submit">Connexion</ Button>
