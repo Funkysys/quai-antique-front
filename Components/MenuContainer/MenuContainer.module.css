@@ -26,14 +26,12 @@ align-items: center;
         height: 60vh;
     }
 
-    .dishes {
+    .dishes .photoMenu {
         width: 50%;
         height: 100%;
     }
 
     .photoMenu {
-        width: 50%;
-        height: 100%;
         background-position: top;
     }
 }

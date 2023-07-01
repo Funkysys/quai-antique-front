@@ -25,12 +25,12 @@ export default function Home({ opening_hours, images, formulas, categories }: an
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 
   const res = await fetch('https://quai-antique.xyz/api/opening_hours')
   const opening_hours = await res.json()
 
-  const res2 = await fetch('https://quai-antique.xyz/api/images')
+  const res2 = await fetch('https://quai-antique.xyz/api/images?page=1')
   const images = await res2.json()
 
   const res3 = await fetch('https://quai-antique.xyz/api/formulas')
