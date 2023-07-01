@@ -51,6 +51,9 @@
     margin-right: 10px;
 }
 @media screen and (min-width: 768px) {
+    .container{
+        overflow: hidden;
+    }
     .formulas {
         font-size: 1.6em;
     } 
@@ -58,7 +61,7 @@
         padding: 0;
     }
     .formulasDivContainer {
-        height: 80%;
+        height: 100%;
         display: flex;
         justify-content: center;
         padding: 0;

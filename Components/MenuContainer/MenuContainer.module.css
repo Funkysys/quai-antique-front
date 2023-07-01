@@ -25,13 +25,12 @@ align-items: center;
         flex-direction: row;
         height: 60vh;
     }
-
-    .dishes .photoMenu {
-        width: 50%;
+    .dishes {
         height: 100%;
+        
     }
-
     .photoMenu {
         background-position: top;
+        width: 100%;
     }
 }
