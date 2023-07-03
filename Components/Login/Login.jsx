@@ -10,8 +10,6 @@ const Login = () => {
   const [toggle, setToggle] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  let loading = false
-
   const handleOnClick = () => setToggle(!toggle)
   return (
     !toggle ?
