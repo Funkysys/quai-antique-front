@@ -1,7 +1,7 @@
 import { Navbar, Nav, NavDropdown, Button } from 'react-bootstrap';
 import Image from 'next/image';
-import styles from "./Navbar.module.css"
-import LoginOrRgister from '@/Components/LoginOrRegister/LoginOrRegister'
+import styles from "./Navbar.module.css";
+import LoginOrRgister from '@/Components/LoginOrRegister/LoginOrRegister';
 
 function NavigationBar() {
   return (
@@ -42,6 +42,6 @@ function NavigationBar() {
       </Navbar >
     </div >
   );
-}
+};
 
 export default NavigationBar;

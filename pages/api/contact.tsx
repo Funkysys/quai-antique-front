@@ -8,7 +8,7 @@ export default async function handler(
 	if (req.method !== "POST") {
 		res.status(405).json({ message: "INVALID_METHOD" });
 		return;
-	}
+	};
 
 	// Variables
 	const { name, email, message } = req.body;
@@ -62,4 +62,4 @@ export default async function handler(
 			return;
 		}
 	})();
-}
+};

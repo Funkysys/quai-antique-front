@@ -1,30 +1,30 @@
-import { useContext, useState, useEffect } from 'react'
-import { Button } from 'react-bootstrap'
+import { useContext, useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap';
 import { Context } from '@/lib/context';
-import styles from './PersonalAccount.module.css'
+import styles from './PersonalAccount.module.css';
 import Select from 'react-select';
-import UserReservation from '../UserReservation/UserReservation'
+import UserReservation from '../UserReservation/UserReservation';
 import Login from '../Login/Login';
 
 const PersonalAccount = () => {
-  const { state, dispatch } = useContext(Context)
-  const [toggle, setToggle] = useState(true)
-  const [valid, setValid] = useState(false)
-  const [emailRequired, setEmailRequired] = useState(true)
-  const [nameRequired, setNameRequired] = useState(true)
+  const { state, dispatch } = useContext(Context);
+  const [toggle, setToggle] = useState(true);
+  const [valid, setValid] = useState(false);
+  const [emailRequired, setEmailRequired] = useState(true);
+  const [nameRequired, setNameRequired] = useState(true);
   const [user, setUser] = useState({
     name: "",
     email: "",
     allergies: [],
     reservations: []
-  })
-  const [allergies, setAllergies] = useState([])
-  const [selectedAllergies, setSelectedAllergies] = useState([])
-  const [deleteAllergies, setDeleteAllergies] = useState([])
+  });
+  const [allergies, setAllergies] = useState([]);
+  const [selectedAllergies, setSelectedAllergies] = useState([]);
+  const [deleteAllergies, setDeleteAllergies] = useState([]);
 
   useEffect(() => {
     const userInfosFunc = async () => {
-      const endpoint = `https://quai-antique.xyz/api/users/${state?.user.id}`
+      const endpoint = `https://quai-antique.xyz/api/users/${state?.user.id}`;
       const options = {
         method: 'GET',
         headers: {
@@ -32,10 +32,10 @@ const PersonalAccount = () => {
           'Content-Type': 'application/json',
           'Authorization': `bearer ${localStorage.token}`
         },
-      }
-      const response = await fetch(endpoint, options)
+      };
+      const response = await fetch(endpoint, options);
       if (response.status == 200) {
-        const result = await response.json()
+        const result = await response.json();
         setUser({
           name: result.name,
           email: result.email,
@@ -43,63 +43,62 @@ const PersonalAccount = () => {
           reservation: result.reservations
         });
       } else {
-        <h1>Veuillez vous reconnectez</h1>
-      }
+        return <h1>Veuillez vous reconnectez</h1>;
+      };
     }
-    userInfosFunc()
+    userInfosFunc();
 
   }, [state])
   useEffect(() => {
     const addAllergies = async () => {
-      const res = await fetch('https://quai-antique.xyz/api/allergies')
-      const result = await res.json()
-      const restAllergies = []
-      const userAllergiesName = []
+      const res = await fetch('https://quai-antique.xyz/api/allergies');
+      const result = await res.json();
+      const restAllergies = [];
+      const userAllergiesName = [];
       user.allergies.map(elt => {
-        userAllergiesName.push(elt.name)
-      })
+        userAllergiesName.push(elt.name);
+      });
       result['hydra:member'].filter(elt => {
         if (!userAllergiesName.includes(elt.name)) {
-          
-          return restAllergies.push(elt)
-        }
-      })
+          return restAllergies.push(elt);
+        };
+      });
       setAllergies(restAllergies.map(elt => {
-        return { id: elt.id, value: elt.name, label: elt.name }
-      }))
-    }
-    addAllergies()
+        return { id: elt.id, value: elt.name, label: elt.name };
+      }));
+    };
+    addAllergies();
   }, [user])
   const handleOnSubmit = async (e) => {
-    e.preventDefault()
-    const allergiesId = []
-    selectedAllergies.map(elt => allergiesId.push(elt))
-    user.allergies.map(el => allergiesId.push(el))
-    const allergiesReadyToSend = []
+    e.preventDefault();
+    const allergiesId = [];
+    selectedAllergies.map(elt => allergiesId.push(elt));
+    user.allergies.map(el => allergiesId.push(el));
+    const allergiesReadyToSend = [];
     allergiesId.filter(elt => {
       if (!deleteAllergies.includes(elt.name)) {
-        return allergiesReadyToSend.push(`/api/allergies/${elt.id}`)
-      }
-    })
+        return allergiesReadyToSend.push(`/api/allergies/${elt.id}`);
+      };
+    });
     const data = {
       email: event.target.email.value !== "" ? event.target.email.value : user.email,
       name: event.target.name.value !== "" ? event.target.name.value : user.name,
       allergies: allergiesReadyToSend
-    }
+    };
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
     if (data.email && data.email.match(mailformat)) {
-      setEmailRequired(true)
+      setEmailRequired(true);
     } else {
-      return setEmailRequired(false)
-    }
+      return setEmailRequired(false);
+    };
     if (data.name && data.name !== " ") {
-      setNameRequired(true)
+      setNameRequired(true);
     } else {
-      return setNameRequired(false)
-    }
+      return setNameRequired(false);
+    };
     
-    const JSONdata = JSON.stringify(data)
-    const endpoint = `https://quai-antique.xyz/api/users/${state.user.id}`
+    const JSONdata = JSON.stringify(data);
+    const endpoint = `https://quai-antique.xyz/api/users/${state.user.id}`;
 
     const options = {
       method: 'PUT',
@@ -109,9 +108,8 @@ const PersonalAccount = () => {
         'Authorization': `bearer ${localStorage.token}`
       },
       body: JSONdata,
-    }
-    const response = await fetch(endpoint, options)
-
+    };
+    const response = await fetch(endpoint, options);
 
     if (response.status === 200) {
       setValid(true)
@@ -124,20 +122,20 @@ const PersonalAccount = () => {
         payload: false
       })
     } else {
-      setValid(false)
+      setValid(false);
       return (
         <h1>Veuillez vous reconnectez</h1>
-      )
-    }
+      );
+    };
   }
 
   const handleOnDelete = (event) => {
-    return setDeleteAllergies(el => [...el, event.target.innerText])
-  }
+    return setDeleteAllergies(el => [...el, event.target.innerText]);
+  };
 
   const handleOnChange = (e) => {
-    setSelectedAllergies(e)
-  }
+    setSelectedAllergies(e);
+  };
 
   return (
     !toggle ?
@@ -213,6 +211,6 @@ const PersonalAccount = () => {
         <Button type='submit' className={styles.reservationButton} onClick={() => setToggle(!toggle)}>Réservations</Button>
       </>
   )
-}
+};
 
-export default PersonalAccount
+export default PersonalAccount;

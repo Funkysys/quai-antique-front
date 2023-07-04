@@ -1,16 +1,9 @@
-import React, { useState } from 'react'
-import styles from './ContactModale.module.css'
+import React, { useState } from 'react';
+import styles from './ContactModale.module.css';
 import { useForm } from "react-hook-form";
 
 const Footer = () => {
-    const [toggle, setToggle] = useState()
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [message, setMessage] = useState('')
-    const [submitted, setSubmitted] = useState(false)
-    const [emailRequired, setEmailRequired] = useState(true)
-    const [nameRequired, setNameRequired] = useState(true)
-
+    const [toggle, setToggle] = useState();
     const [isLoading, setIsLoading] = useState(false);
     const [isSended, setIsSended] = useState(false);
 
@@ -22,8 +15,8 @@ const Footer = () => {
     } = useForm();
 
     const handleOnClick = () => {
-        setToggle(!toggle)
-    }
+        setToggle(!toggle);
+    };
 
     const onSubmitHandler = async (data) => {
         if (!isLoading) {
@@ -36,10 +29,8 @@ const Footer = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            }
-            const response = await fetch(endpoint, options)
-
-            const result = await response.json();
+            };
+            const response = await fetch(endpoint, options);
             setIsLoading(false);
 
             if (!response.ok) {
@@ -60,7 +51,6 @@ const Footer = () => {
                         < form className={styles.main} onSubmit={handleSubmit(onSubmitHandler)}>
                             < div className={styles.inputGroup} >
                                 < label htmlFor='name' className={styles.inputLabel}>Nom</label>
-                                {!nameRequired && <p className='text-danger fs-6'>Votre nom est obligatoire</p>}
                                 < input
                                     type='text'
                                     name='name'
@@ -72,7 +62,6 @@ const Footer = () => {
                             </div>
                             < div className={styles.inputGroup} >
                                 < label htmlFor='email' className={styles.inputLabel}>Email</label>
-                                {!emailRequired && <p className='text-danger fs-6'>Votre email est obligatoire</p>}
                                 < input
                                     type='email'
                                     name='email'

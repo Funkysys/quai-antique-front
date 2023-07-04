@@ -1,41 +1,42 @@
-import { useState, useEffect } from 'react'
-import styles from './UserReservation.module.css'
+import { useState, useEffect } from 'react';
+import styles from './UserReservation.module.css';
+
 const UserReservation = ({ user }) => {
-    const [toggle, setToggle] = useState(true)
-    const [passedReservationButton, setPassedReservationButton] = useState(false)
-    const [futureReservationButton, setFutureReservationButton] = useState(false)
-    const [passedReservation, setPassedReservation] = useState([])
-    const [futureReservation, setFutureReservation] = useState([])
+    const [toggle, setToggle] = useState(true);
+    const [passedReservationButton, setPassedReservationButton] = useState(false);
+    const [futureReservationButton, setFutureReservationButton] = useState(false);
+    const [passedReservation, setPassedReservation] = useState([]);
+    const [futureReservation, setFutureReservation] = useState([]);
     const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const handleOnFormules = () => {
         if (!toggle) {
-            setToggle(true)
-            setPassedReservationButton(true)
-            setFutureReservationButton(false)
-        }
-    }
+            setToggle(true);
+            setPassedReservationButton(true);
+            setFutureReservationButton(false);
+        };
+    };
     const handleOnMenu = () => {
         if (toggle) {
-            setToggle(false)
-            setPassedReservationButton(false)
-            setFutureReservationButton(true)
-        }
-    }
+            setToggle(false);
+            setPassedReservationButton(false);
+            setFutureReservationButton(true);
+        };
+    };
     useEffect(() => {
-        setFutureReservationButton([])
-        setPassedReservationButton([])
+        setFutureReservationButton([]);
+        setPassedReservationButton([]);
         user.reservation?.filter(elt => {
             if (new Date(elt.reservationDate).getTime() > Date.now()) {
                 if (!futureReservation.includes(elt)) {
-                    setFutureReservation(el => [...el, elt])
-                }
+                    setFutureReservation(el => [...el, elt]);
+                };
             } else if (new Date(elt.reservationDate).getTime() < Date.now()) {
                 if (!passedReservation.includes(elt)) {
-                    setPassedReservation(el => [...el, elt])
-                }
-            }
-        })
-    }, [])
+                    setPassedReservation(el => [...el, elt]);
+                };
+            };
+        });
+    }, []);
     return (
         <div className={styles.container}>
             <div className={styles.navbar}>
@@ -79,6 +80,6 @@ const UserReservation = ({ user }) => {
             }
         </div >
     )
-}
+};
 
-export default UserReservation
+export default UserReservation;

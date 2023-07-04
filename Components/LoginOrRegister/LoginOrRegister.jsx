@@ -1,51 +1,51 @@
 import { useContext, useEffect, useState } from 'react'
-import styles from './LoginOrRegister.module.css'
+import styles from './LoginOrRegister.module.css';
 import Button from 'react-bootstrap/Button';
-import Login from '../Login/Login'
+import Login from '../Login/Login';
 import { Context } from '@/lib/context';
 import jwtDecode from 'jwt-decode';
 
 
 const LoginOrRegister = () => {
   const { state, dispatch } = useContext(Context);
-  const [toggle, setToggle] = useState(false)
-  const [user, setUser] = useState()
+  const [toggle, setToggle] = useState(false);
+  const [user, setUser] = useState();
 
-  const handleOnClick = () => setToggle(!toggle)
+  const handleOnClick = () => setToggle(!toggle);
   const handleOnDisconnect = () => {
-    localStorage.removeItem('token')
+    localStorage.removeItem('token');
     dispatch({
       type: "LOGOUT_USER",
       payload: null
-    })
-    setUser(null)
-  }
+    });
+    setUser(null);
+  };
 useEffect(() => {
   if (typeof window !== 'undefined') {
     if(state?.user.name) {
-      setUser(state.user)
+      setUser(state.user);
     } else if (state === null || state.user.exp > state.user.iat) {
-      setUser(null)
-    }
-  }
-}, [state])
+      setUser(null);
+    };
+  };
+}, [state]);
   useEffect(() => {
     async function autoConnexion() {
       if (typeof window !== 'undefined') {
         if (localStorage.token && localStorage.token !== undefined) {
-          const decode = jwtDecode(localStorage.token)
+          const decode = jwtDecode(localStorage.token);
           if (decode) {
             await dispatch({
               type: "LOGGED_IN_USER",
               payload: decode
-            })
-            setUser(state)
-          }
-        }
-      }
-    }
-    autoConnexion()
-  }, [])
+            });
+            setUser(state);
+          };
+        };
+      };
+    };
+    autoConnexion();
+  }, []);
 
   return (
     user ?
@@ -62,6 +62,6 @@ useEffect(() => {
           </div>
         </>
   )
-}
+};
 
-export default LoginOrRegister
+export default LoginOrRegister;

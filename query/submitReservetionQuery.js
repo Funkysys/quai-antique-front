@@ -1,16 +1,16 @@
 async function submitReservationQuery(covers, date, lunch, state, dispatch, isLoading, setIsLoading) {
-    const id = state.user.id
+    const id = state.user.id;
     if (!isLoading) {
-        setIsLoading(true)
+        setIsLoading(true);
         let data = {
             nbCovers: covers,
             reservationDate: date,
             user: `/api/users/${id}`,
             lunchOrDiner: lunch
-        }
-        const JSONdata = JSON.stringify(data)
+        };
+        const JSONdata = JSON.stringify(data);
 
-        const endpoint = 'https://quai-antique.xyz/api/reservations'
+        const endpoint = 'https://quai-antique.xyz/api/reservations';
 
         const options = {
             method: 'POST',
@@ -20,23 +20,23 @@ async function submitReservationQuery(covers, date, lunch, state, dispatch, isLo
                 'Authorization': `bearer ${localStorage.token}`
             },
             body: JSONdata,
-        }
-        const response = await fetch(endpoint, options)
-        setIsLoading(false)
+        };
+        const response = await fetch(endpoint, options);
+        setIsLoading(false);
         if (response.status == 201) {
             await dispatch({
                 type: "RESERVATION_DONE",
                 payload: true
-            })
+            });
         } else {
             if (response.status == 401) {
                 await dispatch({
                     type: "RESERVATION_LOGIN_TEMP",
                     payload: true
-                })
-            }
-        }
-    }
-}
+                });
+            };
+        };
+    };
+};
 
-export default submitReservationQuery
+export default submitReservationQuery;

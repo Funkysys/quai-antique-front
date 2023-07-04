@@ -1,6 +1,6 @@
-import styles from '@/styles/Mentions_legales.module.css'
-import NavigationBar from '@/Components/Navbar/Navbar'
-import Footer from '@/Components/Footer/Footer'
+import styles from '@/styles/Mentions_legales.module.css';
+import NavigationBar from '@/Components/Navbar/Navbar';
+import Footer from '@/Components/Footer/Footer';
 
 const mentions_legales = ({ opening_hours }: any) => {
   return (
@@ -51,18 +51,18 @@ const mentions_legales = ({ opening_hours }: any) => {
       </footer>
     </>
   )
-}
+};
 
-export default mentions_legales
+export default mentions_legales;
 
 export async function getStaticProps() {
 
-  const res = await fetch('https://quai-antique.xyz/api/opening_hours')
-  const opening_hours = await res.json()
+  const res = await fetch('https://quai-antique.xyz/api/opening_hours');
+  const opening_hours = await res.json();
 
   return {
     props: {
       opening_hours,
     },
-  }
-}
+  };
+};

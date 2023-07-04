@@ -1,74 +1,74 @@
-import { useState, useContext, useEffect } from 'react'
-import styles from './Register.module.css'
-import { Button } from 'react-bootstrap'
+import { useState, useContext, useEffect } from 'react';
+import styles from './Register.module.css';
+import { Button } from 'react-bootstrap';
 import Select from 'react-select';
 import { Context } from '@/lib/context';
 import loginQuery from '@/query/loginQuery'
 const Register = () => {
   const { dispatch } = useContext(Context);
 
-  const [emailRequired, setEmailRequired] = useState(true)
-  const [nameRequired, setNameRequired] = useState(true)
-  const [passwordLength, setPasswordLength] = useState(true)
-  const [confirmPassword, setConfirmPassword] = useState(true)
-  const [registerConfirm, setRegisterConfirm] = useState(false)
-  const [allergies, setAllergies] = useState([])
-  const [selectedAllergies, setSelectedAllergies] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [emailRequired, setEmailRequired] = useState(true);
+  const [nameRequired, setNameRequired] = useState(true);
+  const [passwordLength, setPasswordLength] = useState(true);
+  const [confirmPassword, setConfirmPassword] = useState(true);
+  const [registerConfirm, setRegisterConfirm] = useState(false);
+  const [allergies, setAllergies] = useState([]);
+  const [selectedAllergies, setSelectedAllergies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const addAllergies = async () => {
-      const res = await fetch('https://quai-antique.xyz/api/allergies')
-      const result = await res.json()
+      const res = await fetch('https://quai-antique.xyz/api/allergies');
+      const result = await res.json();
 
       setAllergies(result['hydra:member'].map(elt => {
-        return { id: elt.id, value: elt.name, label: elt.name }
-      }))
+        return { id: elt.id, value: elt.name, label: elt.name };
+      }));
     }
-    addAllergies()
+    addAllergies();
   }, [])
 
   const handleOnChange = (e) => {
-    setSelectedAllergies(e)
+    setSelectedAllergies(e);
   }
 
   const handleOnSubmit = async (e) => {
     if (!isLoading) {
-      setIsLoading(true)
-      e.preventDefault()
-      const allergiesID = []
-      selectedAllergies.map(elt => allergiesID.push(`/api/allergies/${elt.id}`))
+      setIsLoading(true);
+      e.preventDefault();
+      const allergiesID = [];
+      selectedAllergies.map(elt => allergiesID.push(`/api/allergies/${elt.id}`));
       const data = {
         email: event.target.email.value,
         plainPassword: event.target.password.value,
         name: event.target.name.value,
         allergies: allergiesID
-      }
-      const confirm_password = event.target.confirm_password.value
+      };
+      const confirm_password = event.target.confirm_password.value;
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
       if (data.email && data.email.match(mailformat)) {
-        setEmailRequired(true)
+        setEmailRequired(true);
       } else {
-        return setEmailRequired(false)
-      }
+        return setEmailRequired(false);
+      };
       if (data.name) {
-        setNameRequired(true)
+        setNameRequired(true);
       } else {
-        return setNameRequired(false)
-      }
+        return setNameRequired(false);
+      };
       if (data.plainPassword.length >= 6) {
-        setPasswordLength(true)
+        setPasswordLength(true);
       } else {
-        return setPasswordLength(false)
-      }
+        return setPasswordLength(false);
+      };
       if (data.plainPassword === confirm_password) {
-        setConfirmPassword(true)
+        setConfirmPassword(true);
       } else {
-        return setConfirmPassword(false)
-      }
+        return setConfirmPassword(false);
+      };
 
-      const JSONdata = JSON.stringify(data)
-      const endpoint = 'https://quai-antique.xyz/api/users'
+      const JSONdata = JSON.stringify(data);
+      const endpoint = 'https://quai-antique.xyz/api/users';
       
       const options = {
         method: 'POST',
@@ -78,16 +78,15 @@ const Register = () => {
         },
         // Body of the request is the JSON data we created above.
         body: JSONdata,
-      }
-      const response = await fetch(endpoint, options)
-      setIsLoading(false)
-      console.log(response);
+      };
+      const response = await fetch(endpoint, options);
+      setIsLoading(false);
       if (response.status === 201) {
-        setRegisterConfirm(true)
-        loginQuery(e, dispatch, isLoading, setIsLoading, data.email, data.plainPassword)
+        setRegisterConfirm(true);
+        loginQuery(e, dispatch, isLoading, setIsLoading, data.email, data.plainPassword);
       } else {
-        setRegisterConfirm(false)
-        throw Error(response.statusText)
+        setRegisterConfirm(false);
+        throw Error(response.statusText);
       }
     }
   }
@@ -135,6 +134,6 @@ const Register = () => {
         <p>Bienvenue chez Quai Antique</p>
       </div>
   )
-}
+};
 
-export default Register
+export default Register;

@@ -1,16 +1,16 @@
 import { useState, useContext } from 'react'
 import Button from 'react-bootstrap/Button';
-import styles from './Login.module.css'
+import styles from './Login.module.css';
 import { Context } from '@/lib/context';
-import Register from '../Register/Register'
-import loginQuery from '@/query/loginQuery'
+import Register from '../Register/Register';
+import loginQuery from '@/query/loginQuery';
 
 const Login = () => {
   const { state, dispatch } = useContext(Context);
-  const [toggle, setToggle] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const [toggle, setToggle] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleOnClick = () => setToggle(!toggle)
+  const handleOnClick = () => setToggle(!toggle);
   return (
     !toggle ?
       <div
@@ -42,6 +42,6 @@ const Login = () => {
       :
       <Register />
   )
-}
+};
 
 export default Login

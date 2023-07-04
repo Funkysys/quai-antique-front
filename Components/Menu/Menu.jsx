@@ -1,26 +1,26 @@
-import React, { useState } from 'react'
-import styles from "./Menu.module.css"
-import DishesCard from '../DishesCard/DishiesCard'
+import React, { useState } from 'react';
+import styles from "./Menu.module.css";
+import DishesCard from '../DishesCard/DishiesCard';
 
 const Menu = ({ formulas, categories }) => {
-    const [toggle, setToggle] = useState(true)
-    const [formules, setFormules] = useState(true)
-    const [menu, setMenu] = useState(false)
+    const [toggle, setToggle] = useState(true);
+    const [formules, setFormules] = useState(true);
+    const [menu, setMenu] = useState(false);
 
     const handleOnFormules = () => {
         if (!toggle) {
-            setToggle(true)
-            setFormules(true)
-            setMenu(false)
-        }
-    }
+            setToggle(true);
+            setFormules(true);
+            setMenu(false);
+        };
+    };
     const handleOnMenu = () => {
         if (toggle) {
-            setToggle(false)
-            setFormules(false)
-            setMenu(true)
-        }
-    }
+            setToggle(false);
+            setFormules(false);
+            setMenu(true);
+        };
+    };
     return (
         <div className={styles.container}>
             <div className={styles.navbarMenu}>
@@ -58,6 +58,6 @@ const Menu = ({ formulas, categories }) => {
             }
         </div >
     )
-}
+};
 
-export default Menu
+export default Menu;

@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
 const Modale = () => {
-  const [toggle, setToggle] = useState()
+  const [toggle, setToggle] = useState();
   return (
     <>
       {
@@ -34,6 +34,6 @@ const Modale = () => {
       }
     </>
   )
-}
+};
 
-export default Modale
+export default Modale;

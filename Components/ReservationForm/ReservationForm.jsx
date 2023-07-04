@@ -1,9 +1,9 @@
-import { useEffect, useState, useContext } from 'react'
-import styles from './ReservationForm.module.css'
+import { useEffect, useState, useContext } from 'react';
+import styles from './ReservationForm.module.css';
 import Calendar from 'react-calendar';
 import { Button, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import { Context } from '@/lib/context';
-import submitReservationQuery from '@/query/submitReservetionQuery'
+import submitReservationQuery from '@/query/submitReservetionQuery';
 
 const ReservationForm = ({ opening_hours }) => {
     const { dispatch, state } = useContext(Context);
@@ -14,203 +14,200 @@ const ReservationForm = ({ opening_hours }) => {
     const [lunch, setLunch] = useState(false);
     const [diner, setDiner] = useState(false);
     const [close, setClose] = useState(false);
-    const [toLate, setToLate] = useState(false)
+    const [toLate, setToLate] = useState(false);
     const [lunchOrDiner, setLunchOrDiner] = useState(false);
-    const [buttonValue, setButtonValue] = useState()
-    const [currentDayLunch, setCurrentDayLunch] = useState()
-    const [currentDayDiner, setCurrentDayDiner] = useState()
-    const [maxOpeningHour, setMaxOpeningHour] = useState(0)
-    const [maxCloseHour, setMaxMaxCloseHour] = useState(0)
-    const [hours, setHours] = useState([])
-    const [month, setMonth] = useState("")
-    const [date, setDate] = useState("")
-    const [covers, setCovers] = useState(0)
-    const [selectedHour, setSelectedHour] = useState("")
-    const [dateError, setDateError] = useState(false)
-    const [hourError, setHourError] = useState(false)
-    const [coversError, setCoversError] = useState(false)
-    const [isLoading, setIsloading] = useState(false)
+    const [buttonValue, setButtonValue] = useState();
+    const [currentDayLunch, setCurrentDayLunch] = useState();
+    const [currentDayDiner, setCurrentDayDiner] = useState();
+    const [maxOpeningHour, setMaxOpeningHour] = useState(0);
+    const [maxCloseHour, setMaxMaxCloseHour] = useState(0);
+    const [hours, setHours] = useState([]);
+    const [month, setMonth] = useState("");
+    const [date, setDate] = useState("");
+    const [covers, setCovers] = useState(0);
+    const [selectedHour, setSelectedHour] = useState("");
+    const [dateError, setDateError] = useState(false);
+    const [hourError, setHourError] = useState(false);
+    const [coversError, setCoversError] = useState(false);
+    const [isLoading, setIsloading] = useState(false);
 
     useEffect(() => {
         const totalCapacityQuery = async () => {
             const res = await fetch('https://quai-antique.xyz/api/restaurants')
                 .then(response => response.json())
                 .then(result => setTotalCapacity(result['hydra:member'][0].capacity))
-        }
-        totalCapacityQuery()
-    }, [])
+        };
+        totalCapacityQuery();
+    }, []);
 
     useEffect(() => {
         if (value.getMonth().length === 1) {
-            setMonth(`0${value.getUTCMonth() + 1}`)
+            setMonth(`0${value.getUTCMonth() + 1}`);
         } else {
-            setMonth(`${value.getUTCMonth() + 1}`)
+            setMonth(`${value.getUTCMonth() + 1}`);
         }
-    }, [value, lunchOrDiner])
+    }, [value, lunchOrDiner]);
 
 
     useEffect(() => {
         if (selectedHour) {
-            const hourSplit = selectedHour.split(" ")
+            const hourSplit = selectedHour.split(" ");
             if (hourSplit.length <= 2) {
-                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate() + 1}T${hourSplit[0]}`)
+                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate() + 1}T${hourSplit[0]}`);
             } else {
-                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate() + 1}T${hourSplit[0]}:${hourSplit[2]}:00`)
-            }
-        }
-    }, [selectedHour, value, month])
+                setDate(`${value.getUTCFullYear()}-${month}-${value.getUTCDate() + 1}T${hourSplit[0]}:${hourSplit[2]}:00`);
+            };
+        };
+    }, [selectedHour, value, month]);
 
     useEffect(() => {
         const capacityQuery = async () => {
-            const tempArr = []
+            const tempArr = [];
             const reducer = (accumulator, curr) => accumulator + curr;
-            const res = await fetch(`https://quai-antique.xyz/api/reservations?reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth() + 1}-${value.getUTCDate() + 1}&lunchOrDiner=${lunchOrDiner}`)
-            const result = await res.json()
+            const res = await fetch(`https://quai-antique.xyz/api/reservations?reservationDate=${value.getUTCFullYear()}-0${value.getUTCMonth() + 1}-${value.getUTCDate() + 1}&lunchOrDiner=${lunchOrDiner}`);
+            const result = await res.json();
             result['hydra:member'].map(elt => {
-                tempArr.push(elt.nbCovers)
-            })
+                tempArr.push(elt.nbCovers);
+            });
             if (tempArr[0]) {
-                setUseCapacity(tempArr.reduce(reducer))
+                setUseCapacity(tempArr.reduce(reducer));
             } else {
-                setUseCapacity(0)
-            }
-
-        }
-        capacityQuery()
+                setUseCapacity(0);
+            };
+        };
+        capacityQuery();
         setCapacity(totalCapacity - useCapacity - covers);
-    }, [useCapacity, covers, selectedHour, lunchOrDiner])
+    }, [useCapacity, covers, selectedHour, lunchOrDiner]);
 
     useEffect(() => {
-        setMaxOpeningHour()
+        setMaxOpeningHour();
         opening_hours['hydra:member'].map(elt => {
             let dayIndex;
-            if (elt.day.day === "Lundi") dayIndex = 1
-            if (elt.day.day === "Mardi") dayIndex = 2
-            if (elt.day.day === "Mercredi") dayIndex = 3
-            if (elt.day.day === "Jeudi") dayIndex = 4
-            if (elt.day.day === "Vendredi") dayIndex = 5
-            if (elt.day.day === "Samedi") dayIndex = 6
-            if (elt.day.day === "Dimanche") dayIndex = 0
-            const tempTime = new Date()
-            const tempDate = new Date(tempTime.getFullYear(), tempTime.getMonth(), tempTime.getDate()).getTime()
+            if (elt.day.day === "Lundi") dayIndex = 1;
+            if (elt.day.day === "Mardi") dayIndex = 2;
+            if (elt.day.day === "Mercredi") dayIndex = 3;
+            if (elt.day.day === "Jeudi") dayIndex = 4;
+            if (elt.day.day === "Vendredi") dayIndex = 5;
+            if (elt.day.day === "Samedi") dayIndex = 6;
+            if (elt.day.day === "Dimanche") dayIndex = 0;
+            const tempTime = new Date();
+            const tempDate = new Date(tempTime.getFullYear(), tempTime.getMonth(), tempTime.getDate()).getTime();
             if (value.getTime() >= tempDate) {
                 setToLate(false)
                 if (value.getDay() === dayIndex) {
                     if (!elt.lunch && !elt.diner && elt.close) {
-                        setClose(true)
-                        setDiner(false)
-                        setLunch(false)
+                        setClose(true);
+                        setDiner(false);
+                        setLunch(false);
                     } else if (elt.close && elt.diner) {
-                        setDiner(false)
+                        setDiner(false);
                     } else if (elt.close && elt.lunch) {
-                        setLunch(false)
+                        setLunch(false);
                     } else if (elt.lunch) {
-                        setCurrentDayLunch(elt)
-                        setClose(false)
-                        setLunch(true)
+                        setCurrentDayLunch(elt);
+                        setClose(false);
+                        setLunch(true);
                     } else if (elt.diner) {
-                        setCurrentDayDiner(elt)
-                        setClose(false)
-                        setDiner(true)
+                        setCurrentDayDiner(elt);
+                        setClose(false);
+                        setDiner(true);
                     } else if (!elt.lunch) {
-                        setClose(false)
-                        setLunch(false)
+                        setClose(false);
+                        setLunch(false);
                     } else if (!elt.diner) {
-                        setClose(false)
-                        setDiner(false)
-                    }
-                }
+                        setClose(false);
+                        setDiner(false);
+                    };
+                };
             } else {
-                setClose(false)
-                setLunch(false)
-                setDiner(false)
-                setToLate(true)
-            }
-        })
-    }, [value])
+                setClose(false);
+                setLunch(false);
+                setDiner(false);
+                setToLate(true);
+            };
+        });
+    }, [value]);
 
     useEffect(() => {
-        setHours([])
-        let hoursArr = []
-        let tempHours = []
+        setHours([]);
+        let hoursArr = [];
+        let tempHours = [];
         for (let i = maxOpeningHour; i <= (maxCloseHour - 45); i += 15) {
-            hoursArr.push(i / 60)
-        }
+            hoursArr.push(i / 60);
+        };
         hoursArr.map(elt => {
-            const temp = elt.toString().split(".")
+            const temp = elt.toString().split(".");
             if (temp[1]) {
                 if (temp[1] === '25') {
-                    tempHours.push(`${temp[0]} H 15`)
-                }
-                if (temp[1] === '5') {
-                    tempHours.push(`${temp[0]} H 30`)
-                }
-                if (temp[1] === '75') {
-                    tempHours.push(`${temp[0]} H 45`)
+                    tempHours.push(`${temp[0]} H 15`);
+                } else if (temp[1] === '5') {
+                    tempHours.push(`${temp[0]} H 30`);
+                } else if (temp[1] === '75') {
+                    tempHours.push(`${temp[0]} H 45`);
                 }
             } else if (!temp[1]) {
-                tempHours.push(`${temp[0]} H`)
-            }
-        })
-        setHours(tempHours)
-    }, [value, maxCloseHour, maxOpeningHour])
+                tempHours.push(`${temp[0]} H`);
+            };
+        });
+        setHours(tempHours);
+    }, [value, maxCloseHour, maxOpeningHour]);
 
     const handleOnClick = (event) => {
-        setCovers(0)
-        setSelectedHour("")
-        const value = event.target.innerText.toLowerCase()
+        setCovers(0);
+        setSelectedHour("");
+        const value = event.target.innerText.toLowerCase();
         if (value === 'déjeuner') {
-            setLunchOrDiner(true)
-            setMaxOpeningHour((currentDayLunch.openingHours.hour * 60) + currentDayLunch.openMinutes.minutes)
-            setMaxMaxCloseHour((currentDayLunch.closeHours.hour * 60) + currentDayLunch.closeMinutes.minutes)
+            setLunchOrDiner(true);
+            setMaxOpeningHour((currentDayLunch.openingHours.hour * 60) + currentDayLunch.openMinutes.minutes);
+            setMaxMaxCloseHour((currentDayLunch.closeHours.hour * 60) + currentDayLunch.closeMinutes.minutes);
         } else if (value === 'diner') {
-            setLunchOrDiner(false)
-            setMaxOpeningHour((currentDayDiner.openingHours.hour * 60) + currentDayDiner.openMinutes.minutes)
-            setMaxMaxCloseHour((currentDayDiner.closeHours.hour * 60) + currentDayDiner.closeMinutes.minutes)
-        }
-    }
+            setLunchOrDiner(false);
+            setMaxOpeningHour((currentDayDiner.openingHours.hour * 60) + currentDayDiner.openMinutes.minutes);
+            setMaxMaxCloseHour((currentDayDiner.closeHours.hour * 60) + currentDayDiner.closeMinutes.minutes);
+        };
+    };
 
     const handleOnHour = (event, elt) => {
-        setButtonValue(hours.indexOf(elt))
-        const hour = event.target
-        setSelectedHour(hour.innerText)
-    }
+        setButtonValue(hours.indexOf(elt));
+        const hour = event.target;
+        setSelectedHour(hour.innerText);
+    };
 
     const handleOnChange = (event) => {
-        setCovers(event.target.value * 1)
-    }
+        setCovers(event.target.value * 1);
+    };
 
     const handleOnSubmit = (e) => {
-        e.preventDefault()
-        const tempTime = new Date()
-        const tempDate = new Date(tempTime.getFullYear(), tempTime.getMonth(), tempTime.getDate()).getTime()
+        e.preventDefault();
+        const tempTime = new Date();
+        const tempDate = new Date(tempTime.getFullYear(), tempTime.getMonth(), tempTime.getDate()).getTime();
         if (value.getTime() < tempDate) {
-            return setDateError(true)
+            return setDateError(true);
         } else {
-            setDateError(false)
-        }
+            setDateError(false);
+        };
         if (!selectedHour) {
-            return setHourError(true)
+            return setHourError(true);
         } else {
-            setHourError(false)
-        }
+            setHourError(false);
+        };
         if (covers <= 0) {
-            return setCoversError(true)
+            return setCoversError(true);
         } else {
-            setCoversError(false)
-        }
+            setCoversError(false);
+        };
         if (!hourError, !dateError, !coversError) {
-            submitReservationQuery(covers, date, lunchOrDiner, state, dispatch, isLoading, setIsloading)
-        }
+            submitReservationQuery(covers, date, lunchOrDiner, state, dispatch, isLoading, setIsloading);
+        };
         if (state.user.login_temp) {
             const handleOnDisconnect = () => {
-                localStorage.removeItem('token')
+                localStorage.removeItem('token');
                 dispatch({
                     type: "LOGOUT_USER",
                     payload: null
-                })
-            }
-            handleOnDisconnect
+                });
+            };
+            handleOnDisconnect()
         }
     }
     return (
@@ -318,6 +315,6 @@ const ReservationForm = ({ opening_hours }) => {
                     }
                 </form>
     )
-}
+};
 
-export default ReservationForm
+export default ReservationForm;

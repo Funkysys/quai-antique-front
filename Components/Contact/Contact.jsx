@@ -1,6 +1,5 @@
-import Link from 'next/link'
-import styles from './Contact.module.css'
-import ContactModale from './ContactModale'
+import styles from './Contact.module.css';
+import ContactModale from './ContactModale';
 
 const Contact = () => {
     return (
@@ -13,6 +12,6 @@ const Contact = () => {
             </div>
         </div>
     )
-}
+};
 
-export default Contact
+export default Contact;

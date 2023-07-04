@@ -1,26 +1,26 @@
-import { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react';
 import { Context } from '@/lib/context';
-import Link from 'next/link'
-import OpeningHours from '../OpeningHours/OpeningHours'
-import Contact from '@/Components/Contact/Contact'
-import PersonalAccount from '../PersonalAccount/PersonalAccount'
-import styles from './Footer.module.css'
-import { Button } from 'react-bootstrap'
+import Link from 'next/link';
+import OpeningHours from '../OpeningHours/OpeningHours';
+import Contact from '@/Components/Contact/Contact';
+import PersonalAccount from '../PersonalAccount/PersonalAccount';
+import styles from './Footer.module.css';
+import { Button } from 'react-bootstrap';
 
 const Footer = ({ opening_hours }) => {
-  const { state } = useContext(Context)
-  const [toggle, setToggle] = useState(false)
-  const [user, setUser] = useState()
+  const { state } = useContext(Context);
+  const [toggle, setToggle] = useState(false);
+  const [user, setUser] = useState();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (state?.user.name) {
-        setUser(state.user)
+        setUser(state.user);
       } else if (state === null) {
-        setUser(null)
+        setUser(null);
       }
     }
-  }, [state])
+  }, [state]);
 
   return (
     <div className={styles.footerContainer}>

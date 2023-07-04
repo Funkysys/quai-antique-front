@@ -1,17 +1,17 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react';
 import { Context } from '@/lib/context';
-import styles from './DishiesCard.module.css'
+import styles from './DishiesCard.module.css';
 import { Markup } from 'interweave';
 
 const DishiesCard = ({ categories }) => {
-  const { state } = useContext(Context)
-  const allCategories = categories['hydra:member'].map(elt => elt)
-  const [selectedCategory, setSeletedCategory] = useState(allCategories[0])
-  const [user, setUser] = useState()
-  const [userAllergies, setUserAllergies] = useState([])
+  const { state } = useContext(Context);
+  const allCategories = categories['hydra:member'].map(elt => elt);
+  const [selectedCategory, setSeletedCategory] = useState(allCategories[0]);
+  const [user, setUser] = useState();
+  const [userAllergies, setUserAllergies] = useState([]);
   useEffect(() => {
     const userInfosFunc = async () => {
-      const endpoint = `https://quai-antique.xyz/api/users/${state?.user.id} `
+      const endpoint = `https://quai-antique.xyz/api/users/${state?.user.id} `;
 
       const options = {
         method: 'GET',
@@ -20,31 +20,31 @@ const DishiesCard = ({ categories }) => {
           'Content-Type': 'application/json',
           'Authorization': `bearer ${localStorage.token}`
         },
-      }
-      const response = await fetch(endpoint, options)
+      };
+      const response = await fetch(endpoint, options);
       if (response.status == 200) {
-        const result = await response.json()
+        const result = await response.json();
         await setUser({
           name: result.name,
           allergies: result.allergies,
         });
 
       } else {
-        return <h1>Veuillez vous reconnectez</h1>
+        return <h1>Veuillez vous reconnectez</h1>;
       }
     }
-    userInfosFunc()
-  }, [state])
+    userInfosFunc();
+  }, [state]);
   useEffect(() => {
     if (user?.allergies !== []) {
       user?.allergies.filter(elt => {
         if (!userAllergies.includes(elt.id)) {
-          setUserAllergies(el => [...el, elt.id])
-        }
-      })
+          setUserAllergies(el => [...el, elt.id]);
+        };
+      });
     }
 
-  }, [user])
+  }, [user]);
   return (
     <div className={styles.container}>
       <div className={styles.nav}>

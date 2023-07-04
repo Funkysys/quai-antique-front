@@ -3,25 +3,25 @@ import 'react-calendar/dist/Calendar.css';
 import styles from './Reservation.module.css';
 import { Button } from 'react-bootstrap';
 import { Context } from '@/lib/context';
-import ReservationForm from '../ReservationForm/ReservationForm'
+import ReservationForm from '../ReservationForm/ReservationForm';
 import Login from '../Login/Login';
 
 const Reservation = ({ opening_hours }) => {
-    const { state } = useContext(Context)
-    const [toggle, setToggle] = useState(false)
-    const [isConnected, setIsConnected] = useState(false)
+    const { state } = useContext(Context);
+    const [toggle, setToggle] = useState(false);
+    const [isConnected, setIsConnected] = useState(false);
 
     useEffect(() => {
         if (state?.user?.name) {
-            setIsConnected(true)
+            setIsConnected(true);
         } else {
-            setIsConnected(false)
+            setIsConnected(false);
         }
-    }, [state])
+    }, [state]);
 
     const handleOnClick = (event) => {
-        event.preventDefault
-        setToggle(!toggle)
+        event.preventDefault();
+        setToggle(!toggle);
     }
 
 
@@ -40,6 +40,6 @@ const Reservation = ({ opening_hours }) => {
             }
         </div>
     );
-}
+};
 
-export default Reservation
+export default Reservation;
