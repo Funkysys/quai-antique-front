@@ -160,6 +160,12 @@
   }
 }
 
+@media screen and (min-width: 1000px) {
+  .titleContainer button {
+    margin-top: 40vh;
+  }
+}
+
 @media screen and (min-width: 1921px) {
   .description {
     font-size: 2rem;
@@ -168,7 +174,9 @@
   .title {
     font-size: 6rem;
   }
-
+  .titleContainer button {
+    margin-top: 5vh;
+  }
   .titleSpan {
     font-size: 8rem;
   }

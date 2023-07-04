@@ -26,7 +26,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2vw 5vw;
+    padding: 2vh 5vw;
 }
 .dishes {
     display: flex;
@@ -64,13 +64,28 @@
         font-size: 1.2em;
     }
     .dishes {
-        font-size: 1.3em;
+        font-size: 1.1em;
     } 
     .dishesDescription {
-        font-size: 1.1rem;
+        font-size: 1rem;
     }
     .dishesDescriptionAllergens {
         font-size: 1.1rem;
+        /* color: #dc3545; */
+    }
+}
+@media screen and (min-width: 1000px) {
+    .categories {
+        font-size: 1em;
+    }
+    .dishes {
+        font-size: 1.1em;
+    } 
+    .dishesDescription {
+        font-size: 0.8rem;
+    }
+    .dishesDescriptionAllergens {
+        font-size: 1rem;
         /* color: #dc3545; */
     }
 }
