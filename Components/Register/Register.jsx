@@ -46,6 +46,7 @@ const Register = () => {
       };
       const confirm_password = event.target.confirm_password.value;
       const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,4})+$/;
+      const passwordFormat = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
       if (data.email && data.email.match(mailformat)) {
         setEmailRequired(true);
       } else {
@@ -56,7 +57,7 @@ const Register = () => {
       } else {
         return setNameRequired(false);
       };
-      if (data.plainPassword.length >= 6) {
+      if (data.plainPassword && data.plainPassword.match(passwordFormat)) {
         setPasswordLength(true);
       } else {
         return setPasswordLength(false);
@@ -101,7 +102,7 @@ const Register = () => {
           {!nameRequired && <p className='text-danger fs-6'>Votre nom est obligatoire</p>}
           <input type="text" name="name" id="name" placeholder='Votre Nom' />
           <label htmlFor="password">Mot de passe</label>
-          {!passwordLength && <p className='text-danger fs-6'>Votre mot de passe doit contenir au moins 6 caractères</p>}
+          {!passwordLength && <p className='text-danger fs-6'>Votre mot de passe doit contenir au moins 8 caractères, une lettre, un nombre et un caractère spécial</p>}
           <input type="password" name="password" id="password" placeholder='Votre Mot de passe' />
           <label htmlFor="confirm_password">Cofirmez votre mot de passe</label>
           {!confirmPassword && <p className='text-danger fs-6'>Votre mot de passe ne correspond pas à la confirmation</p>}
