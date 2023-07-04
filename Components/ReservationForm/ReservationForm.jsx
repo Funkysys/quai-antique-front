@@ -100,9 +100,9 @@ const ReservationForm = ({ opening_hours }) => {
                         setClose(true)
                         setDiner(false)
                         setLunch(false)
-                    } else if (elt.close && !elt.diner) {
+                    } else if (elt.close && elt.diner) {
                         setDiner(false)
-                    } else if (elt.close && !elt.lunch) {
+                    } else if (elt.close && elt.lunch) {
                         setLunch(false)
                     } else if (elt.lunch) {
                         setCurrentDayLunch(elt)
@@ -159,7 +159,7 @@ const ReservationForm = ({ opening_hours }) => {
         setCovers(0)
         setSelectedHour("")
         const value = event.target.innerText.toLowerCase()
-        if (value === 'lunch') {
+        if (value === 'déjeuner') {
             setLunchOrDiner(true)
             setMaxOpeningHour((currentDayLunch.openingHours.hour * 60) + currentDayLunch.openMinutes.minutes)
             setMaxMaxCloseHour((currentDayLunch.closeHours.hour * 60) + currentDayLunch.closeMinutes.minutes)
@@ -237,7 +237,7 @@ const ReservationForm = ({ opening_hours }) => {
                             <Button
                                 variant="outline-primary"
                                 onClick={handleOnClick}
-                            >Lunch</Button>
+                            >Déjeuner</Button>
                         }
                         {
                             diner &&

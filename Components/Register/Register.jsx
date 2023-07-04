@@ -81,9 +81,10 @@ const Register = () => {
       }
       const response = await fetch(endpoint, options)
       setIsLoading(false)
+      console.log(response);
       if (response.status === 201) {
         setRegisterConfirm(true)
-        loginQuery(e, dispatch, data.email, data.plainPassword)
+        loginQuery(e, dispatch, isLoading, setIsLoading, data.email, data.plainPassword)
       } else {
         setRegisterConfirm(false)
         throw Error(response.statusText)
